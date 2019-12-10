@@ -45,6 +45,20 @@ class Game {
     private switchScreen() {
 
     }
+
+    /**
+     * Loads an image file into the DOM. The image is stored in the img
+     * attribute of this class before it is loaded. This means that this.img
+     * always holds an HTMLImageElement, but it might be empty
+     *
+     * @param {string} source - the name of the image file to load
+     */
+    public static loadImage(source: string) {
+        let img = new Image();
+        // Now, set the src to start loading the image
+        img.src = source;
+        return img;
+    }
 }
 
 // This will get an HTML element. I cast this element in de appropriate type using <>
