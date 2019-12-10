@@ -22,22 +22,21 @@ class Player {
         this.yPos = yPos;
         this.xVel = xVel;
         this.yVel = yVel;
-        // this.loadImage(imgUrl);
+        this.img = Game.loadImage(imgUrl);
     }
 
+    public draw(ctx: CanvasRenderingContext2D) {
+        // We want the center of the image to be the position of this asteroid
+        const x = this.xPos - this.img.width / 2;
+        const y = this.yPos - this.img.height / 2;
 
+        // If the image is not yet loaded, don't draw anything
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
 
-
-    /**
-     * Loads an image file into the DOM. The image is stored in the img
-     * attribute of this class before it is loaded. This means that this.img
-     * always holds an HTMLImageElement, but it might be empty
-     *
-     * @param {string} source - the name of the image file to load
-     */
-    // private loadImage(source: string) {
-        // this.img = new Image();
-        // Now, set the src to start loading the image
-        // this.img.src = source;
-    // }
+    public move(){
+        
+    }
 }
