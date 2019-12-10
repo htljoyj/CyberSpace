@@ -12,7 +12,9 @@ class Terrain {
         this.loadImage(imgUrl)
 
     }
-    
+      public draw(){
+          
+      }
 
     /**
      * Loads an image file into the DOM. The image is stored in the img
