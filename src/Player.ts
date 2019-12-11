@@ -5,9 +5,9 @@ class Player {
     private xVel: number;
     private yVel: number;
     private img: HTMLImageElement;
-    private keyboardListener:KeyboardListener;
-    private gravity: number = 0.05;
-    private gravitySpeed: number = 0;
+    private keyboardListener: KeyboardListener;
+    private gravity: number;
+    private gravitySpeed: number;
 
 
     /**
@@ -19,12 +19,14 @@ class Player {
      * @param yVel Y velocity
      * @param imgUrl Url of the image to load
      */
-    public constructor(xPos:number, yPos:number, xVel:number, yVel:number, imgUrl:string){
+    public constructor(xPos: number, yPos: number, xVel: number, yVel: number, imgUrl: string) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
+        this.gravity = 0.20;
+        this.gravitySpeed = 0;
         this.img = Game.loadImage(imgUrl);
     }
 
@@ -39,22 +41,40 @@ class Player {
         }
     }
 
-    public move(canvas:HTMLCanvasElement){
-        this.gravitySpeed += this.gravity;
-        this.yPos += this.yVel + this.gravitySpeed;  
-        if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)){
+    public move(canvas: HTMLCanvasElement) {
+        if (this.yPos + this.img.height > canvas.height) {
+            console.log(this.gravitySpeed);
+            this.yPos -= this.gravitySpeed;
+            this.gravity = 0;
+            this.gravitySpeed = 0;
+        }
+        if (this.gravity < 0) {
+            this.gravity += 0.1;
+            this.gravitySpeed += this.gravity;
+            this.yPos += this.gravitySpeed;
+        }
+        if (this.gravity > 0) {
+            this.gravitySpeed += this.gravity;
+            this.yPos += this.gravitySpeed;
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
             this.xPos -= this.xVel;
         }
-        if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)){
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) {
             this.xPos += this.xVel;
         }
-        if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)){
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
+            this.gravity = 0.5;
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
             this.jump();
         }
     }
 
-    public jump(){
+    public jump() {
         console.log("jump");
-
+        this.gravity = -1;
+        // this.gravitySpeed += this.gravity;
+        // this.yPos -= 1; 
     }
 }

@@ -12,8 +12,8 @@ class Game {
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth - 3;
-        this.canvas.height = window.innerHeight - 3;
+        this.canvas.width = window.innerWidth - 8;
+        this.canvas.height = window.innerHeight - 20;
         // Set the context of the canvas
         this.ctx = this.canvas.getContext("2d");
 
