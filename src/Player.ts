@@ -6,6 +6,8 @@ class Player {
     private yVel: number;
     private img: HTMLImageElement;
     private keyboardListener:KeyboardListener;
+    // private gravity: number = 0.05;
+    // private gravitySpeed: number = 0;
 
 
     /**
@@ -22,6 +24,7 @@ class Player {
         this.yPos = yPos;
         this.xVel = xVel;
         this.yVel = yVel;
+        this.keyboardListener = new KeyboardListener();
         this.img = Game.loadImage(imgUrl);
     }
 
@@ -37,6 +40,18 @@ class Player {
     }
 
     public move(){
-        
+        if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)){
+            this.xPos -= this.xVel;
+        }
+        if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)){
+            this.xPos += this.xVel;
+        }
+        if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)){
+            this.jump();
+        }
+    }
+
+    public jump(){
+        console.log("jump");
     }
 }
