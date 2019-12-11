@@ -18,7 +18,17 @@ class Terrain {
 
         this.img = Game.loadImage(imgUrl);
     }
+    
+    public getxPos(){
+        return this.xPos
+    }
 
+    public getyPos(){
+        return this.yPos
+    }
+    public getImgHeight(){
+        return this.img.height
+    }
  
        
     public draw(ctx: CanvasRenderingContext2D) {

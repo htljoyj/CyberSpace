@@ -13,13 +13,14 @@ class LevelScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
-        this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
+        this.player = new Player(500, 300, 4, 4, "./assets/player/player_cheer2.png");
+        this.addBrick(100,600- 100,0,'./assets/bricks/GrassCliffLeft.png')
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
     }
 
     public draw() {
-        this.writeTextToCanvas("hoi", 20, 400, 400, "center", "black");
+       
         this.player.move();
         this.player.draw(this.ctx);
         // this.terrain2.draw(this.ctx);
