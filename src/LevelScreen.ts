@@ -7,16 +7,26 @@ class LevelScreen {
     
     
 
-    private GRASS: string = "./assets/bricks/autumn/128x128/Grass.png";
+    private GRASS: string = "./assets/bricks/newBrick.png";
 
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
         this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
-        this.addBrick(300, 300, 0, this.GRASS);
-        this.addBrick(500, 500, 0, this.GRASS);
+       
+        this.addBrick(75,this.canvas.height-50,0,'./assets/bricks/newBrick.png')
+        this.addBrick(200,this.canvas.height-100,0,'./assets/bricks/newBrick.png')
+        this.addBrick(325,this.canvas.height-200,0,'./assets/bricks/newBrick.png')
+        this.addBrick(440,this.canvas.height-100,0,this.GRASS)
+        this.addBrick(600,this.canvas.height-100,0,'./assets/bricks/newBrick.png')
+        this.addBrick(725,this.canvas.height-200,0,this.GRASS)
+        this.addBrick(850,this.canvas.height-300,0,this.GRASS)
+        this.addBrick(975,this.canvas.height-50,0,this.GRASS)
+        this.addBrick(1050,this.canvas.height-50,0,this.GRASS)
+        this.addBrick(this.canvas.width/2-50,this.canvas.height/2,0,this.GRASS)
         
+
     }
 
     public draw() {

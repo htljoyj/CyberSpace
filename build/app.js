@@ -9,8 +9,8 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth - 8;
-        this.canvas.height = window.innerHeight - 20;
+        this.canvas.width = window.innerWidth - 1;
+        this.canvas.height = window.innerHeight - 1;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);
@@ -74,13 +74,21 @@ KeyboardListener.KEY_S = 83;
 KeyboardListener.KEY_D = 68;
 class LevelScreen {
     constructor(canvas, ctx) {
-        this.GRASS = "./assets/bricks/autumn/128x128/Grass.png";
+        this.GRASS = "./assets/bricks/newBrick.png";
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
         this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
-        this.addBrick(300, 300, 0, this.GRASS);
-        this.addBrick(500, 500, 0, this.GRASS);
+        this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
+        this.addBrick(200, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
+        this.addBrick(325, this.canvas.height - 200, 0, './assets/bricks/newBrick.png');
+        this.addBrick(440, this.canvas.height - 100, 0, this.GRASS);
+        this.addBrick(600, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
+        this.addBrick(725, this.canvas.height - 200, 0, this.GRASS);
+        this.addBrick(850, this.canvas.height - 300, 0, this.GRASS);
+        this.addBrick(975, this.canvas.height - 50, 0, this.GRASS);
+        this.addBrick(1050, this.canvas.height - 50, 0, this.GRASS);
+        this.addBrick(this.canvas.width / 2 - 50, this.canvas.height / 2, 0, this.GRASS);
     }
     draw() {
         this.player.draw(this.ctx);
