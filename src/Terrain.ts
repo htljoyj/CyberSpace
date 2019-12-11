@@ -18,7 +18,6 @@ class Terrain {
 
         this.img = Game.loadImage(imgUrl);
     }
-<<<<<<< HEAD
     
     public getXPos(){
         return this.xPos;
@@ -34,21 +33,6 @@ class Terrain {
         return this.img.width;
     } 
        
-=======
-
-    public getxPos() {
-        return this.xPos
-    }
-
-    public getyPos() {
-        return this.yPos
-    }
-    public getImg() {
-        return this.img
-    }
-
-
->>>>>>> dfb0521757860a0e93fb1ba49f00ee1ce16ad80a
     public draw(ctx: CanvasRenderingContext2D) {
         // We want the center of the image to be the position of this asteroid
         const x = this.xPos - this.img.width / 2;
