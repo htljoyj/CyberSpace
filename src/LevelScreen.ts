@@ -19,7 +19,7 @@ class LevelScreen {
     }
 
     public draw() {
-
+        this.player.move(this.canvas);
         this.player.draw(this.ctx);
         // this.terrain2.draw(this.ctx);
         this.terrain.forEach((terrain) => {

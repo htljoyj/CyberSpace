@@ -77,4 +77,17 @@ class Player {
         // this.gravitySpeed += this.gravity;
         // this.yPos -= 1; 
     }
+
+    public isColliding(gameObject: Terrain): boolean {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()
+        ) {
+            console.log("Collision!");
+            return true;
+        }
+
+        return false;
+    }
 }

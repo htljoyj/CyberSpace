@@ -83,6 +83,7 @@ class LevelScreen {
         this.addBrick(500, 500, 0, this.GRASS);
     }
     draw() {
+        this.player.move(this.canvas);
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
@@ -149,6 +150,16 @@ class Player {
         console.log("jump");
         this.gravity = -1;
     }
+    isColliding(gameObject) {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
+            console.log("Collision!");
+            return true;
+        }
+        return false;
+    }
 }
 class Terrain {
     constructor(xPos, yPos, speed, imgUrl, canvas, ctx) {
@@ -159,14 +170,17 @@ class Terrain {
         this.ctx = ctx;
         this.img = Game.loadImage(imgUrl);
     }
-    getxPos() {
+    getXPos() {
         return this.xPos;
     }
-    getyPos() {
+    getYPos() {
         return this.yPos;
     }
     getImgHeight() {
         return this.img.height;
+    }
+    getImgWidth() {
+        return this.img.width;
     }
     draw(ctx) {
         const x = this.xPos - this.img.width / 2;
