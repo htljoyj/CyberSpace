@@ -6,12 +6,7 @@ class Terrain {
     private speed:number;
     private img:HTMLImageElement
 
-<<<<<<< HEAD
-
     public constructor(xPos:number, yPos:number, speed:number, imgUrl:string, canvas:HTMLCanvasElement, ctx:CanvasRenderingContext2D){
-=======
-    public constructor(xPos:number, yPos:number, speed:number, imgUrl:string){
->>>>>>> 33c049e68192961c4f903916eab528981e4e50b2
         this.xPos = xPos;
         this.yPos = xPos;
         this.speed = speed;
