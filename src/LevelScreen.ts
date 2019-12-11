@@ -2,13 +2,19 @@ class LevelScreen {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
 
+    private player: Player;
+
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
         this.ctx = ctx;
+        this.player = new Player(500, 500, 4, 4, "./assets/bricks/autumn/128x128/Grass.png");
     }
 
     public draw() {
-        
+        this.writeTextToCanvas("hoi", 20, 400, 400, "center", "black");
+        this.player.move();
+        this.player.draw(this.ctx);
+
     }
 
     /**

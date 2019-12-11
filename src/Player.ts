@@ -24,6 +24,7 @@ class Player {
         this.yPos = yPos;
         this.xVel = xVel;
         this.yVel = yVel;
+        this.keyboardListener = new KeyboardListener();
         this.img = Game.loadImage(imgUrl);
     }
 
