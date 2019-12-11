@@ -31,9 +31,7 @@ window.addEventListener("load", init);
 class GameEntity {
 }
 class Icon {
-    constructor(canvas, ctx, xPos, yPos, width, height, imgUrl) {
-        this.canvas = canvas;
-        this.ctx = ctx;
+    constructor(xPos, yPos, width, height, imgUrl) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;

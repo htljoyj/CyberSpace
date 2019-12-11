@@ -1,7 +1,6 @@
 
 class Icon {
-    private canvas: HTMLCanvasElement;
-    private ctx: CanvasRenderingContext2D;
+   
     private xPos: number;
     private yPos: number;
     private width: number;
@@ -9,9 +8,8 @@ class Icon {
     private img: HTMLImageElement;
 
 
-    public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, xPos: number, yPos: number, width: number, height: number, imgUrl: string) {
-        this.canvas = canvas;
-        this.ctx = ctx;
+    public constructor( xPos: number, yPos: number, width: number, height: number, imgUrl: string) {
+    
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
