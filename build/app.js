@@ -31,6 +31,22 @@ window.addEventListener("load", init);
 class GameEntity {
 }
 class Icon {
+    constructor(canvas, ctx, xPos, yPos, width, height, imgUrl) {
+        this.canvas = canvas;
+        this.ctx = ctx;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.width = width;
+        this.height = height;
+        this.img = Game.loadImage(imgUrl);
+    }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2;
+        const y = this.yPos - this.img.height / 2;
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
 }
 class KeyboardListener {
     constructor() {

@@ -5,6 +5,7 @@ class LevelScreen {
     private terrain2: Terrain;
 
     private player: Player;
+    private brick:Terrain;
 
     private GRASS: string = "./assets/bricks/autumn/128x128/Grass.png"
 
