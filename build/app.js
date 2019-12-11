@@ -17,6 +17,11 @@ class Game {
     }
     switchScreen() {
     }
+    static loadImage(source) {
+        let img = new Image();
+        img.src = source;
+        return img;
+    }
 }
 let init = () => {
     const game = new Game(document.getElementById("canvas"));
@@ -52,8 +57,30 @@ KeyboardListener.KEY_S = 83;
 class LevelScreen {
 }
 class Player {
+    constructor(xPos, yPos, xVel, yVel, imgUrl) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xVel = xVel;
+        this.yVel = yVel;
+        this.img = Game.loadImage(imgUrl);
+    }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2;
+        const y = this.yPos - this.img.height / 2;
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
+    move() {
+    }
 }
 class Terrain {
+    constructor(xPos, yPos, speed, imgUrl) {
+        this.xPos = xPos;
+        this.yPos = xPos;
+        this.speed = speed;
+        this.img = Game.loadImage(imgUrl);
+    }
 }
 class TitleScreen {
 }

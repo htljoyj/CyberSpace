@@ -8,6 +8,7 @@ class Terrain {
         this.xPos = xPos;
         this.yPos = xPos;
         this.speed = speed;
+
         this.img = Game.loadImage(imgUrl);
     }
 }
