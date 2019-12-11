@@ -9,8 +9,8 @@ class Terrain {
 
 
     public constructor(xPos:number, yPos:number, speed:number, imgUrl:string, canvas:HTMLCanvasElement, ctx:CanvasRenderingContext2D){
-
-        this.yPos = xPos;
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.speed = speed;
         this.canvas = canvas
         this.ctx = ctx;
