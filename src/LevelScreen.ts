@@ -2,9 +2,9 @@ class LevelScreen {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
     private terrain: Terrain[];
+    private icon: Icon[];
 
     private player: Player;
-    private brick:Terrain;
 
     private GRASS: string = "./assets/bricks/autumn/128x128/Grass.png";
 
@@ -12,7 +12,10 @@ class LevelScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
+        this.icon = [];
         this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
+
+        this.icon.push(new Icon(canvas, ctx, 300, 300, 10, 10, "./assets/socialmedia/fb.png"));
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
     }
@@ -21,9 +24,11 @@ class LevelScreen {
         this.writeTextToCanvas("hoi", 20, 400, 400, "center", "black");
         this.player.move();
         this.player.draw(this.ctx);
-        // this.terrain2.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
+        });
+        this.icon.forEach((icon) => {
+            icon.draw(this.ctx);
         });
     }
 

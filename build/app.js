@@ -9,7 +9,7 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth - 3;
+        this.canvas.width = window.innerWidth - 5;
         this.canvas.height = window.innerHeight - 3;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
@@ -44,7 +44,11 @@ class Icon {
         const x = this.xPos - this.img.width / 2;
         const y = this.yPos - this.img.height / 2;
         if (this.img.naturalWidth > 0) {
-            ctx.drawImage(this.img, x, y);
+            ctx.save();
+            ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
+            ctx.scale(0.5, 0.5);
+            ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+            ctx.restore();
         }
     }
 }
@@ -80,7 +84,9 @@ class LevelScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
+        this.icon = [];
         this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
+        this.icon.push(new Icon(canvas, ctx, 300, 300, 10, 10, "./assets/socialmedia/fb.png"));
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
     }
@@ -90,6 +96,9 @@ class LevelScreen {
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
+        });
+        this.icon.forEach((icon) => {
+            icon.draw(this.ctx);
         });
     }
     addBrick(xPos, yPos, speed, img) {
@@ -152,5 +161,11 @@ class Terrain {
     move() { }
 }
 class TitleScreen {
+    constructor(canvas, ctx) {
+        this.canvas = canvas;
+        this.ctx = ctx;
+    }
+    draw() {
+    }
 }
 //# sourceMappingURL=app.js.map
