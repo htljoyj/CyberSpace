@@ -57,14 +57,24 @@ KeyboardListener.KEY_DOWN = 40;
 KeyboardListener.KEY_S = 83;
 class LevelScreen {
     constructor(canvas, ctx) {
+        this.GRASS = "./assets/bricks/autumn/128x128/Grass.png";
         this.canvas = canvas;
         this.ctx = ctx;
-        this.player = new Player(500, 500, 4, 4, "./assets/bricks/autumn/128x128/Grass.png");
+        this.terrain = [];
+        this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
+        this.addBrick(300, 300, 0, this.GRASS);
+        this.addBrick(500, 500, 0, this.GRASS);
     }
     draw() {
         this.writeTextToCanvas("hoi", 20, 400, 400, "center", "black");
         this.player.move();
         this.player.draw(this.ctx);
+        this.terrain.forEach((terrain) => {
+            terrain.draw(this.ctx);
+        });
+    }
+    addBrick(xPos, yPos, speed, img) {
+        this.terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));
     }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Minecraft`;
@@ -106,7 +116,8 @@ class Player {
 }
 class Terrain {
     constructor(xPos, yPos, speed, imgUrl, canvas, ctx) {
-        this.yPos = xPos;
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.speed = speed;
         this.canvas = canvas;
         this.ctx = ctx;
