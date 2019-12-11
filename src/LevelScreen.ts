@@ -16,6 +16,7 @@ class LevelScreen {
         this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
+        
     }
 
     public draw() {

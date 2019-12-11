@@ -176,8 +176,8 @@ class Terrain {
     getYPos() {
         return this.yPos;
     }
-    getImgHeight() {
-        return this.img.height;
+    getImg() {
+        return this.img;
     }
     getImgWidth() {
         return this.img.width;
