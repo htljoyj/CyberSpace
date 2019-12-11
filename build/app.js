@@ -165,8 +165,8 @@ class Terrain {
     getyPos() {
         return this.yPos;
     }
-    getImgHeight() {
-        return this.img.height;
+    getImg() {
+        return this.img;
     }
     draw(ctx) {
         const x = this.xPos - this.img.width / 2;
