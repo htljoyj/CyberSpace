@@ -9,8 +9,8 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth - 3;
-        this.canvas.height = window.innerHeight - 3;
+        this.canvas.width = window.innerWidth - 8;
+        this.canvas.height = window.innerHeight - 20;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);
@@ -78,13 +78,11 @@ class LevelScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
-        this.player = new Player(500, 300, 4, 4, "./assets/player/player_cheer2.png");
-        this.addBrick(100, 600 - 100, 0, './assets/bricks/GrassCliffLeft.png');
+        this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
     }
     draw() {
-        this.player.move();
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
@@ -107,6 +105,8 @@ class Player {
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
+        this.gravity = 0.20;
+        this.gravitySpeed = 0;
         this.img = Game.loadImage(imgUrl);
     }
     draw(ctx) {
@@ -116,12 +116,30 @@ class Player {
             ctx.drawImage(this.img, x, y);
         }
     }
-    move() {
+    move(canvas) {
+        if (this.yPos + this.img.height > canvas.height) {
+            console.log(this.gravitySpeed);
+            this.yPos -= this.gravitySpeed;
+            this.gravity = 0;
+            this.gravitySpeed = 0;
+        }
+        if (this.gravity < 0) {
+            this.gravity += 0.1;
+            this.gravitySpeed += this.gravity;
+            this.yPos += this.gravitySpeed;
+        }
+        if (this.gravity > 0) {
+            this.gravitySpeed += this.gravity;
+            this.yPos += this.gravitySpeed;
+        }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
             this.xPos -= this.xVel;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) {
             this.xPos += this.xVel;
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
+            this.gravity = 0.5;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
             this.jump();
@@ -129,6 +147,7 @@ class Player {
     }
     jump() {
         console.log("jump");
+        this.gravity = -1;
     }
 }
 class Terrain {
