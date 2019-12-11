@@ -9,10 +9,11 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth;
+        this.canvas.width = window.innerWidth - 3;
         this.canvas.height = window.innerHeight - 3;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
+        this.currentScreen = new LevelScreen(this.canvas, this.ctx);
         this.loop();
     }
     switchScreen() {
@@ -55,6 +56,22 @@ KeyboardListener.KEY_RIGHT = 39;
 KeyboardListener.KEY_DOWN = 40;
 KeyboardListener.KEY_S = 83;
 class LevelScreen {
+    constructor(canvas, ctx) {
+        this.canvas = canvas;
+        this.ctx = ctx;
+        this.player = new Player(500, 500, 4, 4, "./assets/bricks/autumn/128x128/Grass.png");
+    }
+    draw() {
+        this.writeTextToCanvas("hoi", 20, 400, 400, "center", "black");
+        this.player.move();
+        this.player.draw(this.ctx);
+    }
+    writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
+        this.ctx.font = `${fontSize}px Minecraft`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = alignment;
+        this.ctx.fillText(text, xCoordinate, yCoordinate);
+    }
 }
 class Player {
     constructor(xPos, yPos, xVel, yVel, imgUrl) {
@@ -62,6 +79,7 @@ class Player {
         this.yPos = yPos;
         this.xVel = xVel;
         this.yVel = yVel;
+        this.keyboardListener = new KeyboardListener();
         this.img = Game.loadImage(imgUrl);
     }
     draw(ctx) {
@@ -72,15 +90,37 @@ class Player {
         }
     }
     move() {
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
+            this.xPos -= this.xVel;
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) {
+            this.xPos += this.xVel;
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
+            this.jump();
+        }
+    }
+    jump() {
+        console.log("jump");
     }
 }
 class Terrain {
-    constructor(xPos, yPos, speed, imgUrl) {
+    constructor(xPos, yPos, speed, imgUrl, canvas, ctx) {
         this.xPos = xPos;
         this.yPos = xPos;
         this.speed = speed;
+        this.canvas = canvas;
+        this.ctx = ctx;
         this.img = Game.loadImage(imgUrl);
     }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2;
+        const y = this.yPos - this.img.height / 2;
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
+    move() { }
 }
 class TitleScreen {
 }

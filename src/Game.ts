@@ -12,13 +12,13 @@ class Game {
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth;
+        this.canvas.width = window.innerWidth - 3;
         this.canvas.height = window.innerHeight - 3;
         // Set the context of the canvas
         this.ctx = this.canvas.getContext("2d");
 
         this.keyboardListener = new KeyboardListener();
-        // this.currentScreen = new StartScreen(this.canvas, this.ctx);
+        this.currentScreen = new LevelScreen(this.canvas, this.ctx);
 
         this.loop();
     }
@@ -30,13 +30,10 @@ class Game {
         // Decide which screen to draw
         this.switchScreen();
 
-
-
         // Clear the canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         // Draw the current screen
         this.currentScreen.draw();
-
 
         // Request the next animation frame
         requestAnimationFrame(this.loop);
