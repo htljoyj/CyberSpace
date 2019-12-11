@@ -15,14 +15,19 @@ class LevelScreen {
         this.icon = [];
         this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
 
-        this.icon.push(new Icon(canvas, ctx, 300, 300, 10, 10, "./assets/socialmedia/fb.png"));
+        this.icon.push(new Icon(300, 300, 10, 10, "./assets/socialmedia/fb.png"));
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
+        
     }
 
     public draw() {
-        this.writeTextToCanvas("hoi", 20, 400, 400, "center", "black");
-        this.player.move();
+        this.terrain.forEach((terrain) => {
+            if(!this.player.isColliding(terrain)){
+                this.player.move(this.canvas);
+            }
+        });
+        // this.player.move(this.canvas);
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);

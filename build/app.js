@@ -9,8 +9,8 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth - 5;
-        this.canvas.height = window.innerHeight - 3;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);
@@ -31,9 +31,7 @@ window.addEventListener("load", init);
 class GameEntity {
 }
 class Icon {
-    constructor(canvas, ctx, xPos, yPos, width, height, imgUrl) {
-        this.canvas = canvas;
-        this.ctx = ctx;
+    constructor(xPos, yPos, width, height, imgUrl) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
@@ -86,13 +84,16 @@ class LevelScreen {
         this.terrain = [];
         this.icon = [];
         this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
-        this.icon.push(new Icon(canvas, ctx, 300, 300, 10, 10, "./assets/socialmedia/fb.png"));
+        this.icon.push(new Icon(300, 300, 10, 10, "./assets/socialmedia/fb.png"));
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
     }
     draw() {
-        this.writeTextToCanvas("hoi", 20, 400, 400, "center", "black");
-        this.player.move();
+        this.terrain.forEach((terrain) => {
+            if (!this.player.isColliding(terrain)) {
+                this.player.move(this.canvas);
+            }
+        });
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
@@ -118,6 +119,9 @@ class Player {
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
+        this.gravity = 0.20;
+        this.gravitySpeed = 0;
+        this.canJump = true;
         this.img = Game.loadImage(imgUrl);
     }
     draw(ctx) {
@@ -127,19 +131,49 @@ class Player {
             ctx.drawImage(this.img, x, y);
         }
     }
-    move() {
+    move(canvas) {
+        if (this.yPos + this.img.height > canvas.height) {
+            console.log(this.gravitySpeed);
+            this.yPos -= this.gravitySpeed;
+            this.gravity = 0;
+            this.gravitySpeed = 0;
+        }
+        if (this.gravity === 0) {
+            this.canJump = true;
+        }
+        if (this.gravity < 0) {
+            this.gravity += 0.1;
+            this.gravitySpeed += this.gravity;
+            this.yPos += this.gravitySpeed;
+        }
+        if (this.gravity > 0) {
+            this.gravitySpeed += this.gravity;
+            this.yPos += this.gravitySpeed;
+        }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
             this.xPos -= this.xVel;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) {
             this.xPos += this.xVel;
         }
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
-            this.jump();
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
+            this.gravity = 0.5;
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
+            console.log("jump");
+            this.gravity = -1.2;
+            this.canJump = false;
         }
     }
-    jump() {
-        console.log("jump");
+    isColliding(gameObject) {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
+            console.log("Collision!");
+            return true;
+        }
+        return false;
     }
 }
 class Terrain {
@@ -150,6 +184,18 @@ class Terrain {
         this.canvas = canvas;
         this.ctx = ctx;
         this.img = Game.loadImage(imgUrl);
+    }
+    getXPos() {
+        return this.xPos;
+    }
+    getYPos() {
+        return this.yPos;
+    }
+    getImgHeight() {
+        return this.img.height;
+    }
+    getImgWidth() {
+        return this.img.width;
     }
     draw(ctx) {
         const x = this.xPos - this.img.width / 2;
