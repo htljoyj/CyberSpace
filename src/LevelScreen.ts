@@ -2,18 +2,16 @@ class LevelScreen {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
     private terrain: Terrain[];
-    private terrain2: Terrain;
 
     private player: Player;
     private brick:Terrain;
 
-    private GRASS: string = "./assets/bricks/autumn/128x128/Grass.png"
+    private GRASS: string = "./assets/bricks/autumn/128x128/Grass.png";
 
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
-        // this.terrain2 = new Terrain(300, 300, 0, "./assets/bricks/autumn/128x128/Grass.png", this.canvas, this.ctx);
         this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);

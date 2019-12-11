@@ -70,7 +70,10 @@ KeyboardListener.KEY_LEFT = 37;
 KeyboardListener.KEY_UP = 38;
 KeyboardListener.KEY_RIGHT = 39;
 KeyboardListener.KEY_DOWN = 40;
+KeyboardListener.KEY_W = 87;
+KeyboardListener.KEY_A = 65;
 KeyboardListener.KEY_S = 83;
+KeyboardListener.KEY_D = 68;
 class LevelScreen {
     constructor(canvas, ctx) {
         this.GRASS = "./assets/bricks/autumn/128x128/Grass.png";
