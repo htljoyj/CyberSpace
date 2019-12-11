@@ -4,7 +4,6 @@ class Terrain {
     private speed:number;
     private img:HTMLImageElement
 
-
     public constructor(xPos:number, yPos:number, speed:number, imgUrl:string){
         this.xPos = xPos;
         this.yPos = xPos;
