@@ -75,12 +75,22 @@ class Player {
     }
 }
 class Terrain {
-    constructor(xPos, yPos, speed, imgUrl) {
+    constructor(xPos, yPos, speed, imgUrl, canvas, ctx) {
         this.xPos = xPos;
         this.yPos = xPos;
         this.speed = speed;
+        this.canvas = canvas;
+        this.ctx = ctx;
         this.img = Game.loadImage(imgUrl);
     }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2;
+        const y = this.yPos - this.img.height / 2;
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
+    move() { }
 }
 class TitleScreen {
 }
