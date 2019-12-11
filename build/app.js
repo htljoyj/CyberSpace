@@ -106,7 +106,6 @@ class Player {
 }
 class Terrain {
     constructor(xPos, yPos, speed, imgUrl, canvas, ctx) {
-        this.xPos = xPos;
         this.yPos = xPos;
         this.speed = speed;
         this.canvas = canvas;
