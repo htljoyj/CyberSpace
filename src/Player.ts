@@ -6,8 +6,8 @@ class Player {
     private yVel: number;
     private img: HTMLImageElement;
     private keyboardListener:KeyboardListener;
-    // private gravity: number = 0.05;
-    // private gravitySpeed: number = 0;
+    private gravity: number = 0.05;
+    private gravitySpeed: number = 0;
 
 
     /**
@@ -38,7 +38,9 @@ class Player {
         }
     }
 
-    public move(){
+    public move(canvas:HTMLCanvasElement){
+        this.gravitySpeed += this.gravity;
+        this.yPos += this.yVel + this.gravitySpeed;  
         if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)){
             this.xPos -= this.xVel;
         }
@@ -52,5 +54,6 @@ class Player {
 
     public jump(){
         console.log("jump");
+
     }
 }
