@@ -68,7 +68,7 @@ class Icon {
     }
 }
 class Jewel extends GameEntity {
-    constructor(xPos, yPos, scale, imgUrl, color) {
+    constructor(xPos, yPos, scale, color, imgUrl) {
         super(xPos, yPos, scale, imgUrl);
         switch (color) {
             case "blue":
@@ -88,8 +88,10 @@ class Jewel extends GameEntity {
                 break;
             default:
                 this.value = 15;
+                break;
         }
     }
+    ;
     getDiamondValue() {
         return this.value;
     }
