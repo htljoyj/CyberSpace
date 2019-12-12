@@ -36,6 +36,9 @@ class GameEntity {
         this.scale = scale;
         this.img = Game.loadImage(imgUrl);
     }
+    setImg(imgUrl) {
+        this.img = Game.loadImage(imgUrl);
+    }
     draw(ctx) {
         const x = this.xPos - this.img.width / 2;
         const y = this.yPos - this.img.height / 2;
@@ -68,26 +71,33 @@ class Icon {
     }
 }
 class Jewel extends GameEntity {
-    constructor(xPos, yPos, scale, imgUrl, color) {
-        super(xPos, yPos, scale, imgUrl);
+    constructor(xPos, yPos, scale, color) {
+        super(xPos, yPos, scale, "");
         switch (color) {
             case "blue":
                 this.value = 15;
+                this.setImg("./assets/jewels/blue-diamond.png");
                 break;
             case "green":
                 this.value = 20;
+                this.setImg("./assets/jewels/green-diamond.png");
                 break;
             case 'yellow':
                 this.value = 35;
+                this.setImg("./assets/jewels/yellow-diamond.png");
                 break;
             case "purple":
                 this.value = 50;
+                this.setImg("./assets/jewels/purple-diamond.png");
                 break;
             case "red":
                 this.value = 100;
+                this.setImg("./assets/jewels/red-diamond.png");
                 break;
             default:
                 this.value = 15;
+                this.setImg("./assets/jewels/blue-diamond.png");
+                break;
         }
     }
     getDiamondValue() {
@@ -136,11 +146,11 @@ class LevelScreen {
         this.icon.push(new Icon(1100, 200 - 5, 0.7, "./assets/socialmedia/youtube.png"));
         this.icon.push(new Icon(200, 340 - 5, 0.3, "./assets/socialmedia/tiktok.png"));
         this.jewel = [];
-        this.jewel.push(new Jewel(1150, 52, 0.5, './assets/jewels/blue-diamond.png', "blue"));
-        this.jewel.push(new Jewel(890, 310, 0.5, './assets/jewels/blue-diamond.png', "blue"));
-        this.jewel.push(new Jewel(450, 515, 0.5, './assets/jewels/blue-diamond.png', "blue"));
-        this.jewel.push(new Jewel(450, 209, 0.5, './assets/jewels/blue-diamond.png', "blue"));
-        this.jewel.push(new Jewel(700, 110, 0.5, './assets/jewels/blue-diamond.png', "blue"));
+        this.jewel.push(new Jewel(1150, 52, 0.5, "blue"));
+        this.jewel.push(new Jewel(890, 310, 0.5, "green"));
+        this.jewel.push(new Jewel(450, 515, 0.5, "blue"));
+        this.jewel.push(new Jewel(450, 209, 0.5, "blue"));
+        this.jewel.push(new Jewel(700, 110, 0.5, "blue"));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
         this.addBrick(200, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
         this.addBrick(325, this.canvas.height - 200, 0, './assets/bricks/newBrick.png');
