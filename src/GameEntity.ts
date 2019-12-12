@@ -1,15 +1,15 @@
 class GameEntity {
-    protected xPos:number;
-    protected yPos:number;
-    protected scale:number;
-  
-    protected img:HTMLImageElement;
+    protected xPos: number;
+    protected yPos: number;
+    protected scale: number;
 
-    public constructor(xPos:number,yPos:number,scale:number,imgUrl:string){
+    protected img: HTMLImageElement;
+
+    public constructor(xPos: number, yPos: number, scale: number, imgUrl: string) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.scale =scale;
-      
+        this.scale = scale;
+
         this.img = Game.loadImage(imgUrl)
 
     }
@@ -23,13 +23,13 @@ class GameEntity {
             // ctx.drawImage(this.img, x, y);
 
             ctx.save();
-            ctx.translate(x+ this.img.x / 2, y+ this.img.y / 2);
+            ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
             ctx.scale(this.scale, this.scale);
             // ctx.translate(-this.img.x, -this.img.y);
-            ctx.drawImage(this.img, -this.img.width/2, -this.img.height/2);
+            ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
             ctx.restore();
         }
 
     }
-    
+
 }

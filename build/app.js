@@ -68,8 +68,30 @@ class Icon {
     }
 }
 class Jewel extends GameEntity {
-    constructor(xPos, yPos, scale, imgUrl) {
+    constructor(xPos, yPos, scale, imgUrl, color) {
         super(xPos, yPos, scale, imgUrl);
+        switch (color) {
+            case "blue":
+                this.value = 15;
+                break;
+            case "green":
+                this.value = 20;
+                break;
+            case 'yellow':
+                this.value = 35;
+                break;
+            case "purple":
+                this.value = 50;
+                break;
+            case "red":
+                this.value = 100;
+                break;
+            default:
+                this.value = 15;
+        }
+    }
+    getDiamondValue() {
+        return this.value;
     }
 }
 class KeyboardListener {
@@ -114,7 +136,11 @@ class LevelScreen {
         this.icon.push(new Icon(1100, 200 - 5, 0.7, "./assets/socialmedia/youtube.png"));
         this.icon.push(new Icon(200, 340 - 5, 0.3, "./assets/socialmedia/tiktok.png"));
         this.jewel = [];
-        this.jewel.push(new Jewel(1150, 52, 0.5, './assets/jewels/blue-diamond.png'));
+        this.jewel.push(new Jewel(1150, 52, 0.5, './assets/jewels/blue-diamond.png', "blue"));
+        this.jewel.push(new Jewel(890, 310, 0.5, './assets/jewels/blue-diamond.png', "blue"));
+        this.jewel.push(new Jewel(450, 515, 0.5, './assets/jewels/blue-diamond.png', "blue"));
+        this.jewel.push(new Jewel(450, 209, 0.5, './assets/jewels/blue-diamond.png', "blue"));
+        this.jewel.push(new Jewel(700, 110, 0.5, './assets/jewels/blue-diamond.png', "blue"));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
         this.addBrick(200, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
         this.addBrick(325, this.canvas.height - 200, 0, './assets/bricks/newBrick.png');
