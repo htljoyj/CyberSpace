@@ -1,4 +1,10 @@
 class Enemy {
+    constructor(xPos, yPos, xVel, imgUrl) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xVel = xVel;
+        this.img = Game.loadImage(imgUrl);
+    }
 }
 class Game {
     constructor(canvasId) {
@@ -137,6 +143,7 @@ class LevelScreen {
         this.ctx = ctx;
         this.terrain = [];
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.enemy = new Enemy(100, 100, 3, "./assets/");
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height + 8, 0.3, "./assets/socialmedia/fb.png"));
         this.icon.push(new Icon(200, 120, 0.3, "./assets/socialmedia/ins.png"));
@@ -209,7 +216,7 @@ class Player {
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
-        this.gravity = 0.2;
+        this.gravity = 0.3;
         this.gravitySpeed = 0;
         this.img = Game.loadImage(imgUrl);
     }
@@ -221,12 +228,12 @@ class Player {
         }
     }
     move(canvas) {
-        this.gravitySpeed += this.gravity;
+        this.gravitySpeed += 2 * this.gravity;
         this.yPos += this.gravitySpeed;
         if (this.gravity === 0) {
         }
         if (this.gravity < 0) {
-            this.gravity += 0.05;
+            this.gravity += 0.1;
             this.gravitySpeed += this.gravity;
             this.yPos += this.gravitySpeed;
         }
@@ -244,7 +251,7 @@ class Player {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
             console.log("jump");
             this.yPos -= 1;
-            this.gravity = -0.45;
+            this.gravity = -0.62;
             this.canJump = false;
         }
         if (this.yPos > canvas.height) {

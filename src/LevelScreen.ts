@@ -6,6 +6,7 @@ class LevelScreen {
     private jewel:Jewel[];
 
     private player: Player;
+    private enemy: Enemy;
 
     private GRASS: string = "./assets/bricks/newBrick.png";
 
@@ -15,6 +16,7 @@ class LevelScreen {
         this.terrain = [];
 
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.enemy = new Enemy(100, 100, 3, "./assets/");
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height+8, 0.3, "./assets/socialmedia/fb.png"));
         this.icon.push(new Icon(200,120,0.3,"./assets/socialmedia/ins.png"));

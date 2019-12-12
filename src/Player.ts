@@ -26,7 +26,7 @@ class Player {
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
-        this.gravity = 0.2;
+        this.gravity = 0.3;
         this.gravitySpeed = 0;
         // this.canJump = true;
         this.img = Game.loadImage(imgUrl);
@@ -44,13 +44,13 @@ class Player {
     }
 
     public move(canvas: HTMLCanvasElement) {        
-        this.gravitySpeed += this.gravity;
+        this.gravitySpeed += 2*this.gravity;
         this.yPos += this.gravitySpeed;
         if (this.gravity === 0) {
             // this.canJump = true;
         }
         if (this.gravity < 0) {
-            this.gravity += 0.05;
+            this.gravity += 0.1;
             this.gravitySpeed += this.gravity;
             this.yPos += this.gravitySpeed;
         }
@@ -69,7 +69,7 @@ class Player {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
             console.log("jump");
             this.yPos -= 1;
-            this.gravity = -0.45;
+            this.gravity = -0.62;
             this.canJump = false;
         }
         if(this.yPos > canvas.height){
