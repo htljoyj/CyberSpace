@@ -137,7 +137,7 @@ class LevelScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
-        this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
+        this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height + 8, 0.3, "./assets/socialmedia/fb.png"));
         this.icon.push(new Icon(200, 120, 0.3, "./assets/socialmedia/ins.png"));
@@ -174,10 +174,14 @@ class LevelScreen {
     }
     draw() {
         this.terrain.forEach((terrain) => {
-            if (!this.player.isColliding(terrain)) {
-                this.player.move(this.canvas);
+            if (this.player.isColliding(terrain)) {
+                this.player.collision();
+            }
+            else if (this.player.gravity === 0) {
+                this.player.gravity = 0.2;
             }
         });
+        this.player.move(this.canvas);
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
@@ -206,14 +210,13 @@ class Player {
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
-        this.gravity = 0.001;
+        this.gravity = 0.2;
         this.gravitySpeed = 0;
-        this.canJump = true;
         this.img = Game.loadImage(imgUrl);
     }
     draw(ctx) {
-        const x = this.xPos - this.img.width / 2;
-        const y = this.yPos - this.img.height / 2;
+        const x = this.xPos - this.img.width / 2 - 10;
+        const y = this.yPos - 10;
         if (this.img.naturalWidth > 0) {
             ctx.drawImage(this.img, x, y);
         }
@@ -222,10 +225,9 @@ class Player {
         this.gravitySpeed += this.gravity;
         this.yPos += this.gravitySpeed;
         if (this.gravity === 0) {
-            this.canJump = true;
         }
         if (this.gravity < 0) {
-            this.gravity += 0.1;
+            this.gravity += 0.05;
             this.gravitySpeed += this.gravity;
             this.yPos += this.gravitySpeed;
         }
@@ -242,8 +244,19 @@ class Player {
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
             console.log("jump");
-            this.gravity = -1.2;
+            this.yPos -= 1;
+            this.gravity = -0.45;
             this.canJump = false;
+        }
+        if (this.yPos > canvas.height) {
+            this.xPos = 80;
+            this.yPos = 520;
+        }
+        if (this.xPos > canvas.width) {
+            this.xPos = 0;
+        }
+        if (this.xPos < 0) {
+            this.xPos = canvas.width;
         }
     }
     isColliding(gameObject) {
@@ -251,16 +264,17 @@ class Player {
             && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
             && this.xPos + this.img.width > gameObject.getXPos()
             && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
-            console.log("Collision!");
             return true;
         }
         return false;
     }
     collision() {
+        console.log("Collision!");
         console.log(this.gravitySpeed);
         this.yPos -= this.gravitySpeed;
         this.gravity = 0;
         this.gravitySpeed = 0;
+        this.canJump = true;
     }
 }
 class Terrain {
