@@ -3,17 +3,14 @@ class Icon {
    
     private xPos: number;
     private yPos: number;
-    private width: number;
-    private height: number;
+    private scale: number;
     private img: HTMLImageElement;
 
 
-    public constructor( xPos: number, yPos: number, width: number, height: number, imgUrl: string) {
-    
+    public constructor( xPos: number, yPos: number, scale: number, imgUrl: string) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
+        this.scale = scale;
         this.img = Game.loadImage(imgUrl);
     }
 
@@ -28,7 +25,7 @@ class Icon {
 
             ctx.save();
             ctx.translate(x+ this.img.x / 2, y+ this.img.y / 2);
-            ctx.scale(0.5, 0.5);
+            ctx.scale(this.scale, this.scale);
             // ctx.translate(-this.img.x, -this.img.y);
             ctx.drawImage(this.img, -this.img.width/2, -this.img.height/2);
             ctx.restore();
