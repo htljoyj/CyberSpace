@@ -20,6 +20,10 @@ class LevelScreen {
         this.icon.push(new Icon(850,150,0.5,"./assets/socialmedia/wApp.png"));
         this.icon.push(new Icon(this.canvas.width/2,this.canvas.height/2,0.5,"./assets/socialmedia/snapchat.png"));
         this.icon.push(new Icon(350,this.canvas.height-190,0.5,"./assets/socialmedia/twitter.png"));
+        this.icon.push(new Icon(1100,200-5,0.7,"./assets/socialmedia/youtube.png"));
+        this.icon.push(new Icon(150,300-5,0.7,"./assets/socialmedia/tiktok.png"));
+
+
        
 
 

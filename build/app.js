@@ -89,6 +89,8 @@ class LevelScreen {
         this.icon.push(new Icon(850, 150, 0.5, "./assets/socialmedia/wApp.png"));
         this.icon.push(new Icon(this.canvas.width / 2, this.canvas.height / 2, 0.5, "./assets/socialmedia/snapchat.png"));
         this.icon.push(new Icon(350, this.canvas.height - 190, 0.5, "./assets/socialmedia/twitter.png"));
+        this.icon.push(new Icon(1100, 200 - 5, 0.7, "./assets/socialmedia/youtube.png"));
+        this.icon.push(new Icon(150, 300 - 5, 0.7, "./assets/socialmedia/tiktok.png"));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
         this.addBrick(200, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
         this.addBrick(325, this.canvas.height - 200, 0, './assets/bricks/newBrick.png');
