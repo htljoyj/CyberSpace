@@ -76,6 +76,12 @@ class Player {
             this.xPos = 80;
             this.yPos = 520;
         }
+        if(this.xPos > canvas.width){
+            this.xPos = 0;
+        }
+        if(this.xPos < 0){
+            this.xPos = canvas.width;
+        }
     }
 
     public isColliding(gameObject: Terrain): boolean {
