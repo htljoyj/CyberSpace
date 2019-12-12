@@ -8,6 +8,7 @@ class Player {
     private keyboardListener: KeyboardListener;
     private gravity: number;
     private gravitySpeed: number;
+    private canJump: boolean;
 
 
     /**
@@ -27,6 +28,7 @@ class Player {
         this.keyboardListener = new KeyboardListener();
         this.gravity = 0.20;
         this.gravitySpeed = 0;
+        this.canJump = true;
         this.img = Game.loadImage(imgUrl);
     }
 
@@ -48,6 +50,9 @@ class Player {
             this.gravity = 0;
             this.gravitySpeed = 0;
         }
+        if (this.gravity === 0) {
+            this.canJump = true;
+        }
         if (this.gravity < 0) {
             this.gravity += 0.1;
             this.gravitySpeed += this.gravity;
@@ -66,15 +71,22 @@ class Player {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
             this.gravity = 0.5;
         }
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
-            this.jump();
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
+            console.log("jump");
+            this.gravity = -1.2;
+            this.canJump = false;
         }
     }
 
-    public jump() {
-        console.log("jump");
-        this.gravity = -1;
-        // this.gravitySpeed += this.gravity;
-        // this.yPos -= 1; 
+    public isColliding(gameObject: Terrain): boolean {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()
+        ) {
+            console.log("Collision!");
+            return true;
+        }
+        return false;
     }
 }

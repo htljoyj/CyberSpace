@@ -9,8 +9,8 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth - 1;
-        this.canvas.height = window.innerHeight - 1;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);
@@ -42,7 +42,11 @@ class Icon {
         const x = this.xPos - this.img.width / 2;
         const y = this.yPos - this.img.height / 2;
         if (this.img.naturalWidth > 0) {
-            ctx.drawImage(this.img, x, y);
+            ctx.save();
+            ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
+            ctx.scale(0.5, 0.5);
+            ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+            ctx.restore();
         }
     }
 }
@@ -79,6 +83,12 @@ class LevelScreen {
         this.ctx = ctx;
         this.terrain = [];
         this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
+        this.icon = [];
+        this.icon.push(new Icon(1100, this.canvas.height + 8, 10, 10, "./assets/socialmedia/fb.png"));
+        this.icon.push(new Icon(200, 120, 10, 10, "./assets/socialmedia/ins.png"));
+        this.icon.push(new Icon(850, 150, 10, 10, "./assets/socialmedia/wApp.png"));
+        this.icon.push(new Icon(this.canvas.width / 2, this.canvas.height / 2, 10, 10, "./assets/socialmedia/snapchat.png"));
+        this.icon.push(new Icon(350, this.canvas.height - 190, 10, 10, "./assets/socialmedia/twitter.png"));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
         this.addBrick(200, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
         this.addBrick(325, this.canvas.height - 200, 0, './assets/bricks/newBrick.png');
@@ -89,11 +99,28 @@ class LevelScreen {
         this.addBrick(975, this.canvas.height - 50, 0, this.GRASS);
         this.addBrick(1050, this.canvas.height - 50, 0, this.GRASS);
         this.addBrick(this.canvas.width / 2 - 50, this.canvas.height / 2, 0, this.GRASS);
+        this.addBrick(this.canvas.width / 2 - 200, 200, 0, this.GRASS);
+        this.addBrick(150, 100, 0, this.GRASS);
+        this.addBrick(200, 300, 0, this.GRASS);
+        this.addBrick(150, 300, 0, this.GRASS);
+        this.addBrick(1100, 200, 0, this.GRASS);
+        this.addBrick(1075, 375, 0, this.GRASS);
+        this.addBrick(850, 150, 0, this.GRASS);
+        this.addBrick(650, 100, 0, this.GRASS);
+        this.addBrick(1150, 50, 0, this.GRASS);
     }
     draw() {
+        this.terrain.forEach((terrain) => {
+            if (!this.player.isColliding(terrain)) {
+                this.player.move(this.canvas);
+            }
+        });
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
+        });
+        this.icon.forEach((icon) => {
+            icon.draw(this.ctx);
         });
     }
     addBrick(xPos, yPos, speed, img) {
@@ -115,6 +142,7 @@ class Player {
         this.keyboardListener = new KeyboardListener();
         this.gravity = 0.20;
         this.gravitySpeed = 0;
+        this.canJump = true;
         this.img = Game.loadImage(imgUrl);
     }
     draw(ctx) {
@@ -130,6 +158,9 @@ class Player {
             this.yPos -= this.gravitySpeed;
             this.gravity = 0;
             this.gravitySpeed = 0;
+        }
+        if (this.gravity === 0) {
+            this.canJump = true;
         }
         if (this.gravity < 0) {
             this.gravity += 0.1;
@@ -149,13 +180,21 @@ class Player {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
             this.gravity = 0.5;
         }
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
-            this.jump();
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
+            console.log("jump");
+            this.gravity = -1.2;
+            this.canJump = false;
         }
     }
-    jump() {
-        console.log("jump");
-        this.gravity = -1;
+    isColliding(gameObject) {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
+            console.log("Collision!");
+            return true;
+        }
+        return false;
     }
 }
 class Terrain {
@@ -167,14 +206,17 @@ class Terrain {
         this.ctx = ctx;
         this.img = Game.loadImage(imgUrl);
     }
-    getxPos() {
+    getXPos() {
         return this.xPos;
     }
-    getyPos() {
+    getYPos() {
         return this.yPos;
     }
-    getImg() {
-        return this.img;
+    getImgHeight() {
+        return this.img.height;
+    }
+    getImgWidth() {
+        return this.img.width;
     }
     draw(ctx) {
         const x = this.xPos - this.img.width / 2;
@@ -186,5 +228,11 @@ class Terrain {
     move() { }
 }
 class TitleScreen {
+    constructor(canvas, ctx) {
+        this.canvas = canvas;
+        this.ctx = ctx;
+    }
+    draw() {
+    }
 }
 //# sourceMappingURL=app.js.map

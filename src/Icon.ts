@@ -15,7 +15,6 @@ class Icon {
         this.width = width;
         this.height = height;
         this.img = Game.loadImage(imgUrl);
-
     }
 
     public draw(ctx: CanvasRenderingContext2D) {
@@ -25,7 +24,14 @@ class Icon {
 
         // If the image is not yet loaded, don't draw anything
         if (this.img.naturalWidth > 0) {
-            ctx.drawImage(this.img, x, y);
+            // ctx.drawImage(this.img, x, y);
+
+            ctx.save();
+            ctx.translate(x+ this.img.x / 2, y+ this.img.y / 2);
+            ctx.scale(0.5, 0.5);
+            // ctx.translate(-this.img.x, -this.img.y);
+            ctx.drawImage(this.img, -this.img.width/2, -this.img.height/2);
+            ctx.restore();
         }
 
 
