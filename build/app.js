@@ -142,7 +142,7 @@ class Player {
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
-        this.gravity = 0.20;
+        this.gravity = 0.001;
         this.gravitySpeed = 0;
         this.canJump = true;
         this.img = Game.loadImage(imgUrl);
@@ -155,12 +155,8 @@ class Player {
         }
     }
     move(canvas) {
-        if (this.yPos + this.img.height > canvas.height) {
-            console.log(this.gravitySpeed);
-            this.yPos -= this.gravitySpeed;
-            this.gravity = 0;
-            this.gravitySpeed = 0;
-        }
+        this.gravitySpeed += this.gravity;
+        this.yPos += this.gravitySpeed;
         if (this.gravity === 0) {
             this.canJump = true;
         }
@@ -170,8 +166,6 @@ class Player {
             this.yPos += this.gravitySpeed;
         }
         if (this.gravity > 0) {
-            this.gravitySpeed += this.gravity;
-            this.yPos += this.gravitySpeed;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
             this.xPos -= this.xVel;
@@ -197,6 +191,12 @@ class Player {
             return true;
         }
         return false;
+    }
+    collision() {
+        console.log(this.gravitySpeed);
+        this.yPos -= this.gravitySpeed;
+        this.gravity = 0;
+        this.gravitySpeed = 0;
     }
 }
 class Terrain {
