@@ -73,7 +73,8 @@ class Player {
             this.canJump = false;
         }
         if(this.yPos > canvas.height){
-            // this.yPos = 
+            this.xPos = 80;
+            this.yPos = 520;
         }
     }
 

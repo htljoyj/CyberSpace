@@ -14,7 +14,7 @@ class LevelScreen {
         this.ctx = ctx;
         this.terrain = [];
 
-        this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
+        this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height+8, 0.3, "./assets/socialmedia/fb.png"));
         this.icon.push(new Icon(200,120,0.3,"./assets/socialmedia/ins.png"));
