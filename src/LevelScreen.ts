@@ -3,6 +3,7 @@ class LevelScreen {
     private readonly ctx: CanvasRenderingContext2D;
     private terrain: Terrain[];
     private icon: Icon[];
+    private jewel:Jewel[];
 
     private player: Player;
 
@@ -21,7 +22,9 @@ class LevelScreen {
         this.icon.push(new Icon(this.canvas.width/2,this.canvas.height/2,0.5,"./assets/socialmedia/snapchat.png"));
         this.icon.push(new Icon(350,this.canvas.height-190,0.5,"./assets/socialmedia/twitter.png"));
         this.icon.push(new Icon(1100,200-5,0.7,"./assets/socialmedia/youtube.png"));
-        this.icon.push(new Icon(150,300-5,0.7,"./assets/socialmedia/tiktok.png"));
+        this.icon.push(new Icon(200,340-5,0.3,"./assets/socialmedia/tiktok.png"));
+        this.jewel= [];
+        this.jewel.push(new Jewel(1150,52,0.5,'./assets/jewels/blue-diamond.png'))
 
 
        
@@ -65,6 +68,10 @@ class LevelScreen {
         this.icon.forEach((icon) => {
             icon.draw(this.ctx);
         });
+        this.jewel.forEach((jewel)=>{
+           jewel.draw(this.ctx)
+
+        })
     }
 
     private addBrick(xPos: number, yPos: number, speed: number, img: string) {

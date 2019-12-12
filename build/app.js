@@ -30,6 +30,23 @@ let init = () => {
 };
 window.addEventListener("load", init);
 class GameEntity {
+    constructor(xPos, yPos, scale, imgUrl) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.scale = scale;
+        this.img = Game.loadImage(imgUrl);
+    }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2;
+        const y = this.yPos - this.img.height / 2;
+        if (this.img.naturalWidth > 0) {
+            ctx.save();
+            ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
+            ctx.scale(this.scale, this.scale);
+            ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+            ctx.restore();
+        }
+    }
 }
 class Icon {
     constructor(xPos, yPos, scale, imgUrl) {
@@ -48,6 +65,11 @@ class Icon {
             ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
             ctx.restore();
         }
+    }
+}
+class Jewel extends GameEntity {
+    constructor(xPos, yPos, scale, imgUrl) {
+        super(xPos, yPos, scale, imgUrl);
     }
 }
 class KeyboardListener {
@@ -90,7 +112,9 @@ class LevelScreen {
         this.icon.push(new Icon(this.canvas.width / 2, this.canvas.height / 2, 0.5, "./assets/socialmedia/snapchat.png"));
         this.icon.push(new Icon(350, this.canvas.height - 190, 0.5, "./assets/socialmedia/twitter.png"));
         this.icon.push(new Icon(1100, 200 - 5, 0.7, "./assets/socialmedia/youtube.png"));
-        this.icon.push(new Icon(150, 300 - 5, 0.7, "./assets/socialmedia/tiktok.png"));
+        this.icon.push(new Icon(200, 340 - 5, 0.3, "./assets/socialmedia/tiktok.png"));
+        this.jewel = [];
+        this.jewel.push(new Jewel(1150, 52, 0.5, './assets/jewels/blue-diamond.png'));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
         this.addBrick(200, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
         this.addBrick(325, this.canvas.height - 200, 0, './assets/bricks/newBrick.png');
@@ -123,6 +147,9 @@ class LevelScreen {
         });
         this.icon.forEach((icon) => {
             icon.draw(this.ctx);
+        });
+        this.jewel.forEach((jewel) => {
+            jewel.draw(this.ctx);
         });
     }
     addBrick(xPos, yPos, speed, img) {
