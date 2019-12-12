@@ -12,7 +12,6 @@ class Game {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
-        this.lives = 3;
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);
         this.loop();
@@ -137,6 +136,9 @@ class LevelScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         this.terrain = [];
+        this.live = 3;
+        this.life = new Image();
+        this.life.src = './assets/heart-icon-png-transparent.png';
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height + 8, 0.3, "./assets/socialmedia/fb.png"));
@@ -148,8 +150,8 @@ class LevelScreen {
         this.icon.push(new Icon(200, 340 - 5, 0.3, "./assets/socialmedia/tiktok.png"));
         this.jewel = [];
         this.jewel.push(new Jewel(1150, 52, 0.5, "blue"));
-        this.jewel.push(new Jewel(890, 310, 0.5, "blue"));
-        this.jewel.push(new Jewel(450, 515, 0.5, "blue"));
+        this.jewel.push(new Jewel(890, 270, 0.5, "blue"));
+        this.jewel.push(new Jewel(450, 470, 0.5, "blue"));
         this.jewel.push(new Jewel(450, 209, 0.5, "blue"));
         this.jewel.push(new Jewel(700, 110, 0.5, "blue"));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
@@ -183,6 +185,7 @@ class LevelScreen {
         });
         this.player.move(this.canvas);
         this.player.draw(this.ctx);
+        this.writeLifeImagesToLevelScreen();
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
         });
@@ -192,6 +195,20 @@ class LevelScreen {
         this.jewel.forEach((jewel) => {
             jewel.draw(this.ctx);
         });
+    }
+    writeLifeImagesToLevelScreen() {
+        if (this.life.naturalWidth > 0) {
+            let x = 10;
+            const y = 10;
+            for (let life = 0; life < this.live; life++) {
+                this.ctx.save();
+                this.ctx.translate(x + this.life.x / 2, y + this.life.y / 2);
+                this.ctx.scale(0.3, 0.3);
+                this.ctx.drawImage(this.life, -this.life.width / 2, -this.life.height / 2);
+                this.ctx.restore();
+                x += 25;
+            }
+        }
     }
     addBrick(xPos, yPos, speed, img) {
         this.terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));

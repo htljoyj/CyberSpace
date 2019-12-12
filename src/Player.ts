@@ -43,7 +43,7 @@ class Player {
         }
     }
 
-    public move(canvas: HTMLCanvasElement) {        
+    public move(canvas: HTMLCanvasElement) {
         this.gravitySpeed += this.gravity;
         this.yPos += this.gravitySpeed;
         if (this.gravity === 0) {
@@ -55,7 +55,7 @@ class Player {
             this.yPos += this.gravitySpeed;
         }
         if (this.gravity > 0) {
-            
+
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
             this.xPos -= this.xVel;
@@ -72,14 +72,14 @@ class Player {
             this.gravity = -0.45;
             this.canJump = false;
         }
-        if(this.yPos > canvas.height){
+        if (this.yPos > canvas.height) {
             this.xPos = 80;
             this.yPos = 520;
         }
-        if(this.xPos > canvas.width){
+        if (this.xPos > canvas.width) {
             this.xPos = 0;
         }
-        if(this.xPos < 0){
+        if (this.xPos < 0) {
             this.xPos = canvas.width;
         }
     }
@@ -94,13 +94,13 @@ class Player {
         }
         return false;
     }
-    
+
     public collision() {
         console.log("Collision!");
         console.log(this.gravitySpeed);
         this.yPos -= this.gravitySpeed;
         this.gravity = 0;
         this.gravitySpeed = 0;
-        this.canJump = true;        
+        this.canJump = true;
     }
 }
