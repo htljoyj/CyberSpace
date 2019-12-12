@@ -49,11 +49,15 @@ class LevelScreen {
 
     public draw() {
         this.terrain.forEach((terrain) => {
-            if(!this.player.isColliding(terrain)){
-                this.player.move(this.canvas);
+            if(this.player.isColliding(terrain)){
+                this.player.collision();
+                // this.player.gravity = 0.2;
+                // this.player.move(this.canvas);
+            }else if (this.player.gravity === 0){
+                this.player.gravity = 0.2;
             }
         });
-        // this.player.move(this.canvas);
+        this.player.move(this.canvas);
         this.player.draw(this.ctx);
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
