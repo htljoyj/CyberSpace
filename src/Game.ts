@@ -6,6 +6,8 @@ class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
 
+    private lives: number;
+
     private currentScreen: any;
     private keyboardListener: KeyboardListener;
 
@@ -16,6 +18,8 @@ class Game {
         this.canvas.height = window.innerHeight;
         // Set the context of the canvas
         this.ctx = this.canvas.getContext("2d");
+
+        this.lives = 3;
 
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);

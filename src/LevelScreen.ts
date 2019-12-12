@@ -15,7 +15,7 @@ class LevelScreen {
         this.icon = [];
         this.player = new Player(500, 700, 4, 4, "./assets/player/player_cheer2.png");
 
-        this.icon.push(new Icon(300, 300, 10, 10, "./assets/socialmedia/fb.png"));
+        this.icon.push(new Icon(300, 300, 0.5, "./assets/socialmedia/fb.png"));
         this.addBrick(300, 300, 0, this.GRASS);
         this.addBrick(500, 500, 0, this.GRASS);
         
