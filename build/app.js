@@ -12,6 +12,7 @@ class Game {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
+        this.lives = 3;
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);
         this.loop();
@@ -31,11 +32,10 @@ window.addEventListener("load", init);
 class GameEntity {
 }
 class Icon {
-    constructor(xPos, yPos, width, height, imgUrl) {
+    constructor(xPos, yPos, scale, imgUrl) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
+        this.scale = scale;
         this.img = Game.loadImage(imgUrl);
     }
     draw(ctx) {
@@ -44,7 +44,7 @@ class Icon {
         if (this.img.naturalWidth > 0) {
             ctx.save();
             ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
-            ctx.scale(0.5, 0.5);
+            ctx.scale(this.scale, this.scale);
             ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
             ctx.restore();
         }
@@ -84,11 +84,11 @@ class LevelScreen {
         this.terrain = [];
         this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
         this.icon = [];
-        this.icon.push(new Icon(1100, this.canvas.height + 8, 10, 10, "./assets/socialmedia/fb.png"));
-        this.icon.push(new Icon(200, 120, 10, 10, "./assets/socialmedia/ins.png"));
-        this.icon.push(new Icon(850, 150, 10, 10, "./assets/socialmedia/wApp.png"));
-        this.icon.push(new Icon(this.canvas.width / 2, this.canvas.height / 2, 10, 10, "./assets/socialmedia/snapchat.png"));
-        this.icon.push(new Icon(350, this.canvas.height - 190, 10, 10, "./assets/socialmedia/twitter.png"));
+        this.icon.push(new Icon(1100, this.canvas.height + 8, 0.3, "./assets/socialmedia/fb.png"));
+        this.icon.push(new Icon(200, 120, 0.3, "./assets/socialmedia/ins.png"));
+        this.icon.push(new Icon(850, 150, 0.5, "./assets/socialmedia/wApp.png"));
+        this.icon.push(new Icon(this.canvas.width / 2, this.canvas.height / 2, 0.5, "./assets/socialmedia/snapchat.png"));
+        this.icon.push(new Icon(350, this.canvas.height - 190, 0.5, "./assets/socialmedia/twitter.png"));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
         this.addBrick(200, this.canvas.height - 100, 0, './assets/bricks/newBrick.png');
         this.addBrick(325, this.canvas.height - 200, 0, './assets/bricks/newBrick.png');

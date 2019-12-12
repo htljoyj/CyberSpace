@@ -15,11 +15,11 @@ class LevelScreen {
 
         this.player = new Player(500, 50, 4, 4, "./assets/player/player_cheer2.png");
         this.icon = [];
-        this.icon.push(new Icon(1100, this.canvas.height+8, 10, 10, "./assets/socialmedia/fb.png"));
-        this.icon.push(new Icon(200,120,10,10,"./assets/socialmedia/ins.png"));
-        this.icon.push(new Icon(850,150,10,10,"./assets/socialmedia/wApp.png"));
-        this.icon.push(new Icon(this.canvas.width/2,this.canvas.height/2,10,10,"./assets/socialmedia/snapchat.png"));
-        this.icon.push(new Icon(350,this.canvas.height-190,10,10,"./assets/socialmedia/twitter.png"));
+        this.icon.push(new Icon(1100, this.canvas.height+8, 0.3, "./assets/socialmedia/fb.png"));
+        this.icon.push(new Icon(200,120,0.3,"./assets/socialmedia/ins.png"));
+        this.icon.push(new Icon(850,150,0.5,"./assets/socialmedia/wApp.png"));
+        this.icon.push(new Icon(this.canvas.width/2,this.canvas.height/2,0.5,"./assets/socialmedia/snapchat.png"));
+        this.icon.push(new Icon(350,this.canvas.height-190,0.5,"./assets/socialmedia/twitter.png"));
        
 
 
