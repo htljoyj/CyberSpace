@@ -1,9 +1,56 @@
-class Enemy {
-    constructor(xPos, yPos, xVel, imgUrl) {
+class GameObject {
+    constructor(xPos, yPos, imgUrl) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.xVel = xVel;
+        this.gravity = 0.3;
+        this.gravitySpeed = 0;
         this.img = Game.loadImage(imgUrl);
+    }
+    isColliding(gameObject) {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
+            return true;
+        }
+        return false;
+    }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2 - 10;
+        const y = this.yPos - 10;
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
+    randomNumber(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+    }
+}
+class Enemy extends GameObject {
+    constructor(xPos, yPos, xVel, imgUrl) {
+        super(xPos, yPos, imgUrl);
+        this.xVel = xVel;
+    }
+    move(canvas) {
+        this.gravitySpeed += 2 * this.gravity;
+        this.yPos += this.gravitySpeed;
+    }
+    collision() {
+        this.yPos -= this.gravitySpeed;
+        this.gravity = 0;
+        this.gravitySpeed = 0;
+    }
+    getXPos() {
+        return this.xPos;
+    }
+    getYPos() {
+        return this.yPos;
+    }
+    getImgHeight() {
+        return this.img.height;
+    }
+    getImgWidth() {
+        return this.img.width;
     }
 }
 class Game {
@@ -15,10 +62,9 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        this.canvas.width = 1400;
+        this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
-        this.lives = 3;
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new LevelScreen(this.canvas, this.ctx);
         this.loop();
@@ -106,6 +152,7 @@ class Jewel extends GameEntity {
                 break;
         }
     }
+    ;
     getDiamondValue() {
         return this.value;
     }
@@ -141,9 +188,14 @@ class LevelScreen {
         this.GRASS = "./assets/bricks/newBrick.png";
         this.canvas = canvas;
         this.ctx = ctx;
+        this.live = 3;
+        this.life = new Image();
+        this.life.src = './assets/heart-icon-png-transparent.png';
         this.terrain = [];
+        this.enemy = [];
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
-        this.enemy = new Enemy(100, 100, 3, "./assets/");
+        this.enemy.push(new Enemy(170, 120, 3, "./assets/monsters/gorilla-png-37880.png"));
+        this.enemy.push(new Enemy(500, 400, 3, "./assets/monsters/gorilla-png-37880.png"));
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height + 8, 0.3, "./assets/socialmedia/fb.png"));
         this.icon.push(new Icon(200, 120, 0.3, "./assets/socialmedia/ins.png"));
@@ -154,7 +206,7 @@ class LevelScreen {
         this.icon.push(new Icon(200, 340 - 5, 0.3, "./assets/socialmedia/tiktok.png"));
         this.jewel = [];
         this.jewel.push(new Jewel(1150, 52, 0.5, "blue"));
-        this.jewel.push(new Jewel(890, 310, 0.5, "green"));
+        this.jewel.push(new Jewel(890, 310, 0.5, "blue"));
         this.jewel.push(new Jewel(450, 515, 0.5, "blue"));
         this.jewel.push(new Jewel(450, 209, 0.5, "blue"));
         this.jewel.push(new Jewel(700, 110, 0.5, "blue"));
@@ -186,9 +238,26 @@ class LevelScreen {
             else if (this.player.gravity === 0) {
                 this.player.gravity = 0.2;
             }
+            for (let i = 0; i < this.enemy.length; i++) {
+                if (this.enemy[i].isColliding(terrain)) {
+                    this.enemy[i].collision();
+                }
+                else if (this.enemy[i].gravity === 0) {
+                    this.enemy[i].gravity = 0.2;
+                }
+            }
+        });
+        this.enemy.forEach((enemy) => {
+            if (this.player.isColliding(enemy)) {
+                this.player.playerDied();
+            }
         });
         this.player.move(this.canvas);
         this.player.draw(this.ctx);
+        for (let i = 0; i < this.enemy.length; i++) {
+            this.enemy[i].move(this.canvas);
+            this.enemy[i].draw(this.ctx);
+        }
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
         });
@@ -198,9 +267,24 @@ class LevelScreen {
         this.jewel.forEach((jewel) => {
             jewel.draw(this.ctx);
         });
+        this.writeLifeImagesToLevelScreen();
     }
     addBrick(xPos, yPos, speed, img) {
         this.terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));
+    }
+    writeLifeImagesToLevelScreen() {
+        if (this.life.naturalWidth > 0) {
+            let x = 10;
+            const y = 10;
+            for (let life = 0; life < this.live; life++) {
+                this.ctx.save();
+                this.ctx.translate(x + this.life.x / 2, y + this.life.y / 2);
+                this.ctx.scale(0.3, 0.3);
+                this.ctx.drawImage(this.life, -this.life.width / 2, -this.life.height / 2);
+                this.ctx.restore();
+                x += 25;
+            }
+        }
     }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Minecraft`;
@@ -209,23 +293,12 @@ class LevelScreen {
         this.ctx.fillText(text, xCoordinate, yCoordinate);
     }
 }
-class Player {
+class Player extends GameObject {
     constructor(xPos, yPos, xVel, yVel, imgUrl) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+        super(xPos, yPos, imgUrl);
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
-        this.gravity = 0.3;
-        this.gravitySpeed = 0;
-        this.img = Game.loadImage(imgUrl);
-    }
-    draw(ctx) {
-        const x = this.xPos - this.img.width / 2 - 10;
-        const y = this.yPos - 10;
-        if (this.img.naturalWidth > 0) {
-            ctx.drawImage(this.img, x, y);
-        }
     }
     move(canvas) {
         this.gravitySpeed += 2 * this.gravity;
@@ -255,8 +328,7 @@ class Player {
             this.canJump = false;
         }
         if (this.yPos > canvas.height) {
-            this.xPos = 80;
-            this.yPos = 520;
+            this.playerDied();
         }
         if (this.xPos > canvas.width) {
             this.xPos = 0;
@@ -265,18 +337,12 @@ class Player {
             this.xPos = canvas.width;
         }
     }
-    isColliding(gameObject) {
-        if (this.yPos + this.img.height > gameObject.getYPos()
-            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
-            && this.xPos + this.img.width > gameObject.getXPos()
-            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
-            return true;
-        }
-        return false;
+    playerDied() {
+        this.xPos = 80;
+        this.yPos = 520;
+        console.log("playerDied");
     }
     collision() {
-        console.log("Collision!");
-        console.log(this.gravitySpeed);
         this.yPos -= this.gravitySpeed;
         this.gravity = 0;
         this.gravitySpeed = 0;

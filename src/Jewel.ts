@@ -1,7 +1,8 @@
 ///<reference path = 'GameEntity.ts'/>
 class Jewel extends GameEntity {
     private value: number;
-    private color: string;
+    private color: string;;
+    
 
     public constructor(xPos: number, yPos: number, scale: number, color: string) {
         super(xPos, yPos, scale, "");
@@ -32,6 +33,7 @@ class Jewel extends GameEntity {
                 this.setImg("./assets/jewels/blue-diamond.png");
                 break;
         }
+      
     }
     public getDiamondValue() {
         return this.value;
