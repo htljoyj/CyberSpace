@@ -9,7 +9,8 @@ class TitleScreen {
     }
 
     public draw() {
-        this.writeTextToCanvas("CYBERSPACE", 50, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
+
+        this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
     }
 
         /**
@@ -21,6 +22,7 @@ class TitleScreen {
      * @param {string} alignment - Where to align the text
      * @param {string} color - The color of the text
      */
+
     public writeTextToCanvas(
         text: string,
         fontSize: number = 20,

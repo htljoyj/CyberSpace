@@ -18,7 +18,7 @@ class Terrain {
 
         this.img = Game.loadImage(imgUrl);
     }
-    
+  
     public getXPos(){
         return this.xPos;
     }

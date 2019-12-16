@@ -341,6 +341,13 @@ class LevelScreen {
         }
     }
 
+    /***
+     * This function makes the y position move up by 100px
+     */
+    public up() {
+        window.scrollBy(0, -200);
+    }
+
     /**
      * Writes text to the canvas
      * @param {string} text - Text to write

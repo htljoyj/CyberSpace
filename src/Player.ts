@@ -78,7 +78,7 @@ class Player extends GameObject {
     
     public playerDied(){
         this.xPos = 80;
-        this.yPos = 520;
+        this.yPos = 440;
         console.log("playerDied");
         LevelScreen.live--;
     }
@@ -90,5 +90,9 @@ class Player extends GameObject {
         this.gravity = 0;
         this.gravitySpeed = 0;
         this.canJump = true; 
+    }
+
+    public getY(){
+        return this.yPos
     }
 }

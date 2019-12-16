@@ -486,6 +486,9 @@ class LevelScreen {
             }
         }
     }
+    up() {
+        window.scrollBy(0, -200);
+    }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Minecraft`;
         this.ctx.fillStyle = color;
@@ -538,7 +541,7 @@ class Player extends GameObject {
     }
     playerDied() {
         this.xPos = 80;
-        this.yPos = 520;
+        this.yPos = 440;
         console.log("playerDied");
         LevelScreen.live--;
     }
@@ -547,6 +550,9 @@ class Player extends GameObject {
         this.gravity = 0;
         this.gravitySpeed = 0;
         this.canJump = true;
+    }
+    getY() {
+        return this.yPos;
     }
 }
 class Terrain {
@@ -586,7 +592,7 @@ class TitleScreen {
         canvas.style.backgroundColor = "lightgreen";
     }
     draw() {
-        this.writeTextToCanvas("CYBERSPACE", 50, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
+        this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
     }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Minecraft`;
