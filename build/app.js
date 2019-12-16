@@ -114,6 +114,12 @@ class Icon {
         this.scale = scale;
         this.img = Game.loadImage(imgUrl);
     }
+    getYPos() {
+        return this.yPos;
+    }
+    up() {
+        window.scrollBy(0, -200);
+    }
     draw(ctx) {
         const x = this.xPos - this.img.width / 2;
         const y = this.yPos - this.img.height / 2;
@@ -157,6 +163,12 @@ class Jewel extends GameEntity {
         }
     }
     ;
+    getYPos() {
+        return this.yPos;
+    }
+    up() {
+        window.scrollBy(0, -200);
+    }
     getDiamondValue() {
         return this.value;
     }
@@ -233,8 +245,6 @@ class LevelScreen {
         this.addBrick(850, 150, 0, this.GRASS);
         this.addBrick(650, 100, 0, this.GRASS);
         this.addBrick(1150, 50, 0, this.GRASS);
-        if (this.player.getY() <= 100) {
-        }
     }
     draw() {
         this.terrain.forEach((terrain) => {
@@ -274,6 +284,20 @@ class LevelScreen {
             jewel.draw(this.ctx);
         });
         this.writeLifeImagesToLevelScreen();
+        if (this.player.getY() < 100) {
+            this.terrain.forEach(element => {
+                element.getYPos() - 200;
+                console.log('trying');
+            });
+            this.icon.forEach(element => {
+                element.getYPos() - 200;
+                console.log('tryng 2');
+            });
+            this.jewel.forEach(element => {
+                element.getYPos() - 200;
+                console.log('trying 3');
+            });
+        }
     }
     addBrick(xPos, yPos, speed, img) {
         this.terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));
@@ -369,6 +393,9 @@ class Terrain {
         this.canvas = canvas;
         this.ctx = ctx;
         this.img = Game.loadImage(imgUrl);
+    }
+    up() {
+        window.scrollBy(0, -200);
     }
     getXPos() {
         return this.xPos;

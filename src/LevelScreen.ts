@@ -66,11 +66,8 @@ class LevelScreen {
         this.addBrick(650, 100, 0, this.GRASS)
         this.addBrick(1150, 50, 0, this.GRASS)
 
-      if(this.player.getY() <= 100){
-         
 
-      }
-
+        
     }
 
     public draw() {
@@ -118,8 +115,28 @@ class LevelScreen {
             jewel.draw(this.ctx)
 
         })
-
+        
         this.writeLifeImagesToLevelScreen()
+        if (this.player.getY() < 100) {
+           this.terrain.forEach(element => {
+            
+               element.getYPos()-200
+                console.log('trying')
+
+            });
+             this.icon.forEach(element => {
+                element.getYPos()-200
+                console.log('tryng 2')
+             })
+
+            this.jewel.forEach(element => {
+                element.getYPos()-200
+
+               console.log('trying 3')
+
+            })
+
+        }
 
     }
 
@@ -154,10 +171,11 @@ class LevelScreen {
     }
 
     /***
-     * This function makes the y position move up by 100px
+     * This function makes the y position move up by 200px
      */
     public up() {
         window.scrollBy(0, -200);
+      
     }
 
     /**

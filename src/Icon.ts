@@ -14,6 +14,15 @@ class Icon {
         this.img = Game.loadImage(imgUrl);
     }
 
+
+    public getYPos(){
+       return this.yPos
+    }
+
+    public up() {
+        window.scrollBy(0, -200);
+    }
+
     public draw(ctx: CanvasRenderingContext2D) {
         // We want the center of the image to be the position of this asteroid
         const x = this.xPos - this.img.width / 2;
