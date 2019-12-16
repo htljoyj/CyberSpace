@@ -1,4 +1,57 @@
-class Enemy {
+class GameObject {
+    constructor(xPos, yPos, imgUrl) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.gravity = 0.3;
+        this.gravitySpeed = 0;
+        this.img = Game.loadImage(imgUrl);
+    }
+    isColliding(gameObject) {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
+            return true;
+        }
+        return false;
+    }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2 - 10;
+        const y = this.yPos - 10;
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
+    randomNumber(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+    }
+}
+class Enemy extends GameObject {
+    constructor(xPos, yPos, xVel, imgUrl) {
+        super(xPos, yPos, imgUrl);
+        this.xVel = xVel;
+    }
+    move(canvas) {
+        this.gravitySpeed += 2 * this.gravity;
+        this.yPos += this.gravitySpeed;
+    }
+    collision() {
+        this.yPos -= this.gravitySpeed;
+        this.gravity = 0;
+        this.gravitySpeed = 0;
+    }
+    getXPos() {
+        return this.xPos;
+    }
+    getYPos() {
+        return this.yPos;
+    }
+    getImgHeight() {
+        return this.img.height;
+    }
+    getImgWidth() {
+        return this.img.width;
+    }
 }
 class Game {
     constructor(canvasId) {
@@ -12,11 +65,15 @@ class Game {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
+        this.lives = 3;
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new LevelScreen(this.canvas, this.ctx);
+        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         this.loop();
     }
     switchScreen() {
+        if (this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+            this.currentScreen = new LevelScreen(this.canvas, this.ctx);
+        }
     }
     static loadImage(source) {
         let img = new Image();
@@ -135,11 +192,14 @@ class LevelScreen {
         this.GRASS = "./assets/bricks/newBrick.png";
         this.canvas = canvas;
         this.ctx = ctx;
-        this.terrain = [];
         this.live = 3;
         this.life = new Image();
         this.life.src = './assets/heart-icon-png-transparent.png';
-        this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.terrain = [];
+        this.enemy = [];
+        this.player = new Player(80, 440, 4, 4, "./assets/player/player_cheer2.png");
+        this.enemy.push(new Enemy(170, 120, 3, "./assets/monsters/gorilla-png-37880.png"));
+        this.enemy.push(new Enemy(600, 400, 3, "./assets/monsters/gorilla-png-37880.png"));
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height + 8, 0.3, "./assets/socialmedia/fb.png"));
         this.icon.push(new Icon(200, 120, 0.3, "./assets/socialmedia/ins.png"));
@@ -150,8 +210,8 @@ class LevelScreen {
         this.icon.push(new Icon(200, 340 - 5, 0.3, "./assets/socialmedia/tiktok.png"));
         this.jewel = [];
         this.jewel.push(new Jewel(1150, 52, 0.5, "blue"));
-        this.jewel.push(new Jewel(890, 270, 0.5, "blue"));
-        this.jewel.push(new Jewel(450, 470, 0.5, "blue"));
+        this.jewel.push(new Jewel(890, 310, 0.5, "blue"));
+        this.jewel.push(new Jewel(450, 515, 0.5, "blue"));
         this.jewel.push(new Jewel(450, 209, 0.5, "blue"));
         this.jewel.push(new Jewel(700, 110, 0.5, "blue"));
         this.addBrick(75, this.canvas.height - 50, 0, './assets/bricks/newBrick.png');
@@ -173,6 +233,8 @@ class LevelScreen {
         this.addBrick(850, 150, 0, this.GRASS);
         this.addBrick(650, 100, 0, this.GRASS);
         this.addBrick(1150, 50, 0, this.GRASS);
+        if (this.player.getY() <= 100) {
+        }
     }
     draw() {
         this.terrain.forEach((terrain) => {
@@ -182,10 +244,26 @@ class LevelScreen {
             else if (this.player.gravity === 0) {
                 this.player.gravity = 0.2;
             }
+            for (let i = 0; i < this.enemy.length; i++) {
+                if (this.enemy[i].isColliding(terrain)) {
+                    this.enemy[i].collision();
+                }
+                else if (this.enemy[i].gravity === 0) {
+                    this.enemy[i].gravity = 0.2;
+                }
+            }
+        });
+        this.enemy.forEach((enemy) => {
+            if (this.player.isColliding(enemy)) {
+                this.player.playerDied();
+            }
         });
         this.player.move(this.canvas);
         this.player.draw(this.ctx);
-        this.writeLifeImagesToLevelScreen();
+        for (let i = 0; i < this.enemy.length; i++) {
+            this.enemy[i].move(this.canvas);
+            this.enemy[i].draw(this.ctx);
+        }
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
         });
@@ -195,6 +273,10 @@ class LevelScreen {
         this.jewel.forEach((jewel) => {
             jewel.draw(this.ctx);
         });
+        this.writeLifeImagesToLevelScreen();
+    }
+    addBrick(xPos, yPos, speed, img) {
+        this.terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));
     }
     writeLifeImagesToLevelScreen() {
         if (this.life.naturalWidth > 0) {
@@ -210,8 +292,8 @@ class LevelScreen {
             }
         }
     }
-    addBrick(xPos, yPos, speed, img) {
-        this.terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));
+    up() {
+        window.scrollBy(0, -200);
     }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Minecraft`;
@@ -220,31 +302,20 @@ class LevelScreen {
         this.ctx.fillText(text, xCoordinate, yCoordinate);
     }
 }
-class Player {
+class Player extends GameObject {
     constructor(xPos, yPos, xVel, yVel, imgUrl) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+        super(xPos, yPos, imgUrl);
         this.xVel = xVel;
         this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
-        this.gravity = 0.2;
-        this.gravitySpeed = 0;
-        this.img = Game.loadImage(imgUrl);
-    }
-    draw(ctx) {
-        const x = this.xPos - this.img.width / 2 - 10;
-        const y = this.yPos - 10;
-        if (this.img.naturalWidth > 0) {
-            ctx.drawImage(this.img, x, y);
-        }
     }
     move(canvas) {
-        this.gravitySpeed += this.gravity;
+        this.gravitySpeed += 2 * this.gravity;
         this.yPos += this.gravitySpeed;
         if (this.gravity === 0) {
         }
         if (this.gravity < 0) {
-            this.gravity += 0.05;
+            this.gravity += 0.1;
             this.gravitySpeed += this.gravity;
             this.yPos += this.gravitySpeed;
         }
@@ -262,12 +333,11 @@ class Player {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
             console.log("jump");
             this.yPos -= 1;
-            this.gravity = -0.45;
+            this.gravity = -0.62;
             this.canJump = false;
         }
         if (this.yPos > canvas.height) {
-            this.xPos = 80;
-            this.yPos = 520;
+            this.playerDied();
         }
         if (this.xPos > canvas.width) {
             this.xPos = 0;
@@ -276,22 +346,19 @@ class Player {
             this.xPos = canvas.width;
         }
     }
-    isColliding(gameObject) {
-        if (this.yPos + this.img.height > gameObject.getYPos()
-            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
-            && this.xPos + this.img.width > gameObject.getXPos()
-            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
-            return true;
-        }
-        return false;
+    playerDied() {
+        this.xPos = 80;
+        this.yPos = 440;
+        console.log("playerDied");
     }
     collision() {
-        console.log("Collision!");
-        console.log(this.gravitySpeed);
         this.yPos -= this.gravitySpeed;
         this.gravity = 0;
         this.gravitySpeed = 0;
         this.canJump = true;
+    }
+    getY() {
+        return this.yPos;
     }
 }
 class Terrain {
@@ -328,8 +395,16 @@ class TitleScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
+        canvas.style.backgroundColor = "lightgreen";
     }
     draw() {
+        this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
+    }
+    writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
+        this.ctx.font = `${fontSize}px Minecraft`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = alignment;
+        this.ctx.fillText(text, xCoordinate, yCoordinate);
     }
 }
 //# sourceMappingURL=app.js.map
