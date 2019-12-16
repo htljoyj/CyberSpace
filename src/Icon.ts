@@ -33,4 +33,18 @@ class Icon {
 
 
     }
+
+    public getXPos() {
+        return this.xPos;
+    }
+
+    public getYPos() {
+        return this.yPos;
+    }
+    public getImgHeight() {
+        return this.img.height;
+    }
+    public getImgWidth() {
+        return this.img.width;
+    }
 }

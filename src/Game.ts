@@ -21,7 +21,7 @@ class Game {
 
 
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new LevelScreen(this.canvas, this.ctx);
+        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
 
         this.loop();
     }
@@ -43,7 +43,15 @@ class Game {
     }
 
     private switchScreen() {
-
+        if(this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))
+        {
+            this.currentScreen = new LevelScreen(this.canvas, this.ctx);
+        }
+        if(this.currentScreen instanceof LevelScreen && LevelScreen.live === 0)
+        {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        // this.currentScreen = new TitleScreen(this.canvas, this.ctx);
     }
 
     /**
