@@ -35,6 +35,11 @@ class Jewel extends GameEntity {
         }
       
     }
+
+    public setY(y:number){
+        this.yPos += y;
+
+    }
     public  getYPos(){
         return this.yPos
     }

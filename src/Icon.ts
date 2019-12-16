@@ -15,9 +15,9 @@ class Icon {
     }
 
 
-    public getYPos(){
-       return this.yPos
-    }
+  public setY(y:number){
+      this.yPos += y;
+  }
 
     public up() {
         window.scrollBy(0, -200);
@@ -41,5 +41,19 @@ class Icon {
         }
 
 
+    }
+
+    public getXPos() {
+        return this.xPos;
+    }
+
+    public getYPos() {
+        return this.yPos;
+    }
+    public getImgHeight() {
+        return this.img.height;
+    }
+    public getImgWidth() {
+        return this.img.width;
     }
 }

@@ -1,12 +1,9 @@
-// tslint:disable member-ordering
 
 class Game {
     // Global attributes for canvas
     // Readonly attributes are read-only. They can only be initialized in the constructor
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
-
-    private lives: number;
 
     private currentScreen: any;
     private keyboardListener: KeyboardListener;
@@ -16,13 +13,12 @@ class Game {
         this.canvas = canvasId;
 
 
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        this.canvas.width = 1400;
+        this.canvas.height = 700;
 
         // Set the context of the canvas
         this.ctx = this.canvas.getContext("2d");
 
-        this.lives = 3;
 
         this.keyboardListener = new KeyboardListener();
         this.currentScreen = new TitleScreen(this.canvas, this.ctx);
@@ -50,6 +46,10 @@ class Game {
         if(this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))
         {
             this.currentScreen = new LevelScreen(this.canvas, this.ctx);
+        }
+        if(this.currentScreen instanceof LevelScreen && LevelScreen.live === 0)
+        {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
         // this.currentScreen = new TitleScreen(this.canvas, this.ctx);
     }

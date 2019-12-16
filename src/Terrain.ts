@@ -21,6 +21,9 @@ class Terrain {
  public up() {
     window.scrollBy(0, -200);
 }
+    public setY(y:number){
+        this.yPos += y;
+    }
     public getXPos(){
         return this.xPos;
     }

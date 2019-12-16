@@ -8,9 +8,9 @@ html, body {
     height: 100%;
     /* remove the extra whites around */
     margin: 0;
+    background-color: black;
   }
-  #canvas {
-    font-family :'KenneyBlocks';
+  canvas {
     background-color: lightgreen;
     width: 100%;
     height: 100%;
