@@ -11,7 +11,7 @@ html, body {
     background-color: black;
   }
   canvas {
-    background-color: lightgreen;
+    background-image: url("../backgrounds/Clouded Grassland.png");
     width: 100%;
     height: 100%;
     display: block;
