@@ -6,15 +6,26 @@ class LevelScreen {
     private jewel:Jewel[];
 
     private player: Player;
+    private enemy: Enemy[];
+
+    private live: number;
+    private life: HTMLImageElement;
 
     private GRASS: string = "./assets/bricks/newBrick.png";
 
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
         this.ctx = ctx;
-        this.terrain = [];
 
+        this.live = 3;
+        this.life = new Image();
+        this.life.src = './assets/heart-icon-png-transparent.png';
+
+        this.terrain = [];
+        this.enemy = [];
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.enemy.push(new Enemy(170, 120, 3, "./assets/monsters/gorilla-png-37880.png"));
+        this.enemy.push(new Enemy(500, 400, 3, "./assets/monsters/gorilla-png-37880.png"));
         this.icon = [];
         this.icon.push(new Icon(1100, this.canvas.height+8, 0.3, "./assets/socialmedia/fb.png"));
         this.icon.push(new Icon(200,120,0.3,"./assets/socialmedia/ins.png"));
@@ -68,23 +79,75 @@ class LevelScreen {
             }else if (this.player.gravity === 0){
                 this.player.gravity = 0.2;
             }
+            for (let i = 0; i < this.enemy.length; i++) {
+                if(this.enemy[i].isColliding(terrain)){
+                    this.enemy[i].collision();
+                    // this.player.gravity = 0.2;
+                    // this.player.move(this.canvas);
+                }else if (this.enemy[i].gravity === 0){
+                    this.enemy[i].gravity = 0.2;
+                }
+                
+                
+            }
         });
+        this.enemy.forEach((enemy) => {
+            if(this.player.isColliding(enemy)){
+                this.player.playerDied();
+            }
+        })
         this.player.move(this.canvas);
         this.player.draw(this.ctx);
+        for (let i = 0; i < this.enemy.length; i++) {
+            this.enemy[i].move(this.canvas);
+            this.enemy[i].draw(this.ctx);
+        }
+
         this.terrain.forEach((terrain) => {
             terrain.draw(this.ctx);
         });
+
         this.icon.forEach((icon) => {
             icon.draw(this.ctx);
         });
+
         this.jewel.forEach((jewel)=>{
            jewel.draw(this.ctx)
 
         })
+
+        this.writeLifeImagesToLevelScreen()
+
     }
 
     private addBrick(xPos: number, yPos: number, speed: number, img: string) {
-        this.terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));
+        this  .terrain.push(new Terrain(xPos, yPos, speed, img, this.canvas, this.ctx));
+    }
+
+    /**
+     * Uses the loaded life image to remaining lives of the player on the rop
+     * left of the screen.
+     *
+     * @param {HTMLImageElement} img the loaded image object
+     */
+    private writeLifeImagesToLevelScreen() {
+        if (this.life.naturalWidth > 0) {
+            let x = 10;
+            const y = 10;
+            // Start a loop for each life in lives
+            for (let life = 0; life < this.live; life++) {
+                // Draw the image at the curren x and y coordinates
+
+                this.ctx.save();
+                this.ctx.translate(x + this.life.x / 2, y + this.life.y / 2);
+                this.ctx.scale(0.3, 0.3);
+                // ctx.translate(-this.img.x, -this.img.y);
+                this.ctx.drawImage(this.life, -this.life.width / 2, -this.life.height / 2);
+                this.ctx.restore();
+                // Increase the x-coordinate for the next image to draw
+                x += 25;
+            }
+        }
     }
 
     /**
