@@ -439,7 +439,43 @@ class LevelScreen {
                 y: 50,
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
-            }
+            },
+            {
+                x: 400,
+                y: 350,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 400,
+                y: -50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 600,
+                y: -100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 700,
+                y: -150,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 500,
+                y: -100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 400,
+                y: -50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
         ];
         for (let i = 0; i < this.terrainArray.length; i++) {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
@@ -486,7 +522,7 @@ class LevelScreen {
             jewel.draw(this.ctx);
         });
         this.writeLifeImagesToLevelScreen();
-        if (this.player.getY() < 100) {
+        if (this.player.getY() < 150) {
             this.terrain.forEach(element => {
                 element.getYPos();
                 element.setY(1);
