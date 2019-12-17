@@ -35,6 +35,18 @@ class Jewel extends GameEntity {
         }
       
     }
+
+    public setY(y:number){
+        this.yPos += y;
+
+    }
+    public  getYPos(){
+        return this.yPos
+    }
+    public up() {
+        window.scrollBy(0, -200);
+    }
+
     public getDiamondValue() {
         return this.value;
     }

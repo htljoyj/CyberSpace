@@ -2,7 +2,7 @@
 class Player extends GameObject {
 
     private xVel: number;
-    private yVel: number;
+    // private yVel: number;
     private keyboardListener: KeyboardListener;
     public gravity: number;
     public gravitySpeed: number;
@@ -21,7 +21,7 @@ class Player extends GameObject {
     public constructor(xPos: number, yPos: number, xVel: number, yVel: number, imgUrl: string) {
         super(xPos,yPos,imgUrl);
         this.xVel = xVel;
-        this.yVel = yVel;
+        // this.yVel = yVel;
         this.keyboardListener = new KeyboardListener();
     }
 
@@ -75,22 +75,13 @@ class Player extends GameObject {
             this.xPos = canvas.width;
         }
     }
-
-    // public isColliding(gameObject: Terrain): boolean {
-    //     if (this.yPos + this.img.height > gameObject.getYPos()
-    //         && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
-    //         && this.xPos + this.img.width > gameObject.getXPos()
-    //         && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()
-    //     ) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
     
     public playerDied(){
         this.xPos = 80;
-        this.yPos = 520;
+        this.yPos = 440;
         console.log("playerDied");
+        LevelScreen.live--;
+      
     }
 
     public collision() {
@@ -99,6 +90,10 @@ class Player extends GameObject {
         this.yPos -= this.gravitySpeed;
         this.gravity = 0;
         this.gravitySpeed = 0;
-        this.canJump = true;        
+        this.canJump = true; 
+    }
+
+    public getY(){
+        return this.yPos
     }
 }

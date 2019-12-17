@@ -1,11 +1,19 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: url('../fonts/KenneyBlocks.ttf') format('truetype');
+}
+
 html, body {
     width: 100%;
     height: 100%;
     /* remove the extra whites around */
     margin: 0;
+    background-color: black;
   }
-  #canvas {
-    background-color: lightgreen;
+  canvas {
+    background-image: url('../backgrounds/IrF.gif');
+    background-repeat: no-repeat;
+    background-size:100% ;
     width: 100%;
     height: 100%;
     display: block;
