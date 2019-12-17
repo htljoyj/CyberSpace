@@ -119,6 +119,10 @@ class Icon {
         }
     }
 
+    public setY(y: number) {
+        this.yPos = y;
+    }
+
     public setAnsweringQuestion(bool: boolean) {
         this.answeringQuestion = bool;
     }

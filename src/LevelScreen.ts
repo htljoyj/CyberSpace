@@ -51,43 +51,43 @@ class LevelScreen {
                 x: 1100,
                 y: this.canvas.height + 8,
                 scale: 0.3,
-                img: "./assets/socialmedia/fb.png"
+                img: "facebook"
             },
             {
                 x: 200,
                 y: 120,
                 scale: 0.3,
-                img: "./assets/socialmedia/ins.png"
+                img: "instagram"
             },
             {
                 x: 850,
                 y: 150,
                 scale: 0.5,
-                img: "./assets/socialmedia/wApp.png"
+                img: "whatsapp"
             },
             {
                 x: this.canvas.width / 2,
                 y: this.canvas.height / 2,
                 scale: 0.5,
-                img: "./assets/socialmedia/snapchat.png"
+                img: "snapchat"
             },
             {
                 x: 350,
                 y: this.canvas.height - 190,
                 scale: 0.5,
-                img: "./assets/socialmedia/twitter.png"
+                img: "twitter"
             },
             {
                 x: 1100,
                 y: 195,
                 scale: 0.7,
-                img: "./assets/socialmedia/youtube.png"
+                img: "youtube"
             },
             {
                 x: 200,
                 y: 335,
                 scale: 0.3,
-                img: "./assets/socialmedia/tiktok.png"
+                img: "tiktok"
             }
         ];
         for (let i = 0; i < this.iconArray.length; i++) {
@@ -318,7 +318,7 @@ class LevelScreen {
         });
 
         this.icon.forEach((icon) => {
-            icon.draw(this.ctx);
+            icon.draw(this.ctx, this.canvas);
             if (this.player.isColliding(icon)) {
                 console.log("Boem!");
             }
