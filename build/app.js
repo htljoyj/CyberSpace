@@ -83,6 +83,7 @@ class Game {
         return img;
     }
 }
+Game.score = 0;
 let init = () => {
     const game = new Game(document.getElementById("canvas"));
 };
@@ -274,10 +275,10 @@ class Icon {
         return this.yPos;
     }
     getImgHeight() {
-        return this.img.height;
+        return this.img.height * this.scale;
     }
     getImgWidth() {
-        return this.img.width;
+        return this.img.width * this.scale;
     }
 }
 class Jewel extends GameEntity {
@@ -311,14 +312,26 @@ class Jewel extends GameEntity {
         }
     }
     ;
+    getValue() {
+        return this.value;
+    }
+    getImgHeight() {
+        return this.img.height / 2;
+    }
     setY(y) {
         this.yPos += y;
     }
     getYPos() {
-        return this.yPos;
+        return this.yPos - this.img.height;
     }
     up() {
         window.scrollBy(0, -200);
+    }
+    getXPos() {
+        return this.xPos;
+    }
+    getImgWidth() {
+        return this.img.width / 2;
     }
     getDiamondValue() {
         return this.value;
@@ -637,6 +650,13 @@ class LevelScreen {
                 }
             }
         });
+        for (let i = 0; i < this.jewel.length; i++) {
+            if (this.player.isColliding(this.jewel[i])) {
+                Game.score += this.jewel[i].getValue();
+                this.jewel.splice(i, 1);
+                console.log(Game.score);
+            }
+        }
         this.icon.forEach((icon) => {
             icon.draw(this.ctx, this.canvas);
             if (this.player.isColliding(icon)) {

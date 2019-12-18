@@ -36,15 +36,31 @@ class Jewel extends GameEntity {
       
     }
 
+    public getValue(): number {
+        return this.value;
+    }
+
+    public getImgHeight() {
+        return this.img.height / 2;
+    }
+
     public setY(y:number){
         this.yPos += y;
 
     }
     public  getYPos(){
-        return this.yPos
+        return this.yPos - this.img.height;
     }
     public up() {
         window.scrollBy(0, -200);
+    }
+
+    public getXPos() {
+        return this.xPos;
+    }
+
+    public getImgWidth() {
+        return this.img.width / 2;
     }
 
     public getDiamondValue() {

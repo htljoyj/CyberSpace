@@ -320,6 +320,14 @@ class LevelScreen {
             }
         });
 
+        for(let i = 0; i < this.jewel.length; i++) {
+            if(this.player.isColliding(this.jewel[i])) {
+                Game.score += this.jewel[i].getValue();
+                this.jewel.splice(i, 1);
+                console.log(Game.score);
+            }
+        }
+
         this.icon.forEach((icon) => {
             icon.draw(this.ctx, this.canvas);
             if (this.player.isColliding(icon)) {

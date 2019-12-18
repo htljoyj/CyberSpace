@@ -8,6 +8,8 @@ class Game {
     private currentScreen: any;
     private keyboardListener: KeyboardListener;
 
+    public static score: number = 0;
+
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;

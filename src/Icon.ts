@@ -115,7 +115,6 @@ class Icon {
             // ctx.translate(-this.img.x, -this.img.y);
             ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
             ctx.restore();
-
         }
     }
 
@@ -203,9 +202,9 @@ class Icon {
         return this.yPos;
     }
     public getImgHeight() {
-        return this.img.height;
+        return this.img.height * this.scale;
     }
     public getImgWidth() {
-        return this.img.width;
+        return this.img.width * this.scale;
     }
 }
