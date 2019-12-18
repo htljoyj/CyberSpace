@@ -19,6 +19,21 @@ class LevelScreen {
                 x: 500,
                 y: 400,
                 img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -50,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 300,
+                y: -50,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -950,
+                img: "./assets/monsters/gorilla-png-37880.png"
             }
         ];
         for (let i = 0; i < this.enemyArray.length; i++) {
@@ -488,7 +503,7 @@ class LevelScreen {
 class Cloud extends LevelScreen {
     constructor(canvas, ctx) {
         super(canvas, ctx);
-        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/1_O-F1YaJaFMeijf6ewskl7A.gif')";
     }
 }
 class GameObject {

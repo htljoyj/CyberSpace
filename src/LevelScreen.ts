@@ -41,6 +41,21 @@ class LevelScreen {
                 x: 500,
                 y: 400,
                 img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -50,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 300,
+                y: -50,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -950,
+                img: "./assets/monsters/gorilla-png-37880.png"
             }
         ];
         for (let i = 0; i < this.enemyArray.length; i++) {
