@@ -5,7 +5,8 @@ class TitleScreen {
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
         this.ctx = ctx;
-        canvas.style.backgroundColor = "lightgreen";
+        // canvas.style.backgroundColor = "lightgreen";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/IrF.gif')";
     }
 
     public draw() {

@@ -43,21 +43,21 @@ class Icon {
             "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
             "b": "Diegene verdient het.",
             "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
-            "answer": "b"
+            "answer": "c"
         }, {
             "platform": "whatsapp",
             "question": "Na de schooltrip ontvang je een Whatsapp berichtje in de groepsapp, waarin een minder leuke foto van een schoolgenoot is doorgegestuurd door je beste vriend/vriendin. Hoe reageer jij?",
             "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
             "b": "Diegene verdient het.",
             "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
-            "answer": "b"
+            "answer": "c"
         }, {
             "platform": "whatsapp",
-            "question": "Tijdens het spelen van een game popt er een scherm op waarin staat dat jij de hoogste score hebt. Om dit te registeren wordt er gevraagd naar je voor -en achternaam .",
+            "question": "Tijdens het spelen van een game popt er een scherm op waarin staat dat jij de hoogste score hebt. Om dit te registeren wordt er gevraagd naar je voor -en achternaam.",
             "a": "Ik vul dit naar waarheid in en ga verder met de game.",
             "b": "Ik verzin een mooie nickname en vul deze in.",
             "c": "Ik klik het schermpje weg",
-            "answer": "b"
+            "answer": "c"
         }];
 
         switch (platform) {
@@ -118,6 +118,8 @@ class Icon {
 
         }
     }
+
+   
 
     public setAnsweringQuestion(bool: boolean) {
         this.answeringQuestion = bool;
@@ -183,7 +185,7 @@ class Icon {
         xCoordinate: number,
         yCoordinate: number,
         alignment: CanvasTextAlign = "center",
-        color: string = "white",
+        color: string = "black",
     ) {
         ctx.font = `${fontSize}px Minecraft`;
         ctx.fillStyle = color;

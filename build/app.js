@@ -145,21 +145,21 @@ class Icon {
                 "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
                 "b": "Diegene verdient het.",
                 "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
-                "answer": "b"
+                "answer": "c"
             }, {
                 "platform": "whatsapp",
                 "question": "Na de schooltrip ontvang je een Whatsapp berichtje in de groepsapp, waarin een minder leuke foto van een schoolgenoot is doorgegestuurd door je beste vriend/vriendin. Hoe reageer jij?",
                 "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
                 "b": "Diegene verdient het.",
                 "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
-                "answer": "b"
+                "answer": "c"
             }, {
                 "platform": "whatsapp",
-                "question": "Tijdens het spelen van een game popt er een scherm op waarin staat dat jij de hoogste score hebt. Om dit te registeren wordt er gevraagd naar je voor -en achternaam .",
+                "question": "Tijdens het spelen van een game popt er een scherm op waarin staat dat jij de hoogste score hebt. Om dit te registeren wordt er gevraagd naar je voor -en achternaam.",
                 "a": "Ik vul dit naar waarheid in en ga verder met de game.",
                 "b": "Ik verzin een mooie nickname en vul deze in.",
                 "c": "Ik klik het schermpje weg",
-                "answer": "b"
+                "answer": "c"
             }];
         switch (platform) {
             case "twitter":
@@ -258,7 +258,7 @@ class Icon {
             }
         }
     }
-    writeTextToCanvas(ctx, text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
+    writeTextToCanvas(ctx, text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "black") {
         ctx.font = `${fontSize}px Minecraft`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
@@ -357,6 +357,8 @@ class LevelScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
+        canvas.style.backgroundImage = "";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
         LevelScreen.live = 3;
         this.life = new Image();
         this.life.src = './assets/heart-icon-png-transparent.png';
@@ -406,6 +408,47 @@ class LevelScreen {
             {
                 x: 350,
                 y: this.canvas.height - 190,
+                scale: 0.5,
+                img: "twitter"
+            },
+            {
+                x: 1100,
+                y: 195,
+                scale: 0.7,
+                img: "youtube"
+            },
+            {
+                x: 200,
+                y: 335,
+                scale: 0.3,
+                img: "tiktok"
+            }, {
+                x: 800,
+                y: -300,
+                scale: 0.3,
+                img: "facebook"
+            },
+            {
+                x: 550,
+                y: -250,
+                scale: 0.3,
+                img: "instagram"
+            },
+            {
+                x: 950,
+                y: -654,
+                scale: 0.5,
+                img: "whatsapp"
+            },
+            {
+                x: 1065,
+                y: -975,
+                scale: 0.5,
+                img: "snapchat"
+            },
+            {
+                x: 360,
+                y: -865,
                 scale: 0.5,
                 img: "twitter"
             },
@@ -617,70 +660,75 @@ class LevelScreen {
                 x: 500,
                 y: -250,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             },
             {
-                x: 300,
+                x: 200,
                 y: -300,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
-                x: 500,
-                y: -450,
+                x: 700,
+                y: -350,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 700,
                 y: -550,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 900,
                 y: -650,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 400,
                 y: -650,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 350,
                 y: -850,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             },
             {
                 x: 650,
                 y: -750,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             },
             {
                 x: 850,
                 y: -850,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 1050,
                 y: -950,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 500,
                 y: -450,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 500,
                 y: -450,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
             }, {
                 x: 500,
                 y: -450,
                 speed: 0,
-                img: "./assets/bricks/blueCloud.png"
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 900,
+                y: -250,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
             },
         ];
         for (let i = 0; i < this.terrainArray.length; i++) {
@@ -869,7 +917,7 @@ class TitleScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
-        canvas.style.backgroundColor = "lightgreen";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/IrF.gif')";
     }
     draw() {
         this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2, "center", "white");

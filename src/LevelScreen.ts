@@ -19,13 +19,16 @@ class LevelScreen {
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
         this.ctx = ctx;
+        canvas.style.backgroundImage = "";
+        // canvas.style.backgroundColor = "lightgreen";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
+        
 
         LevelScreen.live = 3;
         this.life = new Image();
         this.life.src = './assets/heart-icon-png-transparent.png';
 
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
-        
 
         this.enemy = [];
         this.enemyArray = [
@@ -88,12 +91,55 @@ class LevelScreen {
                 y: 335,
                 scale: 0.3,
                 img: "tiktok"
+            }, {
+                x: 800,
+                y: -300,
+                scale: 0.3,
+                img: "facebook"
+            },
+            {
+                x: 550,
+                y: -250,
+                scale: 0.3,
+                img: "instagram"
+            },
+            {
+                x: 950,
+                y: -654,
+                scale: 0.5,
+                img: "whatsapp"
+            },
+            {
+                x:1065,
+                y: -975,
+                scale: 0.5,
+                img: "snapchat"
+            },
+            {
+                x: 360,
+                y: -865,
+                scale: 0.5,
+                img: "twitter"
+            },
+            {
+                x: 1100,
+                y: 195,
+                scale: 0.7,
+                img: "youtube"
+            },
+            {
+                x: 200,
+                y: 335,
+                scale: 0.3,
+                img: "tiktok"
             }
         ];
+
+
+
         for (let i = 0; i < this.iconArray.length; i++) {
             this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));   
         }
-
 
         this.jewel = [];
         this.jewelArray = [
@@ -290,70 +336,75 @@ class LevelScreen {
                 x:500,
                 y:-250,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },
             {
-                x:300,
+                x:200,
                 y:-300,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
-                x:500,
-                y:-450,
+                x:700,
+                y:-350,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:700,
                 y:-550,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:900,
                 y:-650,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:400,
                 y:-650,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:350,
                 y:-850,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },
             {
                 x:650,
                 y:-750,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },
             {
                 x:850,
                 y:-850,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:1050,
                 y:-950,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:500,
                 y:-450,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:500,
                 y:-450,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
             },{
                 x:500,
                 y:-450,
                 speed:0,
-                img:"./assets/bricks/blueCloud.png"
+                img:"./assets/bricks/coloredCloud.png"
+            },{
+                x:900,
+                y:-250,
+                speed:0,
+                img:"./assets/bricks/coloredCloud.png"
             },
         ];
         
@@ -383,13 +434,11 @@ class LevelScreen {
                 } else if (this.enemy[i].gravity === 0) {
                     this.enemy[i].gravity = 0.2;
                 }
-
-
             }
         });
 
         this.icon.forEach((icon) => {
-            icon.draw(this.ctx,this.canvas);
+            icon.draw(this.ctx, this.canvas);
             if (this.player.isColliding(icon)) {
                 console.log("Boem!");
             }
@@ -443,6 +492,7 @@ class LevelScreen {
             })
 
         }
+        
 
     }
 
