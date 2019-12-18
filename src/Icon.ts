@@ -118,9 +118,7 @@ class Icon {
         }
     }
 
-    public setY(y: number) {
-        this.yPos += y;
-    }
+   
 
     public setAnsweringQuestion(bool: boolean) {
         this.answeringQuestion = bool;
@@ -197,7 +195,10 @@ class Icon {
     public getXPos() {
         return this.xPos;
     }
+    public setY(y:number){
+        this.yPos += y;
 
+    }
     public getYPos() {
         return this.yPos;
     }
@@ -207,4 +208,4 @@ class Icon {
     public getImgWidth() {
         return this.img.width * this.scale;
     }
-}
+} 

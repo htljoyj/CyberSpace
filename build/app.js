@@ -209,9 +209,6 @@ class Icon {
             ctx.restore();
         }
     }
-    setY(y) {
-        this.yPos += y;
-    }
     setAnsweringQuestion(bool) {
         this.answeringQuestion = bool;
     }
@@ -270,6 +267,9 @@ class Icon {
     }
     getXPos() {
         return this.xPos;
+    }
+    setY(y) {
+        this.yPos += y;
     }
     getYPos() {
         return this.yPos;
@@ -421,6 +421,47 @@ class LevelScreen {
             {
                 x: 350,
                 y: this.canvas.height - 190,
+                scale: 0.5,
+                img: "twitter"
+            },
+            {
+                x: 1100,
+                y: 195,
+                scale: 0.7,
+                img: "youtube"
+            },
+            {
+                x: 200,
+                y: 335,
+                scale: 0.3,
+                img: "tiktok"
+            }, {
+                x: 800,
+                y: -300,
+                scale: 0.3,
+                img: "facebook"
+            },
+            {
+                x: 550,
+                y: -250,
+                scale: 0.3,
+                img: "instagram"
+            },
+            {
+                x: 950,
+                y: -654,
+                scale: 0.5,
+                img: "whatsapp"
+            },
+            {
+                x: 1065,
+                y: -975,
+                scale: 0.5,
+                img: "snapchat"
+            },
+            {
+                x: 360,
+                y: -865,
                 scale: 0.5,
                 img: "twitter"
             },
@@ -599,13 +640,13 @@ class LevelScreen {
                 img: "./assets/bricks/newBrick.png"
             },
             {
-                x: 400,
+                x: 300,
                 y: -50,
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
             },
             {
-                x: 600,
+                x: 1050,
                 y: -100,
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
@@ -623,10 +664,84 @@ class LevelScreen {
                 img: "./assets/bricks/newBrick.png"
             },
             {
-                x: 400,
+                x: 850,
                 y: -50,
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 500,
+                y: -250,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            },
+            {
+                x: 200,
+                y: -300,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 700,
+                y: -350,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 700,
+                y: -550,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 900,
+                y: -650,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 400,
+                y: -650,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 350,
+                y: -850,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            },
+            {
+                x: 650,
+                y: -750,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            },
+            {
+                x: 850,
+                y: -850,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 1050,
+                y: -950,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 500,
+                y: -450,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 500,
+                y: -450,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 500,
+                y: -450,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
+            }, {
+                x: 900,
+                y: -250,
+                speed: 0,
+                img: "./assets/bricks/coloredCloud.png"
             },
         ];
         for (let i = 0; i < this.terrainArray.length; i++) {
