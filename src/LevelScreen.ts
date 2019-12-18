@@ -19,13 +19,16 @@ class LevelScreen {
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
         this.ctx = ctx;
+        canvas.style.backgroundImage = "";
+        // canvas.style.backgroundColor = "lightgreen";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
+        
 
         LevelScreen.live = 3;
         this.life = new Image();
         this.life.src = './assets/heart-icon-png-transparent.png';
 
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
-        
 
         this.enemy = [];
         this.enemyArray = [
@@ -90,10 +93,12 @@ class LevelScreen {
                 img: "tiktok"
             }
         ];
+
+
+
         for (let i = 0; i < this.iconArray.length; i++) {
             this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));   
         }
-
 
         this.jewel = [];
         this.jewelArray = [
@@ -312,8 +317,6 @@ class LevelScreen {
                 } else if (this.enemy[i].gravity === 0) {
                     this.enemy[i].gravity = 0.2;
                 }
-
-
             }
         });
 
@@ -372,6 +375,7 @@ class LevelScreen {
             })
 
         }
+        
 
     }
 

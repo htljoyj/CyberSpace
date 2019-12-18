@@ -145,21 +145,21 @@ class Icon {
                 "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
                 "b": "Diegene verdient het.",
                 "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
-                "answer": "b"
+                "answer": "c"
             }, {
                 "platform": "whatsapp",
                 "question": "Na de schooltrip ontvang je een Whatsapp berichtje in de groepsapp, waarin een minder leuke foto van een schoolgenoot is doorgegestuurd door je beste vriend/vriendin. Hoe reageer jij?",
                 "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
                 "b": "Diegene verdient het.",
                 "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
-                "answer": "b"
+                "answer": "c"
             }, {
                 "platform": "whatsapp",
-                "question": "Tijdens het spelen van een game popt er een scherm op waarin staat dat jij de hoogste score hebt. Om dit te registeren wordt er gevraagd naar je voor -en achternaam .",
+                "question": "Tijdens het spelen van een game popt er een scherm op waarin staat dat jij de hoogste score hebt. Om dit te registeren wordt er gevraagd naar je voor -en achternaam.",
                 "a": "Ik vul dit naar waarheid in en ga verder met de game.",
                 "b": "Ik verzin een mooie nickname en vul deze in.",
                 "c": "Ik klik het schermpje weg",
-                "answer": "b"
+                "answer": "c"
             }];
         switch (platform) {
             case "twitter":
@@ -209,7 +209,7 @@ class Icon {
         }
     }
     setY(y) {
-        this.yPos = y;
+        this.yPos += y;
     }
     setAnsweringQuestion(bool) {
         this.answeringQuestion = bool;
@@ -261,7 +261,7 @@ class Icon {
             }
         }
     }
-    writeTextToCanvas(ctx, text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
+    writeTextToCanvas(ctx, text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "black") {
         ctx.font = `${fontSize}px Minecraft`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
@@ -357,6 +357,8 @@ class LevelScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
+        canvas.style.backgroundImage = "";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
         LevelScreen.live = 3;
         this.life = new Image();
         this.life.src = './assets/heart-icon-png-transparent.png';
@@ -800,7 +802,7 @@ class TitleScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
-        canvas.style.backgroundColor = "lightgreen";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/IrF.gif')";
     }
     draw() {
         this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
