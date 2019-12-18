@@ -51,43 +51,43 @@ class LevelScreen {
                 x: 1100,
                 y: this.canvas.height + 8,
                 scale: 0.3,
-                img: "./assets/socialmedia/fb.png"
+                img: "facebook"
             },
             {
                 x: 200,
                 y: 120,
                 scale: 0.3,
-                img: "./assets/socialmedia/ins.png"
+                img: "instagram"
             },
             {
                 x: 850,
                 y: 150,
                 scale: 0.5,
-                img: "./assets/socialmedia/wApp.png"
+                img: "whatsapp"
             },
             {
                 x: this.canvas.width / 2,
                 y: this.canvas.height / 2,
                 scale: 0.5,
-                img: "./assets/socialmedia/snapchat.png"
+                img: "snapchat"
             },
             {
                 x: 350,
                 y: this.canvas.height - 190,
                 scale: 0.5,
-                img: "./assets/socialmedia/twitter.png"
+                img: "twitter"
             },
             {
                 x: 1100,
                 y: 195,
                 scale: 0.7,
-                img: "./assets/socialmedia/youtube.png"
+                img: "youtube"
             },
             {
                 x: 200,
                 y: 335,
                 scale: 0.3,
-                img: "./assets/socialmedia/tiktok.png"
+                img: "tiktok"
             }
         ];
         for (let i = 0; i < this.iconArray.length; i++) {
@@ -257,13 +257,13 @@ class LevelScreen {
                 img:"./assets/bricks/newBrick.png"
             },
             {
-                x:400,
+                x:300,
                 y:-50,
                 speed:0,
                 img:"./assets/bricks/newBrick.png"
             },
             {
-                x:600,
+                x:1050,
                 y:-100,
                 speed:0,
                 img:"./assets/bricks/newBrick.png"
@@ -281,12 +281,83 @@ class LevelScreen {
                 img:"./assets/bricks/newBrick.png"
             },
             {
-                x:400,
+                x:850,
                 y:-50,
                 speed:0,
                 img:"./assets/bricks/newBrick.png"
             },
+            {
+                x:500,
+                y:-250,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },
+            {
+                x:300,
+                y:-300,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:500,
+                y:-450,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:700,
+                y:-550,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:900,
+                y:-650,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:400,
+                y:-650,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:350,
+                y:-850,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },
+            {
+                x:650,
+                y:-750,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },
+            {
+                x:850,
+                y:-850,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:1050,
+                y:-950,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:500,
+                y:-450,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:500,
+                y:-450,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },{
+                x:500,
+                y:-450,
+                speed:0,
+                img:"./assets/bricks/blueCloud.png"
+            },
         ];
+        
+        
         for (let i = 0; i < this.terrainArray.length; i++) {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));   
         }
@@ -318,7 +389,7 @@ class LevelScreen {
         });
 
         this.icon.forEach((icon) => {
-            icon.draw(this.ctx);
+            icon.draw(this.ctx,this.canvas);
             if (this.player.isColliding(icon)) {
                 console.log("Boem!");
             }
