@@ -64,6 +64,8 @@ class Player extends GameObject {
             this.yPos -= 1;
             this.gravity = -0.62;
             this.canJump = false;
+            let audio = new Audio("./assets/sounds/jump.mp3");
+            audio.play();
         }
         if(this.yPos > canvas.height){
             this.playerDied();
