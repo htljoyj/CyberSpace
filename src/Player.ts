@@ -80,7 +80,7 @@ class Player extends GameObject {
         this.xPos = 80;
         this.yPos = 440;
         console.log("playerDied");
-        LevelScreen.live--;
+        BaseScreen.live--;
       
     }
 

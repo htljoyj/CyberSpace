@@ -1,14 +1,265 @@
-class LevelScreen {
+class BaseScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
         canvas.style.backgroundImage = "";
-        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
-        LevelScreen.live = 3;
-        this.life = new Image();
-        this.life.src = './assets/heart-icon-png-transparent.png';
+        BaseScreen.live = 3;
+        BaseScreen.life = new Image();
+        BaseScreen.life.src = './assets/heart-icon-png-transparent.png';
         this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.flag = new Terrain(680, -1300, 0, './assets/greenFlag.png', this.canvas, this.ctx);
         this.enemy = [];
+        this.enemyArray = [];
+        this.terrain = [];
+        this.terrainArray = [];
+        this.icon = [];
+        this.iconArray = [];
+        this.jewel = [];
+        this.jewelArray = [];
+    }
+    writeLifeImagesToLevelScreen() {
+        if (BaseScreen.life.naturalWidth > 0) {
+            let x = 10;
+            const y = 10;
+            for (let life = 0; life < BaseScreen.live; life++) {
+                this.ctx.save();
+                this.ctx.translate(x + BaseScreen.life.x / 2, y + BaseScreen.life.y / 2);
+                this.ctx.scale(0.3, 0.3);
+                this.ctx.drawImage(BaseScreen.life, -BaseScreen.life.width / 2, -BaseScreen.life.height / 2);
+                this.ctx.restore();
+                x += 25;
+            }
+        }
+    }
+    draw() {
+        this.flag.draw(this.ctx);
+        this.terrain.forEach((terrain) => {
+            if (this.player.isColliding(terrain)) {
+                this.player.collision();
+            }
+            else if (this.player.gravity === 0) {
+                this.player.gravity = 0.2;
+            }
+            for (let i = 0; i < this.enemy.length; i++) {
+                if (this.enemy[i].isColliding(terrain)) {
+                    this.enemy[i].collision();
+                }
+                else if (this.enemy[i].gravity === 0) {
+                    this.enemy[i].gravity = 0.2;
+                }
+            }
+        });
+        for (let i = 0; i < this.jewel.length; i++) {
+            if (this.player.isColliding(this.jewel[i])) {
+                Game.score += this.jewel[i].getValue();
+                this.jewel.splice(i, 1);
+                console.log(Game.score);
+            }
+        }
+        this.icon.forEach((icon) => {
+            icon.draw(this.ctx, this.canvas);
+            if (this.player.isColliding(icon)) {
+                console.log("Boem!");
+            }
+        });
+        this.enemy.forEach((enemy) => {
+            if (this.player.isColliding(enemy)) {
+                this.player.playerDied();
+            }
+        });
+        this.player.move(this.canvas);
+        this.player.draw(this.ctx);
+        for (let i = 0; i < this.enemy.length; i++) {
+            this.enemy[i].move(this.canvas);
+            this.enemy[i].draw(this.ctx);
+        }
+        this.terrain.forEach((terrain) => {
+            terrain.draw(this.ctx);
+        });
+        this.jewel.forEach((jewel) => {
+            jewel.draw(this.ctx);
+        });
+        this.writeLifeImagesToLevelScreen();
+        if (this.player.getY() < 150) {
+            this.flag.setY(1);
+            this.terrain.forEach(element => {
+                element.getYPos();
+                element.setY(1);
+                console.log('trying');
+            });
+            this.icon.forEach(element => {
+                element.getYPos();
+                element.setY(1);
+                console.log('tryng 2');
+            });
+            this.jewel.forEach(element => {
+                element.getYPos();
+                element.setY(1);
+                console.log('trying 3');
+            });
+        }
+    }
+    writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
+        this.ctx.font = `${fontSize}px Minecraft`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = alignment;
+        this.ctx.fillText(text, xCoordinate, yCoordinate);
+    }
+}
+class CloudScreen extends BaseScreen {
+    constructor(canvas, ctx) {
+        super(canvas, ctx);
+        canvas.style.backgroundImage = "url('./assets/backgrounds/1_O-F1YaJaFMeijf6ewskl7A.gif')";
+        this.terrainArray = [
+            { x: 75,
+                y: this.canvas.height - 50,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png"
+            }, {
+                x: 150,
+                y: 600,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 300,
+                y: 400,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+            {
+                x: 500,
+                y: 300,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+            {
+                x: 600,
+                y: 300,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+        ];
+        for (let i = 0; i < this.terrainArray.length; i++) {
+            this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
+        }
+    }
+}
+class GameObject {
+    constructor(xPos, yPos, imgUrl) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.gravity = 0.3;
+        this.gravitySpeed = 0;
+        this.img = Game.loadImage(imgUrl);
+    }
+    isColliding(gameObject) {
+        if (this.yPos + this.img.height > gameObject.getYPos()
+            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
+            && this.xPos + this.img.width > gameObject.getXPos()
+            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
+            return true;
+        }
+        return false;
+    }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2 - 10;
+        const y = this.yPos - 10;
+        if (this.img.naturalWidth > 0) {
+            ctx.drawImage(this.img, x, y);
+        }
+    }
+    randomNumber(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+    }
+}
+class Enemy extends GameObject {
+    constructor(xPos, yPos, xVel, imgUrl) {
+        super(xPos, yPos, imgUrl);
+        this.xVel = xVel;
+    }
+    move(canvas) {
+        this.gravitySpeed += 2 * this.gravity;
+        this.yPos += this.gravitySpeed;
+    }
+    collision() {
+        this.yPos -= this.gravitySpeed;
+        this.gravity = 0;
+        this.gravitySpeed = 0;
+    }
+    getXPos() {
+        return this.xPos;
+    }
+    getYPos() {
+        return this.yPos;
+    }
+    getImgHeight() {
+        return this.img.height;
+    }
+    getImgWidth() {
+        return this.img.width;
+    }
+}
+class Game {
+    constructor(canvasId) {
+        this.loop = () => {
+            this.switchScreen();
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.currentScreen.draw();
+            requestAnimationFrame(this.loop);
+        };
+        this.canvas = canvasId;
+        this.canvas.width = 1400;
+        this.canvas.height = 700;
+        this.ctx = this.canvas.getContext("2d");
+        this.keyboardListener = new KeyboardListener();
+        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        this.loop();
+    }
+    switchScreen() {
+        if (this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+            this.currentScreen = new GroundScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+    }
+    static loadImage(source) {
+        let img = new Image();
+        img.src = source;
+        return img;
+    }
+}
+Game.score = 0;
+let init = () => {
+    const game = new Game(document.getElementById("canvas"));
+};
+window.addEventListener("load", init);
+class GameEntity {
+    constructor(xPos, yPos, scale, imgUrl) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.scale = scale;
+        this.img = Game.loadImage(imgUrl);
+    }
+    setImg(imgUrl) {
+        this.img = Game.loadImage(imgUrl);
+    }
+    draw(ctx) {
+        const x = this.xPos - this.img.width / 2;
+        const y = this.yPos - this.img.height / 2;
+        if (this.img.naturalWidth > 0) {
+            ctx.save();
+            ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
+            ctx.scale(this.scale, this.scale);
+            ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+            ctx.restore();
+        }
+    }
+}
+class GroundScreen extends BaseScreen {
+    constructor(canvas, ctx) {
+        super(canvas, ctx);
+        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
         this.enemyArray = [
             {
                 x: 170,
@@ -404,217 +655,15 @@ class LevelScreen {
                 y: -1000,
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 700,
+                y: -1250,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
             },
         ];
         for (let i = 0; i < this.terrainArray.length; i++) {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
-        }
-    }
-    draw() {
-        this.terrain.forEach((terrain) => {
-            if (this.player.isColliding(terrain)) {
-                this.player.collision();
-            }
-            else if (this.player.gravity === 0) {
-                this.player.gravity = 0.2;
-            }
-            for (let i = 0; i < this.enemy.length; i++) {
-                if (this.enemy[i].isColliding(terrain)) {
-                    this.enemy[i].collision();
-                }
-                else if (this.enemy[i].gravity === 0) {
-                    this.enemy[i].gravity = 0.2;
-                }
-            }
-        });
-        for (let i = 0; i < this.jewel.length; i++) {
-            if (this.player.isColliding(this.jewel[i])) {
-                Game.score += this.jewel[i].getValue();
-                this.jewel.splice(i, 1);
-                console.log(Game.score);
-            }
-        }
-        this.icon.forEach((icon) => {
-            icon.draw(this.ctx, this.canvas);
-            if (this.player.isColliding(icon)) {
-                console.log("Boem!");
-            }
-        });
-        this.enemy.forEach((enemy) => {
-            if (this.player.isColliding(enemy)) {
-                this.player.playerDied();
-            }
-        });
-        this.player.move(this.canvas);
-        this.player.draw(this.ctx);
-        for (let i = 0; i < this.enemy.length; i++) {
-            this.enemy[i].move(this.canvas);
-            this.enemy[i].draw(this.ctx);
-        }
-        this.terrain.forEach((terrain) => {
-            terrain.draw(this.ctx);
-        });
-        this.jewel.forEach((jewel) => {
-            jewel.draw(this.ctx);
-        });
-        this.writeLifeImagesToLevelScreen();
-        if (this.player.getY() < 150) {
-            this.terrain.forEach(element => {
-                element.getYPos();
-                element.setY(1);
-                console.log('trying');
-            });
-            this.icon.forEach(element => {
-                element.getYPos();
-                element.setY(1);
-                console.log('tryng 2');
-            });
-            this.jewel.forEach(element => {
-                element.getYPos();
-                element.setY(1);
-                console.log('trying 3');
-            });
-        }
-    }
-    writeLifeImagesToLevelScreen() {
-        if (this.life.naturalWidth > 0) {
-            let x = 10;
-            const y = 10;
-            for (let life = 0; life < LevelScreen.live; life++) {
-                this.ctx.save();
-                this.ctx.translate(x + this.life.x / 2, y + this.life.y / 2);
-                this.ctx.scale(0.3, 0.3);
-                this.ctx.drawImage(this.life, -this.life.width / 2, -this.life.height / 2);
-                this.ctx.restore();
-                x += 25;
-            }
-        }
-    }
-    up() {
-        window.scrollBy(0, -200);
-    }
-    writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
-        this.ctx.font = `${fontSize}px Minecraft`;
-        this.ctx.fillStyle = color;
-        this.ctx.textAlign = alignment;
-        this.ctx.fillText(text, xCoordinate, yCoordinate);
-    }
-}
-class Cloud extends LevelScreen {
-    constructor(canvas, ctx) {
-        super(canvas, ctx);
-        canvas.style.backgroundImage = "url('./assets/backgrounds/1_O-F1YaJaFMeijf6ewskl7A.gif')";
-    }
-}
-class GameObject {
-    constructor(xPos, yPos, imgUrl) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.gravity = 0.3;
-        this.gravitySpeed = 0;
-        this.img = Game.loadImage(imgUrl);
-    }
-    isColliding(gameObject) {
-        if (this.yPos + this.img.height > gameObject.getYPos()
-            && this.yPos < gameObject.getYPos() + gameObject.getImgHeight()
-            && this.xPos + this.img.width > gameObject.getXPos()
-            && this.xPos < gameObject.getXPos() + gameObject.getImgWidth()) {
-            return true;
-        }
-        return false;
-    }
-    draw(ctx) {
-        const x = this.xPos - this.img.width / 2 - 10;
-        const y = this.yPos - 10;
-        if (this.img.naturalWidth > 0) {
-            ctx.drawImage(this.img, x, y);
-        }
-    }
-    randomNumber(min, max) {
-        return Math.round(Math.random() * (max - min) + min);
-    }
-}
-class Enemy extends GameObject {
-    constructor(xPos, yPos, xVel, imgUrl) {
-        super(xPos, yPos, imgUrl);
-        this.xVel = xVel;
-    }
-    move(canvas) {
-        this.gravitySpeed += 2 * this.gravity;
-        this.yPos += this.gravitySpeed;
-    }
-    collision() {
-        this.yPos -= this.gravitySpeed;
-        this.gravity = 0;
-        this.gravitySpeed = 0;
-    }
-    getXPos() {
-        return this.xPos;
-    }
-    getYPos() {
-        return this.yPos;
-    }
-    getImgHeight() {
-        return this.img.height;
-    }
-    getImgWidth() {
-        return this.img.width;
-    }
-}
-class Game {
-    constructor(canvasId) {
-        this.loop = () => {
-            this.switchScreen();
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.currentScreen.draw();
-            requestAnimationFrame(this.loop);
-        };
-        this.canvas = canvasId;
-        this.canvas.width = 1400;
-        this.canvas.height = 700;
-        this.ctx = this.canvas.getContext("2d");
-        this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
-        this.loop();
-    }
-    switchScreen() {
-        if (this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
-            this.currentScreen = new LevelScreen(this.canvas, this.ctx);
-        }
-        if (this.currentScreen instanceof LevelScreen && LevelScreen.live === 0) {
-            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
-        }
-    }
-    static loadImage(source) {
-        let img = new Image();
-        img.src = source;
-        return img;
-    }
-}
-Game.score = 0;
-let init = () => {
-    const game = new Game(document.getElementById("canvas"));
-};
-window.addEventListener("load", init);
-class GameEntity {
-    constructor(xPos, yPos, scale, imgUrl) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.scale = scale;
-        this.img = Game.loadImage(imgUrl);
-    }
-    setImg(imgUrl) {
-        this.img = Game.loadImage(imgUrl);
-    }
-    draw(ctx) {
-        const x = this.xPos - this.img.width / 2;
-        const y = this.yPos - this.img.height / 2;
-        if (this.img.naturalWidth > 0) {
-            ctx.save();
-            ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
-            ctx.scale(this.scale, this.scale);
-            ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
-            ctx.restore();
         }
     }
 }
@@ -921,7 +970,7 @@ class Player extends GameObject {
         this.xPos = 80;
         this.yPos = 440;
         console.log("playerDied");
-        LevelScreen.live--;
+        BaseScreen.live--;
     }
     collision() {
         this.yPos -= this.gravitySpeed;
