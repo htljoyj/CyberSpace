@@ -22,12 +22,12 @@ class LevelScreen {
             },
             {
                 x: 850,
-                y: -50,
+                y: -100,
                 img: "./assets/monsters/gorilla-png-37880.png"
             },
             {
                 x: 300,
-                y: -50,
+                y: -100,
                 img: "./assets/monsters/gorilla-png-37880.png"
             },
             {
