@@ -272,7 +272,7 @@ class Icon {
         this.yPos += y;
     }
     getYPos() {
-        return this.yPos;
+        return this.yPos - this.img.height;
     }
     getImgHeight() {
         return this.img.height * this.scale;
@@ -775,7 +775,6 @@ class LevelScreen {
         this.icon.forEach((icon) => {
             icon.draw(this.ctx, this.canvas);
             if (this.player.isColliding(icon)) {
-                console.log("Boem!");
             }
         });
         this.enemy.forEach((enemy) => {
@@ -800,18 +799,25 @@ class LevelScreen {
             this.terrain.forEach(element => {
                 element.getYPos();
                 element.setY(1);
-                console.log('trying');
             });
             this.icon.forEach(element => {
                 element.getYPos();
                 element.setY(1);
-                console.log('tryng 2');
             });
             this.jewel.forEach(element => {
                 element.getYPos();
                 element.setY(1);
-                console.log('trying 3');
             });
+        }
+        this.writeTextToCanvas("Score: " + Game.score, 20, this.canvas.width - 100, 20, "right");
+        for (let i = 0; i < this.icon.length; i++) {
+            if (this.player.isColliding(this.icon[i])) {
+                this.icon[i].setAnsweringQuestion(true);
+                this.icon[i].drawQuestion(this.ctx, this.canvas);
+                if (!this.icon[i].isAnsweringQuestion()) {
+                    this.icon.splice(i, 1);
+                }
+            }
         }
     }
     writeLifeImagesToLevelScreen() {
