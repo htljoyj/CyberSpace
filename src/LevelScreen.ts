@@ -41,6 +41,21 @@ class LevelScreen {
                 x: 500,
                 y: 400,
                 img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -100,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 300,
+                y: -100,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -950,
+                img: "./assets/monsters/gorilla-png-37880.png"
             }
         ];
         for (let i = 0; i < this.enemyArray.length; i++) {
@@ -122,14 +137,14 @@ class LevelScreen {
                 img: "twitter"
             },
             {
-                x: 1100,
-                y: 195,
+                x: 545,
+                y: -1064,
                 scale: 0.7,
                 img: "youtube"
             },
             {
-                x: 200,
-                y: 335,
+                x: 450,
+                y: -640,
                 scale: 0.3,
                 img: "tiktok"
             }
@@ -168,11 +183,21 @@ class LevelScreen {
                 img: "blue"
             },
             {
-                x: 700,
-                y: 110,
+                x: 920,
+                y: -265,
                 scale: 0.5,
                 img: "blue"
-            }
+            },{
+                x: 220,
+                y: -320,
+                scale: 0.5,
+                img: "blue"
+            },{
+                x: 860,
+                y: -1080,
+                scale: 0.5,
+                img: "blue"
+            },
         ];
         for (let i = 0; i < this.jewelArray.length; i++) {
             this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));   
@@ -336,75 +361,80 @@ class LevelScreen {
                 x:500,
                 y:-250,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },
             {
                 x:200,
                 y:-300,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:700,
                 y:-350,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:700,
                 y:-550,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:900,
                 y:-650,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:400,
                 y:-650,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:350,
                 y:-850,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },
             {
                 x:650,
                 y:-750,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },
             {
                 x:850,
                 y:-850,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:1050,
                 y:-950,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
+            },{
+                x:500,
+                y:-1050,
+                speed:0,
+                img:"./assets/bricks/newBrick.png"
+            },{
+                x:850,
+                y:-1080,
+                speed:0,
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:500,
                 y:-450,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
-            },{
-                x:500,
-                y:-450,
-                speed:0,
-                img:"./assets/bricks/coloredCloud.png"
-            },{
-                x:500,
-                y:-450,
-                speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
             },{
                 x:900,
                 y:-250,
                 speed:0,
-                img:"./assets/bricks/coloredCloud.png"
+                img:"./assets/bricks/newBrick.png"
+            },{
+                x:700,
+                y:-1000,
+                speed:0,
+                img:"./assets/bricks/newBrick.png"
             },
         ];
         
