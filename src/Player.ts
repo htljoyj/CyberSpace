@@ -58,6 +58,7 @@ class Player extends GameObject {
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
             this.gravity = 0.5;
+            this.yPos += 2;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
             console.log("jump");
