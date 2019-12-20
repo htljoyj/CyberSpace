@@ -91,6 +91,7 @@ class Player extends GameObject {
         this.gravity = 0;
         this.gravitySpeed = 0;
         this.canJump = true; 
+       
     }
 
     public getY(){
