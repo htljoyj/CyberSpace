@@ -58,12 +58,15 @@ class Player extends GameObject {
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
             this.gravity = 0.5;
+            this.yPos += 2;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
             console.log("jump");
             this.yPos -= 1;
             this.gravity = -0.62;
             this.canJump = false;
+            let audio = new Audio("./assets/sounds/jump.mp3");
+            audio.play();
         }
         if(this.yPos > canvas.height){
             this.playerDied();
