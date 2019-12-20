@@ -65,6 +65,7 @@ class BaseScreen {
                 this.terrain.forEach((terrain) => {
                     if (this.player.isColliding(terrain)) {
                         this.player.collision();
+                        console.log(terrain.getXPos(),terrain.getYPos())
                         // this.player.gravity = 0.2;
                         // this.player.move(this.canvas);
                     } else if (this.player.gravity === 0) {
@@ -145,9 +146,9 @@ class BaseScreen {
         
                     })
         
-                }
+               
                 
-        
+                }
             }  
 
      /**
