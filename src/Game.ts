@@ -9,12 +9,13 @@ class Game {
     private keyboardListener: KeyboardListener;
 
     public static score: number = 0;
-    
+    private level: number;
+
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
-        
+        this.level = 1;
 
 
         this.canvas.width = 1400;
@@ -25,7 +26,7 @@ class Game {
 
 
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
 
         this.loop();
     }
@@ -47,18 +48,34 @@ class Game {
     }
 
     private switchScreen() {
-          if(this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))
-          {
+        if (this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
             this.currentScreen = new GroundScreen(this.canvas, this.ctx);
-          }
-         if(this.currentScreen instanceof GroundScreen && BaseScreen.live === 0)
-         {
+        }
+        if (this.currentScreen instanceof GroundScreen && this.level === 2) {
+            this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
-         }
-        // this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof CloudScreen && BaseScreen.live === 0) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
         
+        
+        // if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)){
+        //     this.currentScreen = new GroundScreen(this.canvas, this.ctx);
+        // }
+        // if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_2)){
+        //     this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        // }
+        //this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        
+        if(this.currentScreen instanceof GroundScreen && this.currentScreen.getFinish() && this.currentScreen.getIcons()){
+            this.level++
+            console.log(this.level);
+        }
     }
-
+    
     /**
      * Loads an image file into the DOM. The image is stored in the img
      * attribute of this class before it is loaded. This means that this.img

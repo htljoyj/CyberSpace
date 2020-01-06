@@ -1,44 +1,44 @@
 ///<reference path = "BaseScreen.ts"/>
 class GroundScreen extends BaseScreen {
-   
-
+    
+    
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         super(canvas,ctx)
-       
+        
         canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
        
         
-        this.enemyArray = [
-            {
-                x: 170,
-                y: 120,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 500,
-                y: 400,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 850,
-                y: -100,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 300,
-                y: -100,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 850,
-                y: -950,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            }
-        ];
+        // this.enemyArray = [
+        //     {
+        //         x: 170,
+        //         y: 120,
+        //         img: "./assets/monsters/gorilla-png-37880.png"
+        //     },
+        //     {
+        //         x: 500,
+        //         y: 400,
+        //         img: "./assets/monsters/gorilla-png-37880.png"
+        //     },
+        //     {
+        //         x: 850,
+        //         y: -100,
+        //         img: "./assets/monsters/gorilla-png-37880.png"
+        //     },
+        //     {
+        //         x: 300,
+        //         y: -100,
+        //         img: "./assets/monsters/gorilla-png-37880.png"
+        //     },
+        //     {
+        //         x: 850,
+        //         y: -950,
+        //         img: "./assets/monsters/gorilla-png-37880.png"
+        //     }
+        // ];
         for (let i = 0; i < this.enemyArray.length; i++) {
             this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));   
         }
-
+        
 
         this.icon = [];
         this.iconArray = [
@@ -125,14 +125,12 @@ class GroundScreen extends BaseScreen {
                 scale: 0.3,
                 img: "tiktok"
             }
-        ];
-
-
+        ];       
 
         for (let i = 0; i < this.iconArray.length; i++) {
             this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));   
         }
-
+        
         this.jewel = [];
         this.jewelArray = [
             {
@@ -179,7 +177,7 @@ class GroundScreen extends BaseScreen {
         for (let i = 0; i < this.jewelArray.length; i++) {
             this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));   
         }
-
+        
 
         this.terrain = [];
         this.terrainArray = [
@@ -297,7 +295,7 @@ class GroundScreen extends BaseScreen {
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
             },
-
+            
             {
                 x:400,
                 y:350,
@@ -424,12 +422,15 @@ class GroundScreen extends BaseScreen {
         for (let i = 0; i < this.terrainArray.length; i++) {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));   
         }
-
+        
 
         
     }
-
     
-
+    public getIcons(){
+        return this.allIcons;
+    }
+    
+    
 }  
 
