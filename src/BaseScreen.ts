@@ -101,6 +101,16 @@ class BaseScreen {
             }
         });
 
+        for(let i = 0; i< this.icon.length; i++) {
+            if(this.player.isColliding(this.icon[i])) {
+                this.icon[i].setAnsweringQuestion(true);
+                this.icon[i].drawQuestion(this.ctx, this.canvas);
+                if(!this.icon[i].isAnsweringQuestion()) {
+                   this.icon.splice(i, 1); 
+                }
+            } 
+        }
+
         this.enemy.forEach((enemy) => {
             if (this.player.isColliding(enemy)) {
                 this.player.playerDied();
@@ -125,7 +135,7 @@ class BaseScreen {
 
         })
 
-        this.writeLifeImagesToLevelScreen()
+        this.writeLifeImagesToLevelScreen();
 
         if (this.player.getY() < 150) {
             this.flag.setY(1)

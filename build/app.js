@@ -1,3 +1,123 @@
+class BaseScreen {
+    constructor(canvas, ctx) {
+        this.canvas = canvas;
+        this.ctx = ctx;
+        canvas.style.backgroundImage = "";
+        BaseScreen.live = 3;
+        BaseScreen.life = new Image();
+        BaseScreen.life.src = './assets/heart-icon-png-transparent.png';
+        this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.flag = new Terrain(680, -1300, 0, './assets/greenFlag.png', this.canvas, this.ctx);
+        this.enemy = [];
+        this.enemyArray = [];
+        this.terrain = [];
+        this.terrainArray = [];
+        this.icon = [];
+        this.iconArray = [];
+        this.jewel = [];
+        this.jewelArray = [];
+    }
+    writeLifeImagesToLevelScreen() {
+        if (BaseScreen.life.naturalWidth > 0) {
+            let x = 10;
+            const y = 10;
+            for (let life = 0; life < BaseScreen.live; life++) {
+                this.ctx.save();
+                this.ctx.translate(x + BaseScreen.life.x / 2, y + BaseScreen.life.y / 2);
+                this.ctx.scale(0.3, 0.3);
+                this.ctx.drawImage(BaseScreen.life, -BaseScreen.life.width / 2, -BaseScreen.life.height / 2);
+                this.ctx.restore();
+                x += 25;
+            }
+        }
+    }
+    draw() {
+        this.flag.draw(this.ctx);
+        this.terrain.forEach((terrain) => {
+            if (this.player.isColliding(terrain)) {
+                this.player.collision();
+                console.log(terrain.getXPos(), terrain.getYPos());
+            }
+            else if (this.player.gravity === 0) {
+                this.player.gravity = 0.2;
+            }
+            for (let i = 0; i < this.enemy.length; i++) {
+                if (this.enemy[i].isColliding(terrain)) {
+                    this.enemy[i].collision();
+                }
+                else if (this.enemy[i].gravity === 0) {
+                    this.enemy[i].gravity = 0.2;
+                }
+            }
+        });
+        for (let i = 0; i < this.jewel.length; i++) {
+            if (this.player.isColliding(this.jewel[i])) {
+                Game.score += this.jewel[i].getValue();
+                this.jewel.splice(i, 1);
+                console.log(Game.score);
+                let audio = new Audio("./assets/sounds/collect achievement.mp3");
+                audio.play();
+            }
+        }
+        this.icon.forEach((icon) => {
+            icon.draw(this.ctx, this.canvas);
+            if (this.player.isColliding(icon)) {
+                console.log("Boem!");
+            }
+        });
+        for (let i = 0; i < this.icon.length; i++) {
+            if (this.player.isColliding(this.icon[i])) {
+                this.icon[i].setAnsweringQuestion(true);
+                this.icon[i].drawQuestion(this.ctx, this.canvas);
+                if (!this.icon[i].isAnsweringQuestion()) {
+                    this.icon.splice(i, 1);
+                }
+            }
+        }
+        this.enemy.forEach((enemy) => {
+            if (this.player.isColliding(enemy)) {
+                this.player.playerDied();
+            }
+        });
+        this.player.move(this.canvas);
+        this.player.draw(this.ctx);
+        for (let i = 0; i < this.enemy.length; i++) {
+            this.enemy[i].move(this.canvas);
+            this.enemy[i].draw(this.ctx);
+        }
+        this.terrain.forEach((terrain) => {
+            terrain.draw(this.ctx);
+        });
+        this.jewel.forEach((jewel) => {
+            jewel.draw(this.ctx);
+        });
+        this.writeLifeImagesToLevelScreen();
+        if (this.player.getY() < 150) {
+            this.flag.setY(1);
+            this.terrain.forEach(element => {
+                element.getYPos();
+                element.setY(1);
+                console.log('trying');
+            });
+            this.icon.forEach(element => {
+                element.getYPos();
+                element.setY(1);
+                console.log('tryng 2');
+            });
+            this.jewel.forEach(element => {
+                element.getYPos();
+                element.setY(1);
+                console.log('trying 3');
+            });
+        }
+    }
+    writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
+        this.ctx.font = `${fontSize}px Minecraft`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = alignment;
+        this.ctx.fillText(text, xCoordinate, yCoordinate);
+    }
+}
 class LevelScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
@@ -512,6 +632,215 @@ class Cloud extends LevelScreen {
         canvas.style.backgroundImage = "url('./assets/backgrounds/1_O-F1YaJaFMeijf6ewskl7A.gif')";
     }
 }
+class CloudScreen extends BaseScreen {
+    constructor(canvas, ctx) {
+        super(canvas, ctx);
+        canvas.style.backgroundImage = "url('./assets/backgrounds/ezgif-1-847bffac6a61.gif')";
+        this.terrainArray = [
+            {
+                x: 75,
+                y: this.canvas.height - 50,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png"
+            }, {
+                x: 275,
+                y: 600,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+            {
+                x: 225,
+                y: 300,
+                speed: 2,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 475,
+                y: 500,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+            {
+                x: 870,
+                y: 550,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+            {
+                x: 660,
+                y: this.canvas.height - 50,
+                img: "./assets/bricks/whiteCloud.png"
+            },
+            {
+                x: 675,
+                y: 350,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: this.canvas.width - 125,
+                y: 400,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 1075,
+                y: 500,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 1050,
+                y: 250,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 450,
+                y: 200,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+            {
+                x: 100,
+                y: 100,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 300,
+                y: 0,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 600,
+                y: 0,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 900,
+                y: 0,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 1100,
+                y: -100,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 700,
+                y: -200,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 500,
+                y: -150,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 1000,
+                y: -300,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 400,
+                y: -400,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 800,
+                y: -400,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 600,
+                y: -600,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 1000,
+                y: -500,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            }, {
+                x: 400,
+                y: -800,
+                speed: 0,
+                img: "./assets/bricks/whiteCloud.png",
+            },
+        ];
+        for (let i = 0; i < this.terrainArray.length; i++) {
+            this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
+        }
+        this.iconArray = [{
+                x: 355,
+                y: 650,
+                scale: 0.3,
+                img: "facebook",
+            }, {
+                x: 500,
+                y: 210,
+                scale: 0.3,
+                img: 'instagram',
+            }, {
+                x: 570,
+                y: -125,
+                scale: 0.3,
+                img: 'tiktok',
+            }, {
+                x: 620,
+                y: -10,
+                scale: 0.5,
+                img: 'snapchat',
+            }, {
+                x: 1095,
+                y: 480,
+                scale: 0.7,
+                img: 'youtube',
+            }, {
+                x: 120,
+                y: 90,
+                scale: 0.5,
+                img: 'twitter',
+            }, {
+                x: 1120,
+                y: -120,
+                scale: 0.7,
+                img: 'whatsapp',
+            },];
+        for (let i = 0; i < this.iconArray.length; i++) {
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+        }
+        this.jewelArray = [{
+                x: 700,
+                y: 325,
+                scale: 0.5,
+                img: "blue",
+            }, {
+                x: 1300,
+                y: 375,
+                scale: 0.5,
+                img: "green",
+            }, {
+                x: 1070,
+                y: 220,
+                scale: 0.5,
+                img: "green",
+            }, {
+                x: 250,
+                y: 270,
+                scale: 0.5,
+                img: "blue",
+            }, {
+                x: 920,
+                y: -20,
+                scale: 0.5,
+                img: "green",
+            }, {
+                x: 1020,
+                y: -320,
+                scale: 0.5,
+                img: "blue",
+            }];
+        for (let i = 0; i < this.jewelArray.length; i++) {
+            this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));
+        }
+    }
+}
 class GameObject {
     constructor(xPos, yPos, imgUrl) {
         this.xPos = xPos;
@@ -580,14 +909,14 @@ class Game {
         this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
         this.loop();
     }
     switchScreen() {
         if (this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
-            this.currentScreen = new LevelScreen(this.canvas, this.ctx);
+            this.currentScreen = new GroundScreen(this.canvas, this.ctx);
         }
-        if (this.currentScreen instanceof LevelScreen && LevelScreen.live === 0) {
+        if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
     }
@@ -621,6 +950,417 @@ class GameEntity {
             ctx.scale(this.scale, this.scale);
             ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
             ctx.restore();
+        }
+    }
+}
+class GroundScreen extends BaseScreen {
+    constructor(canvas, ctx) {
+        super(canvas, ctx);
+        canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
+        this.enemyArray = [
+            {
+                x: 170,
+                y: 120,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 500,
+                y: 400,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -100,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 300,
+                y: -100,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            },
+            {
+                x: 850,
+                y: -950,
+                img: "./assets/monsters/gorilla-png-37880.png"
+            }
+        ];
+        for (let i = 0; i < this.enemyArray.length; i++) {
+            this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));
+        }
+        this.icon = [];
+        this.iconArray = [
+            {
+                x: 1100,
+                y: this.canvas.height + 8,
+                scale: 0.3,
+                img: "facebook"
+            },
+            {
+                x: 200,
+                y: 120,
+                scale: 0.3,
+                img: "instagram"
+            },
+            {
+                x: 850,
+                y: 150,
+                scale: 0.5,
+                img: "whatsapp"
+            },
+            {
+                x: this.canvas.width / 2,
+                y: this.canvas.height / 2,
+                scale: 0.5,
+                img: "snapchat"
+            },
+            {
+                x: 350,
+                y: this.canvas.height - 190,
+                scale: 0.5,
+                img: "twitter"
+            },
+            {
+                x: 1100,
+                y: 195,
+                scale: 0.7,
+                img: "youtube"
+            },
+            {
+                x: 200,
+                y: 335,
+                scale: 0.3,
+                img: "tiktok"
+            }, {
+                x: 800,
+                y: -300,
+                scale: 0.3,
+                img: "facebook"
+            },
+            {
+                x: 550,
+                y: -250,
+                scale: 0.3,
+                img: "instagram"
+            },
+            {
+                x: 950,
+                y: -654,
+                scale: 0.5,
+                img: "whatsapp"
+            },
+            {
+                x: 1065,
+                y: -975,
+                scale: 0.5,
+                img: "snapchat"
+            },
+            {
+                x: 360,
+                y: -865,
+                scale: 0.5,
+                img: "twitter"
+            },
+            {
+                x: 545,
+                y: -1064,
+                scale: 0.7,
+                img: "youtube"
+            },
+            {
+                x: 450,
+                y: -640,
+                scale: 0.3,
+                img: "tiktok"
+            }
+        ];
+        for (let i = 0; i < this.iconArray.length; i++) {
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+        }
+        this.jewel = [];
+        this.jewelArray = [
+            {
+                x: 1150,
+                y: 52,
+                scale: 0.5,
+                img: "blue"
+            },
+            {
+                x: 890,
+                y: 310,
+                scale: 0.5,
+                img: "blue"
+            },
+            {
+                x: 450,
+                y: 515,
+                scale: 0.5,
+                img: "blue"
+            },
+            {
+                x: 450,
+                y: 209,
+                scale: 0.5,
+                img: "blue"
+            },
+            {
+                x: 920,
+                y: -265,
+                scale: 0.5,
+                img: "blue"
+            }, {
+                x: 220,
+                y: -320,
+                scale: 0.5,
+                img: "blue"
+            }, {
+                x: 860,
+                y: -1080,
+                scale: 0.5,
+                img: "blue"
+            },
+        ];
+        for (let i = 0; i < this.jewelArray.length; i++) {
+            this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));
+        }
+        this.terrain = [];
+        this.terrainArray = [
+            {
+                x: 75,
+                y: this.canvas.height - 50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 200,
+                y: this.canvas.height - 100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 325,
+                y: this.canvas.height - 200,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 440,
+                y: this.canvas.height - 100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 600,
+                y: this.canvas.height - 100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 725,
+                y: this.canvas.height - 200,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 850,
+                y: this.canvas.height - 300,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 975,
+                y: this.canvas.height - 50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1050,
+                y: this.canvas.height - 50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: this.canvas.width / 2 - 50,
+                y: this.canvas.height / 2,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: this.canvas.width / 2 - 200,
+                y: 200,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 150,
+                y: 100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 200,
+                y: 300,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 150,
+                y: 300,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1100,
+                y: 200,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1075,
+                y: 375,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 850,
+                y: 150,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 650,
+                y: 100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1150,
+                y: 50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 400,
+                y: 350,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 300,
+                y: -50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1050,
+                y: -100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 700,
+                y: -150,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 500,
+                y: -100,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 850,
+                y: -50,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 500,
+                y: -250,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 200,
+                y: -300,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 700,
+                y: -350,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 700,
+                y: -550,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 900,
+                y: -650,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 400,
+                y: -650,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 350,
+                y: -850,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 650,
+                y: -750,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 850,
+                y: -850,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 1050,
+                y: -950,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 500,
+                y: -1050,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 850,
+                y: -1080,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 500,
+                y: -450,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 900,
+                y: -250,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 700,
+                y: -1000,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }, {
+                x: 700,
+                y: -1250,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+        ];
+        for (let i = 0; i < this.terrainArray.length; i++) {
+            this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
         }
     }
 }
@@ -906,12 +1646,15 @@ class Player extends GameObject {
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
             this.gravity = 0.5;
+            this.yPos += 2;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) && this.canJump) {
             console.log("jump");
             this.yPos -= 1;
             this.gravity = -0.62;
             this.canJump = false;
+            let audio = new Audio("./assets/sounds/jump.mp3");
+            audio.play();
         }
         if (this.yPos > canvas.height) {
             this.playerDied();
@@ -927,7 +1670,7 @@ class Player extends GameObject {
         this.xPos = 80;
         this.yPos = 440;
         console.log("playerDied");
-        LevelScreen.live--;
+        BaseScreen.live--;
     }
     collision() {
         this.yPos -= this.gravitySpeed;

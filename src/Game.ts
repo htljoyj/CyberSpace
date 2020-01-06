@@ -48,14 +48,14 @@ class Game {
 
     private switchScreen() {
           if(this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))
-         {
+          {
             this.currentScreen = new GroundScreen(this.canvas, this.ctx);
           }
          if(this.currentScreen instanceof GroundScreen && BaseScreen.live === 0)
          {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
-        }
-        //this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+         }
+        // this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         
     }
 
