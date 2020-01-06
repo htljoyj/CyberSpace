@@ -7,7 +7,7 @@ class BaseScreen {
     protected flag: Terrain;
     protected finish: boolean = false;
     protected allIcons: boolean = false;
-
+    protected keyboardListener: KeyboardListener;
     protected player: Player;
     protected enemy: Enemy[];
     protected enemyArray: any;
@@ -21,6 +21,7 @@ class BaseScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         canvas.style.backgroundImage = "";
+        this.keyboardListener = new KeyboardListener();
         BaseScreen.live = 3;
         BaseScreen.life = new Image();
         BaseScreen.life.src = './assets/heart-icon-png-transparent.png';
@@ -174,7 +175,13 @@ class BaseScreen {
                 element.setY(1)
                 // console.log('tryng 2')
             })
+            this.enemy.forEach(element => {
+                element.getYPos()
+                element.setY(1)
 
+                // console.log('trying 3')
+
+            })
             this.jewel.forEach(element => {
                 element.getYPos()
                 element.setY(1)
@@ -182,8 +189,43 @@ class BaseScreen {
                 // console.log('trying 3')
 
             })
+            this.player.getY()
+            this.player.setY(1)
         }
+
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SHIFT)) {
+            this.flag.setY(-1)
+            this.terrain.forEach(element => {
+
+                element.getYPos()
+                element.setY(-1)
+                // console.log('trying')
+
+            });
+            this.icon.forEach(element => {
+                element.getYPos()
+                element.setY(-1)
+                // console.log('tryng 2')
+            })
+
+            this.jewel.forEach(element => {
+                element.getYPos()
+                element.setY(-1)
+
+                // console.log('trying 3')
+
+            })
+            this.enemy.forEach(element => {
+                element.getYPos()
+                element.setY(-1)
+
+                // console.log('trying 3')
+
+            })
+            this.player.getY()
+            this.player.setY(-1)
         }
+    }
         
         this.allIcons = false;
 
