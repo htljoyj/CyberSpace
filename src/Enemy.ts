@@ -58,4 +58,8 @@ class Enemy extends GameObject {
     public getImgWidth() {
         return this.img.width;
     }
+    public setY(y:number){
+        this.yPos += y;
+
+    }
 }

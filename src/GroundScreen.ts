@@ -19,12 +19,12 @@ class GroundScreen extends BaseScreen {
       },
       {
         x: 850,
-        y: -100,
+        y: -150,
         img: "./assets/monsters/gorilla-png-37880.png"
       },
       {
         x: 300,
-        y: -100,
+        y: -150,
         img: "./assets/monsters/gorilla-png-37880.png"
       },
       {
@@ -338,7 +338,7 @@ class GroundScreen extends BaseScreen {
         img: "./assets/bricks/newBrick.png"
       },
       {
-        x: 500,
+        x: 600,
         y: -100,
         speed: 0,
         img: "./assets/bricks/newBrick.png"
@@ -421,17 +421,12 @@ class GroundScreen extends BaseScreen {
         speed: 0,
         img: "./assets/bricks/newBrick.png"
       },
-      {
-        x: 500,
-        y: -450,
-        speed: 0,
-        img: "./assets/bricks/newBrick.png"
-      },
-      {
+
+       {
         x: 900,
         y: -250,
         speed: 0,
-        img: "./assets/bricks/newBrick.png"
+     img: "./assets/bricks/newBrick.png"
       },
       {
         x: 700,

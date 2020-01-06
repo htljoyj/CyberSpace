@@ -100,4 +100,8 @@ class Player extends GameObject {
     public getY(){
         return this.yPos
     }
+    public setY(y:number){
+        this.yPos += y;
+
+    }
 }

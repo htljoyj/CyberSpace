@@ -5,6 +5,7 @@ class BaseScreen {
         this.canvas = canvas;
         this.ctx = ctx;
         canvas.style.backgroundImage = "";
+        this.keyboardListener = new KeyboardListener();
         BaseScreen.live = 3;
         BaseScreen.life = new Image();
         BaseScreen.life.src = './assets/heart-icon-png-transparent.png';
@@ -34,84 +35,125 @@ class BaseScreen {
         }
     }
     draw() {
-        this.flag.draw(this.ctx);
-        this.finish = false;
-        if (this.player.isColliding(this.flag)) {
-            this.finish = true;
-        }
-        this.terrain.forEach((terrain) => {
-            if (this.player.isColliding(terrain)) {
-                this.player.collision();
-                console.log(terrain.getXPos(), terrain.getYPos());
-            }
-            else if (this.player.gravity === 0) {
-                this.player.gravity = 0.2;
-            }
-            for (let i = 0; i < this.enemy.length; i++) {
-                if (this.enemy[i].isColliding(terrain)) {
-                    this.enemy[i].collision();
-                }
-                else if (this.enemy[i].gravity === 0) {
-                    this.enemy[i].gravity = 0.2;
-                }
-            }
-        });
-        for (let i = 0; i < this.jewel.length; i++) {
-            if (this.player.isColliding(this.jewel[i])) {
-                Game.score += this.jewel[i].getValue();
-                this.jewel.splice(i, 1);
-                console.log(Game.score);
-                let audio = new Audio("./assets/sounds/collect achievement.mp3");
-                audio.play();
-            }
-        }
-        this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width - 100, 20);
-        this.icon.forEach((icon) => {
-            icon.draw(this.ctx, this.canvas);
-            if (this.player.isColliding(icon)) {
-            }
-        });
+        let isAnsweringQuestion = false;
         for (let i = 0; i < this.icon.length; i++) {
             if (this.player.isColliding(this.icon[i])) {
                 this.icon[i].setAnsweringQuestion(true);
+                isAnsweringQuestion = true;
                 this.icon[i].drawQuestion(this.ctx, this.canvas);
                 if (!this.icon[i].isAnsweringQuestion()) {
                     this.icon.splice(i, 1);
+                    isAnsweringQuestion = false;
                 }
             }
         }
-        this.enemy.forEach((enemy) => {
-            if (this.player.isColliding(enemy)) {
-                this.player.playerDied();
+        if (!isAnsweringQuestion) {
+            this.flag.draw(this.ctx);
+            this.finish = false;
+            if (this.player.isColliding(this.flag)) {
+                this.finish = true;
             }
-        });
-        this.player.move(this.canvas);
-        this.player.draw(this.ctx);
-        for (let i = 0; i < this.enemy.length; i++) {
-            this.enemy[i].move(this.canvas);
-            this.enemy[i].draw(this.ctx);
-        }
-        this.terrain.forEach((terrain) => {
-            terrain.draw(this.ctx);
-        });
-        this.jewel.forEach((jewel) => {
-            jewel.draw(this.ctx);
-        });
-        this.writeLifeImagesToLevelScreen();
-        if (this.player.getY() < 150) {
-            this.flag.setY(1);
-            this.terrain.forEach(element => {
-                element.getYPos();
-                element.setY(1);
+            this.terrain.forEach((terrain) => {
+                if (this.player.isColliding(terrain)) {
+                    this.player.collision();
+                    console.log(terrain.getXPos(), terrain.getYPos());
+                }
+                else if (this.player.gravity === 0) {
+                    this.player.gravity = 0.2;
+                }
+                for (let i = 0; i < this.enemy.length; i++) {
+                    if (this.enemy[i].isColliding(terrain)) {
+                        this.enemy[i].collision();
+                    }
+                    else if (this.enemy[i].gravity === 0) {
+                        this.enemy[i].gravity = 0.2;
+                    }
+                }
             });
-            this.icon.forEach(element => {
-                element.getYPos();
-                element.setY(1);
+            for (let i = 0; i < this.jewel.length; i++) {
+                if (this.player.isColliding(this.jewel[i])) {
+                    Game.score += this.jewel[i].getValue();
+                    this.jewel.splice(i, 1);
+                    console.log(Game.score);
+                    let audio = new Audio("./assets/sounds/collect achievement.mp3");
+                    audio.play();
+                }
+            }
+            this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width - 100, 20);
+            this.icon.forEach((icon) => {
+                icon.draw(this.ctx, this.canvas);
+                if (this.player.isColliding(icon)) {
+                }
             });
-            this.jewel.forEach(element => {
-                element.getYPos();
-                element.setY(1);
+            for (let i = 0; i < this.icon.length; i++) {
+                if (this.player.isColliding(this.icon[i])) {
+                    this.icon[i].setAnsweringQuestion(true);
+                    this.icon[i].drawQuestion(this.ctx, this.canvas);
+                    if (!this.icon[i].isAnsweringQuestion()) {
+                        this.icon.splice(i, 1);
+                    }
+                }
+            }
+            this.enemy.forEach((enemy) => {
+                if (this.player.isColliding(enemy)) {
+                    this.player.playerDied();
+                }
             });
+            this.player.move(this.canvas);
+            this.player.draw(this.ctx);
+            for (let i = 0; i < this.enemy.length; i++) {
+                this.enemy[i].move(this.canvas);
+                this.enemy[i].draw(this.ctx);
+            }
+            this.terrain.forEach((terrain) => {
+                terrain.draw(this.ctx);
+            });
+            this.jewel.forEach((jewel) => {
+                jewel.draw(this.ctx);
+            });
+            this.writeLifeImagesToLevelScreen();
+            if (this.player.getY() < 150) {
+                this.flag.setY(1);
+                this.terrain.forEach(element => {
+                    element.getYPos();
+                    element.setY(1);
+                });
+                this.icon.forEach(element => {
+                    element.getYPos();
+                    element.setY(1);
+                });
+                this.enemy.forEach(element => {
+                    element.getYPos();
+                    element.setY(1);
+                });
+                this.jewel.forEach(element => {
+                    element.getYPos();
+                    element.setY(1);
+                });
+                this.player.getY();
+                this.player.setY(1);
+            }
+            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SHIFT)) {
+                this.flag.setY(-1);
+                this.terrain.forEach(element => {
+                    element.getYPos();
+                    element.setY(-1);
+                });
+                this.icon.forEach(element => {
+                    element.getYPos();
+                    element.setY(-1);
+                });
+                this.jewel.forEach(element => {
+                    element.getYPos();
+                    element.setY(-1);
+                });
+                this.enemy.forEach(element => {
+                    element.getYPos();
+                    element.setY(-1);
+                });
+                this.player.getY();
+                this.player.setY(-1);
+            }
         }
         this.allIcons = false;
         if (this.icon.length == 0) {
@@ -563,6 +605,9 @@ class Enemy extends GameObject {
     getImgWidth() {
         return this.img.width;
     }
+    setY(y) {
+        this.yPos += y;
+    }
 }
 class Game {
     constructor(canvasId) {
@@ -650,12 +695,12 @@ class GroundScreen extends BaseScreen {
             },
             {
                 x: 850,
-                y: -100,
+                y: -150,
                 img: "./assets/monsters/gorilla-png-37880.png"
             },
             {
                 x: 300,
-                y: -100,
+                y: -150,
                 img: "./assets/monsters/gorilla-png-37880.png"
             },
             {
@@ -941,7 +986,7 @@ class GroundScreen extends BaseScreen {
                 img: "./assets/bricks/newBrick.png"
             },
             {
-                x: 500,
+                x: 600,
                 y: -100,
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
@@ -1021,12 +1066,6 @@ class GroundScreen extends BaseScreen {
             {
                 x: 850,
                 y: -1080,
-                speed: 0,
-                img: "./assets/bricks/newBrick.png"
-            },
-            {
-                x: 500,
-                y: -450,
                 speed: 0,
                 img: "./assets/bricks/newBrick.png"
             },
@@ -1316,6 +1355,7 @@ KeyboardListener.KEY_D = 68;
 KeyboardListener.KEY_1 = 49;
 KeyboardListener.KEY_2 = 50;
 KeyboardListener.KEY_3 = 51;
+KeyboardListener.KEY_SHIFT = 16;
 class LevelScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
@@ -1885,6 +1925,32 @@ class Player extends GameObject {
     getY() {
         return this.yPos;
     }
+    setY(y) {
+        this.yPos += y;
+    }
+}
+class SpaceScreen extends BaseScreen {
+    constructor(canvas, ctx) {
+        super(canvas, ctx);
+        canvas.style.backgroundImage =
+            "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
+        this.terrainArray = [];
+        for (let i = 0; i < this.terrainArray.length; i++) {
+            this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
+        }
+        this.iconArray = [];
+        for (let i = 0; i < this.iconArray.length; i++) {
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+        }
+        this.jewelArray = [];
+        for (let i = 0; i < this.jewelArray.length; i++) {
+            this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));
+        }
+        this.enemyArray = [];
+        for (let i = 0; i < this.enemyArray.length; i++) {
+            this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));
+        }
+    }
 }
 class Terrain {
     constructor(xPos, yPos, speed, imgUrl, canvas, ctx) {
@@ -1937,6 +2003,29 @@ class TitleScreen {
         this.ctx.fillStyle = color;
         this.ctx.textAlign = alignment;
         this.ctx.fillText(text, xCoordinate, yCoordinate);
+    }
+}
+class UnderwaterScreen extends BaseScreen {
+    constructor(canvas, ctx) {
+        super(canvas, ctx);
+        canvas.style.backgroundImage =
+            "url('./assets/backgrounds/underwater-gif-background.gif')";
+        this.terrainArray = [];
+        for (let i = 0; i < this.terrainArray.length; i++) {
+            this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
+        }
+        this.iconArray = [];
+        for (let i = 0; i < this.iconArray.length; i++) {
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+        }
+        this.jewelArray = [];
+        for (let i = 0; i < this.jewelArray.length; i++) {
+            this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));
+        }
+        this.enemyArray = [];
+        for (let i = 0; i < this.enemyArray.length; i++) {
+            this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));
+        }
     }
 }
 //# sourceMappingURL=app.js.map
