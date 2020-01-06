@@ -193,14 +193,14 @@ class Icon {
     }
 
     public getXPos() {
-        return this.xPos;
+        return this.xPos// + this.getImgWidth();
     }
     public setY(y:number){
         this.yPos += y;
 
     }
     public getYPos() {
-        return this.yPos;
+        return this.yPos - this.img.height;
     }
     public getImgHeight() {
         return this.img.height * this.scale;

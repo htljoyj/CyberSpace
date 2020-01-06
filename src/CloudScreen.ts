@@ -1,3 +1,4 @@
+
 ///<reference path = 'BaseScreen.ts'/>
 class CloudScreen extends BaseScreen {
   constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
