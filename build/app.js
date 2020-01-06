@@ -1,5 +1,7 @@
 class BaseScreen {
     constructor(canvas, ctx) {
+        this.finish = false;
+        this.allIcons = false;
         this.canvas = canvas;
         this.ctx = ctx;
         canvas.style.backgroundImage = "";
@@ -32,84 +34,97 @@ class BaseScreen {
         }
     }
     draw() {
-        this.flag.draw(this.ctx);
-        this.terrain.forEach((terrain) => {
-            if (this.player.isColliding(terrain)) {
-                this.player.collision();
-                console.log(terrain.getXPos(), terrain.getYPos());
-            }
-            else if (this.player.gravity === 0) {
-                this.player.gravity = 0.2;
-            }
-            for (let i = 0; i < this.enemy.length; i++) {
-                if (this.enemy[i].isColliding(terrain)) {
-                    this.enemy[i].collision();
-                }
-                else if (this.enemy[i].gravity === 0) {
-                    this.enemy[i].gravity = 0.2;
-                }
-            }
-        });
-        for (let i = 0; i < this.jewel.length; i++) {
-            if (this.player.isColliding(this.jewel[i])) {
-                Game.score += this.jewel[i].getValue();
-                this.jewel.splice(i, 1);
-                console.log(Game.score);
-                let audio = new Audio("./assets/sounds/collect achievement.mp3");
-                audio.play();
-            }
-        }
-        this.icon.forEach((icon) => {
-            icon.draw(this.ctx, this.canvas);
-            if (this.player.isColliding(icon)) {
-                console.log("Boem!");
-            }
-        });
+        let isAnsweringQuestion = false;
         for (let i = 0; i < this.icon.length; i++) {
             if (this.player.isColliding(this.icon[i])) {
                 this.icon[i].setAnsweringQuestion(true);
+                isAnsweringQuestion = true;
                 this.icon[i].drawQuestion(this.ctx, this.canvas);
                 if (!this.icon[i].isAnsweringQuestion()) {
                     this.icon.splice(i, 1);
+                    isAnsweringQuestion = false;
                 }
             }
         }
-        this.enemy.forEach((enemy) => {
-            if (this.player.isColliding(enemy)) {
-                this.player.playerDied();
+        if (!isAnsweringQuestion) {
+            this.flag.draw(this.ctx);
+            this.finish = false;
+            if (this.player.isColliding(this.flag)) {
+                this.finish = true;
             }
-        });
-        this.player.move(this.canvas);
-        this.player.draw(this.ctx);
-        for (let i = 0; i < this.enemy.length; i++) {
-            this.enemy[i].move(this.canvas);
-            this.enemy[i].draw(this.ctx);
+            this.terrain.forEach((terrain) => {
+                if (this.player.isColliding(terrain)) {
+                    this.player.collision();
+                }
+                else if (this.player.gravity === 0) {
+                    this.player.gravity = 0.2;
+                }
+                for (let i = 0; i < this.enemy.length; i++) {
+                    if (this.enemy[i].isColliding(terrain)) {
+                        this.enemy[i].collision();
+                    }
+                    else if (this.enemy[i].gravity === 0) {
+                        this.enemy[i].gravity = 0.2;
+                    }
+                }
+            });
+            for (let i = 0; i < this.jewel.length; i++) {
+                if (this.player.isColliding(this.jewel[i])) {
+                    Game.score += this.jewel[i].getValue();
+                    this.jewel.splice(i, 1);
+                    console.log(Game.score);
+                    let audio = new Audio("./assets/sounds/collect achievement.mp3");
+                    audio.play();
+                }
+            }
+            this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width - 100, 20);
+            this.icon.forEach((icon) => {
+                icon.draw(this.ctx, this.canvas);
+                if (this.player.isColliding(icon)) {
+                }
+            });
+            this.enemy.forEach((enemy) => {
+                if (this.player.isColliding(enemy)) {
+                    this.player.playerDied();
+                }
+            });
+            this.player.move(this.canvas);
+            this.player.draw(this.ctx);
+            for (let i = 0; i < this.enemy.length; i++) {
+                this.enemy[i].move(this.canvas);
+                this.enemy[i].draw(this.ctx);
+            }
+            this.terrain.forEach((terrain) => {
+                terrain.draw(this.ctx);
+            });
+            this.jewel.forEach((jewel) => {
+                jewel.draw(this.ctx);
+            });
+            this.writeLifeImagesToLevelScreen();
+            if (this.player.getY() < 150) {
+                this.flag.setY(1);
+                this.terrain.forEach(element => {
+                    element.getYPos();
+                    element.setY(1);
+                });
+                this.icon.forEach(element => {
+                    element.getYPos();
+                    element.setY(1);
+                });
+                this.jewel.forEach(element => {
+                    element.getYPos();
+                    element.setY(1);
+                });
+            }
         }
-        this.terrain.forEach((terrain) => {
-            terrain.draw(this.ctx);
-        });
-        this.jewel.forEach((jewel) => {
-            jewel.draw(this.ctx);
-        });
-        this.writeLifeImagesToLevelScreen();
-        if (this.player.getY() < 150) {
-            this.flag.setY(1);
-            this.terrain.forEach(element => {
-                element.getYPos();
-                element.setY(1);
-                console.log('trying');
-            });
-            this.icon.forEach(element => {
-                element.getYPos();
-                element.setY(1);
-                console.log('tryng 2');
-            });
-            this.jewel.forEach(element => {
-                element.getYPos();
-                element.setY(1);
-                console.log('trying 3');
-            });
+        this.allIcons = false;
+        if (this.icon.length == 0) {
+            this.allIcons = true;
+            console.log("hij doet het");
         }
+    }
+    getFinish() {
+        return this.finish;
     }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Minecraft`;
@@ -905,19 +920,30 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
+        this.level = 1;
         this.canvas.width = 1400;
         this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         this.loop();
     }
     switchScreen() {
-        if (this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+        if (this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
             this.currentScreen = new GroundScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof GroundScreen && this.level === 2) {
+            this.currentScreen = new CloudScreen(this.canvas, this.ctx);
         }
         if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof CloudScreen && BaseScreen.live === 0) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof GroundScreen && this.currentScreen.getFinish() && this.currentScreen.getIcons()) {
+            this.level++;
+            console.log(this.level);
         }
     }
     static loadImage(source) {
@@ -957,33 +983,6 @@ class GroundScreen extends BaseScreen {
     constructor(canvas, ctx) {
         super(canvas, ctx);
         canvas.style.backgroundImage = "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
-        this.enemyArray = [
-            {
-                x: 170,
-                y: 120,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 500,
-                y: 400,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 850,
-                y: -100,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 300,
-                y: -100,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            },
-            {
-                x: 850,
-                y: -950,
-                img: "./assets/monsters/gorilla-png-37880.png"
-            }
-        ];
         for (let i = 0; i < this.enemyArray.length; i++) {
             this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));
         }
@@ -1362,6 +1361,9 @@ class GroundScreen extends BaseScreen {
         for (let i = 0; i < this.terrainArray.length; i++) {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
         }
+    }
+    getIcons() {
+        return this.allIcons;
     }
 }
 class Icon {
