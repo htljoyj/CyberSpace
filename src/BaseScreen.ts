@@ -65,6 +65,21 @@ class BaseScreen {
     }
     
     public draw() {
+        let isAnsweringQuestion = false;
+        for (let i = 0; i < this.icon.length; i++) {
+            if (this.player.isColliding(this.icon[i])) {
+                this.icon[i].setAnsweringQuestion(true);
+                isAnsweringQuestion = true;
+                this.icon[i].drawQuestion(this.ctx, this.canvas);
+                if (!this.icon[i].isAnsweringQuestion()) {
+                    this.icon.splice(i, 1);
+                    isAnsweringQuestion = false;
+                }
+            }
+        }
+
+        if (!isAnsweringQuestion)
+        {
         this.flag.draw(this.ctx)
         this.finish = false;
         if(this.player.isColliding(this.flag)){
@@ -167,7 +182,7 @@ class BaseScreen {
                 // console.log('trying 3')
 
             })
-
+        }
         }
         
         this.allIcons = false;
