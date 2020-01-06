@@ -47,8 +47,8 @@ class GroundScreen extends BaseScreen {
     this.icon = [];
     this.iconArray = [
       {
-        x: 1380,
-        y: this.canvas.height + 8,
+        x: 1370,
+        y: this.canvas.height-20,
         scale: 0.3,
         img: "facebook"
       },
@@ -89,8 +89,8 @@ class GroundScreen extends BaseScreen {
         img: "tiktok"
       },
       {
-        x: 800,
-        y: -300,
+        x: 780,
+        y: -310,
         scale: 0.3,
         img: "facebook"
       },
@@ -101,7 +101,7 @@ class GroundScreen extends BaseScreen {
         img: "instagram"
       },
       {
-        x: 950,
+        x: 1050,
         y: -654,
         scale: 0.5,
         img: "whatsapp"
@@ -152,8 +152,8 @@ class GroundScreen extends BaseScreen {
         img: "blue"
       },
       {
-        x: 890,
-        y: 400,
+        x: 1200,
+        y: 375,
         scale: 0.5,
         img: "blue"
       },
@@ -183,7 +183,12 @@ class GroundScreen extends BaseScreen {
       },
       { x: 150, y: 300, scale: 0.5, img: "blue" },
       { x: 200, y: 300, scale: 0.5, img: "blue" },
-      { x: 250, y: 300, scale: 0.5, img: "blue" }
+      { x: 250, y: 300, scale: 0.5, img: "blue" },{
+          x:1300,
+          y:-100,
+          scale:0.5,
+          img:"blue"
+      }
     ];
     for (let i = 0; i < this.jewelArray.length; i++) {
       this.jewel.push(
@@ -229,8 +234,8 @@ class GroundScreen extends BaseScreen {
         img: "./assets/bricks/newBrick.png"
       },
       {
-        x: 850,
-        y: this.canvas.height - 300,
+        x: 950,
+        y: this.canvas.height - 250,
         speed: 0,
         img: "./assets/bricks/newBrick.png"
       },
@@ -319,10 +324,16 @@ class GroundScreen extends BaseScreen {
         y: -100,
         speed: 0,
         img: "./assets/bricks/newBrick.png"
+      },{
+          x:1300,
+          y:-100,
+          speed:0,
+          img:"./assets/bricks/newBrick.png"
+
       },
       {
-        x: 700,
-        y: -150,
+        x: 1150,
+        y: -250,
         speed: 0,
         img: "./assets/bricks/newBrick.png"
       },
@@ -363,7 +374,7 @@ class GroundScreen extends BaseScreen {
         img: "./assets/bricks/newBrick.png"
       },
       {
-        x: 900,
+        x: 1000,
         y: -650,
         speed: 0,
         img: "./assets/bricks/newBrick.png"
