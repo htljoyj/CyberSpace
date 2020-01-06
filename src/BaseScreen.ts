@@ -5,6 +5,8 @@ class BaseScreen {
     protected icon: Icon[];
     protected jewel: Jewel[];
     protected flag: Terrain;
+    protected finish: boolean = false;
+    protected allIcons: boolean = false;
 
     protected player: Player;
     protected enemy: Enemy[];
@@ -48,7 +50,7 @@ class BaseScreen {
             const y = 10;
             // Start a loop for each life in lives
             for (let life = 0; life < BaseScreen.live; life++) {
-                // Draw the image at the curren x and y coordinates
+                // Draw the image at the current x and y coordinates
 
                 this.ctx.save();
                 this.ctx.translate(x + BaseScreen.life.x / 2, y + BaseScreen.life.y / 2);
@@ -61,13 +63,18 @@ class BaseScreen {
             }
         }
     }
-
+    
     public draw() {
         this.flag.draw(this.ctx)
+        this.finish = false;
+        if(this.player.isColliding(this.flag)){
+            this.finish = true;
+            // console.log("gelukt1");
+        }
         this.terrain.forEach((terrain) => {
             if (this.player.isColliding(terrain)) {
                 this.player.collision();
-                console.log(terrain.getXPos(), terrain.getYPos())
+                // console.log(terrain.getXPos(), terrain.getYPos())
                 // this.player.gravity = 0.2;
                 // this.player.move(this.canvas);
             } else if (this.player.gravity === 0) {
@@ -83,7 +90,7 @@ class BaseScreen {
                 }
             }
         });
-
+        
         for (let i = 0; i < this.jewel.length; i++) {
             if (this.player.isColliding(this.jewel[i])) {
                 Game.score += this.jewel[i].getValue();
@@ -93,11 +100,12 @@ class BaseScreen {
                 audio.play();
             }
         }
-
+        this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width-100, 20);
+        
         this.icon.forEach((icon) => {
             icon.draw(this.ctx, this.canvas);
             if (this.player.isColliding(icon)) {
-                console.log("Boem!");
+                // console.log("Boem!");
             }
         });
 
@@ -135,7 +143,7 @@ class BaseScreen {
 
         })
 
-        this.writeLifeImagesToLevelScreen();
+        this.writeLifeImagesToLevelScreen()
 
         if (this.player.getY() < 150) {
             this.flag.setY(1)
@@ -143,26 +151,36 @@ class BaseScreen {
 
                 element.getYPos()
                 element.setY(1)
-                console.log('trying')
+                // console.log('trying')
 
             });
             this.icon.forEach(element => {
                 element.getYPos()
                 element.setY(1)
-                console.log('tryng 2')
+                // console.log('tryng 2')
             })
 
             this.jewel.forEach(element => {
                 element.getYPos()
                 element.setY(1)
 
-                console.log('trying 3')
+                // console.log('trying 3')
 
             })
 
-
-
         }
+        
+        this.allIcons = false;
+
+        if(this.icon.length == 0){
+            this.allIcons = true;
+            console.log("hij doet het");
+        }
+
+    }
+    
+    public getFinish(){
+        return this.finish;
     }
 
     /**
