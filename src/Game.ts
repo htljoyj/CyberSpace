@@ -25,7 +25,7 @@ class Game {
 
 
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        this.currentScreen = new GroundScreen(this.canvas, this.ctx);
 
         this.loop();
     }
