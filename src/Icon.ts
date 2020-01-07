@@ -42,7 +42,7 @@ class Icon {
             "question": "Wat doe je als iemand belachelijk word gemaakt in de klassen app?",
             "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
             "b": "Diegene verdient het.",
-            "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
+            "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt > gemaakt op zijn gemak.",
             "answer": "c"
         }, {
             "platform": "whatsapp",
@@ -146,10 +146,13 @@ class Icon {
                 }
             } else {
                 if (this.playerAnswer == "") {
-                    this.writeTextToCanvas(ctx, this.platformQuestions[0].question, 20, canvas.width / 2, canvas.height / 2);
-                    this.writeTextToCanvas(ctx, "1: " + this.platformQuestions[0].a, 20, canvas.width / 2, canvas.height / 2 + 75);
-                    this.writeTextToCanvas(ctx, "2: " + this.platformQuestions[0].b, 20, canvas.width / 2, canvas.height / 2 + 150);
-                    this.writeTextToCanvas(ctx, "3: " + this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2 + 225);
+                    // this.writeTextToCanvas(ctx, this.platformQuestions[0].question, 20, canvas.width / 2, canvas.height / 2);
+                    // this.writeTextToCanvas(ctx, "1: " + this.platformQuestions[0].a, 20, canvas.width / 2, canvas.height / 2 + 75);
+                    // this.writeTextToCanvas(ctx, "2: " + this.platformQuestions[0].b, 20, canvas.width / 2, canvas.height / 2 + 150);
+                    // this.writeTextToCanvas(ctx, "3: " + this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2 + 225);
+
+                    this.writeTextToCanvas(ctx, this.platformQuestions[0].question + ">1: " + this.platformQuestions[0].a + ">2: " + this.platformQuestions[0].b + ">3: " + this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2);
+
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
                     } else if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_2)) {
@@ -204,7 +207,8 @@ class Icon {
         ctx.font = `${fontSize}px Minecraft`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
-        ctx.fillText(text.trim(), xCoordinate, yCoordinate);
+        if(text.trim() !== "3:")
+            ctx.fillText(text.trim(), xCoordinate, yCoordinate);
     }
 
     public getXPos() {

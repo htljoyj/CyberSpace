@@ -1134,7 +1134,7 @@ class Icon {
                 "question": "Wat doe je als iemand belachelijk word gemaakt in de klassen app?",
                 "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
                 "b": "Diegene verdient het.",
-                "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
+                "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt > gemaakt op zijn gemak.",
                 "answer": "c"
             }, {
                 "platform": "whatsapp",
@@ -1150,6 +1150,13 @@ class Icon {
                 "b": "Ik verzin een mooie nickname en vul deze in.",
                 "c": "Ik klik het schermpje weg",
                 "answer": "c"
+            }, {
+                "platform": "twitter",
+                "question": "hallo>hoi",
+                "a": "ja",
+                "b": "nee",
+                "c": "zzz",
+                "answer": "a"
             }];
         switch (platform) {
             case "twitter":
@@ -1215,10 +1222,7 @@ class Icon {
             }
             else {
                 if (this.playerAnswer == "") {
-                    this.writeTextToCanvas(ctx, this.platformQuestions[0].question, 20, canvas.width / 2, canvas.height / 2);
-                    this.writeTextToCanvas(ctx, "1: " + this.platformQuestions[0].a, 20, canvas.width / 2, canvas.height / 2 + 50);
-                    this.writeTextToCanvas(ctx, "2: " + this.platformQuestions[0].b, 20, canvas.width / 2, canvas.height / 2 + 100);
-                    this.writeTextToCanvas(ctx, "3: " + this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2 + 150);
+                    this.writeTextToCanvas(ctx, this.platformQuestions[0].question + ">1: " + this.platformQuestions[0].a + ">2: " + this.platformQuestions[0].b + ">3: " + this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2);
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
                     }
@@ -1249,10 +1253,17 @@ class Icon {
         }
     }
     writeTextToCanvas(ctx, text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "black") {
+        for (let i = 0; i < text.length; i++) {
+            if (text.charAt(i) == ">") {
+                this.writeTextToCanvas(ctx, text.substr(i + 1, text.length), fontSize, xCoordinate, yCoordinate + (75 / 2), alignment, color);
+                text = text.substr(0, i);
+            }
+        }
         ctx.font = `${fontSize}px Minecraft`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
-        ctx.fillText(text, xCoordinate, yCoordinate);
+        if (text.trim() !== "3:")
+            ctx.fillText(text.trim(), xCoordinate, yCoordinate);
     }
     getXPos() {
         return this.xPos;
