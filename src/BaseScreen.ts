@@ -239,6 +239,10 @@ class BaseScreen {
     public getFinish(){
         return this.finish;
     }
+    
+    public getIcons() {
+        return this.allIcons;
+      }
 
     /**
     * Writes text to the canvas

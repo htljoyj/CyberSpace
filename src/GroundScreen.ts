@@ -469,7 +469,5 @@ class GroundScreen extends BaseScreen {
     }
   }
 
-  public getIcons() {
-    return this.allIcons;
-  }
+ 
 }
