@@ -176,6 +176,46 @@ class CloudScreen extends BaseScreen {
         super(canvas, ctx);
         canvas.style.backgroundImage =
             "url('./assets/backgrounds/cloudscreen.gif')";
+        this.enemyArray = [
+            {
+                x: 655,
+                y: 400,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 1000,
+                y: 100,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 300,
+                y: 100,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 170,
+                y: -450,
+                img: "./assets/monsters/bat2.png"
+            },
+            {
+                x: 1250,
+                y: -450,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 250,
+                y: -550,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 640,
+                y: -920,
+                img: "./assets/monsters/bat1.png"
+            }
+        ];
+        for (let i = 0; i < this.enemyArray.length; i++) {
+            this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));
+        }
         this.terrainArray = [
             {
                 x: 75,
@@ -398,8 +438,8 @@ class CloudScreen extends BaseScreen {
         }
         this.iconArray = [
             {
-                x: 355,
-                y: 650,
+                x: 340,
+                y: 610,
                 scale: 0.3,
                 img: "facebook"
             },
@@ -440,8 +480,8 @@ class CloudScreen extends BaseScreen {
                 img: "whatsapp"
             },
             {
-                x: 1090,
-                y: -450,
+                x: 1060,
+                y: -480,
                 scale: 0.3,
                 img: "facebook"
             },
@@ -540,11 +580,7 @@ class CloudScreen extends BaseScreen {
                 scale: 0.5,
                 img: "green"
             },
-            { x: 715,
-                y: -910,
-                scale: 0.5,
-                img: "green"
-            },
+            { x: 715, y: -910, scale: 0.5, img: "green" }
         ];
         for (let i = 0; i < this.jewelArray.length; i++) {
             this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));
@@ -623,7 +659,7 @@ class Game {
         this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
         this.loop();
     }
     switchScreen() {
@@ -632,6 +668,9 @@ class Game {
         }
         if (this.currentScreen instanceof GroundScreen && this.level === 2) {
             this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof CloudScreen && this.level === 3) {
+            this.currentScreen = new SpaceScreen(this.canvas, this.ctx);
         }
         if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
@@ -1186,6 +1225,8 @@ class Icon {
                 this.platformQuestions.push(questions);
             }
         });
+        if (this.platformQuestions.length > 0)
+            console.log(this.platformQuestions);
     }
     draw(ctx, canvas) {
         const x = this.xPos - this.img.width / 2;

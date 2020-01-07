@@ -97,8 +97,8 @@ class Icon {
             }
         });
 
-        // if (this.platformQuestions.length > 0)
-        //     console.log(this.platformQuestions);
+         if (this.platformQuestions.length > 0)
+            console.log(this.platformQuestions);
     }
 
     public draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {

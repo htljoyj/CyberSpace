@@ -1,4 +1,3 @@
-
 ///<reference path = 'BaseScreen.ts'/>
 class CloudScreen extends BaseScreen {
   constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
@@ -6,6 +5,53 @@ class CloudScreen extends BaseScreen {
 
     canvas.style.backgroundImage =
       "url('./assets/backgrounds/cloudscreen.gif')";
+    this.enemyArray = [
+      {
+        x: 655,
+        y: 400,
+        img: "./assets/monsters/bat1.png"
+      },
+      {
+        x: 1000,
+        y: 100,
+        img: "./assets/monsters/bat1.png"
+      },
+      {
+        x: 300,
+        y: 100,
+        img: "./assets/monsters/bat1.png"
+      },
+      {
+        x: 170,
+        y: -450,
+        img: "./assets/monsters/bat2.png"
+      },
+      {
+        x: 1250,
+        y: -450,
+        img: "./assets/monsters/bat1.png"
+      },
+      {
+        x: 250,
+        y: -550,
+        img: "./assets/monsters/bat1.png"
+      },
+      {
+        x: 640,
+        y: -920,
+        img: "./assets/monsters/bat1.png"
+      }
+    ];
+    for (let i = 0; i < this.enemyArray.length; i++) {
+      this.enemy.push(
+        new Enemy(
+          this.enemyArray[i].x,
+          this.enemyArray[i].y,
+          3,
+          this.enemyArray[i].img
+        )
+      );
+    }
 
     this.terrainArray = [
       {
@@ -239,8 +285,8 @@ class CloudScreen extends BaseScreen {
 
     this.iconArray = [
       {
-        x: 355,
-        y: 650,
+        x: 340,
+        y: 610,
         scale: 0.3,
         img: "facebook"
       },
@@ -281,8 +327,8 @@ class CloudScreen extends BaseScreen {
         img: "whatsapp"
       },
       {
-        x: 1090,
-        y: -450,
+        x: 1060,
+        y: -480,
         scale: 0.3,
         img: "facebook"
       },
@@ -385,16 +431,12 @@ class CloudScreen extends BaseScreen {
         img: "green"
       },
       {
-         x: 90,
-         y: -1170,
-          scale: 0.5, 
-          img: "green"
-         },
-        { x: 715,
-         y: -910,
-          scale: 0.5,
-           img: "green"
-           },
+        x: 90,
+        y: -1170,
+        scale: 0.5,
+        img: "green"
+      },
+      { x: 715, y: -910, scale: 0.5, img: "green" }
     ];
 
     for (let i = 0; i < this.jewelArray.length; i++) {

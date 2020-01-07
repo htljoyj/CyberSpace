@@ -26,7 +26,7 @@ class Game {
 
 
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
 
         this.loop();
     }
@@ -53,6 +53,9 @@ class Game {
         }
         if (this.currentScreen instanceof GroundScreen && this.level === 2) {
             this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        }
+        if(this.currentScreen instanceof CloudScreen && this.level === 3){
+            this.currentScreen = new SpaceScreen(this.canvas,this.ctx);
         }
         if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
