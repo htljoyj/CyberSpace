@@ -1,11 +1,12 @@
-class GameObject{
-    protected xPos:number;
-    protected yPos:number;
-    protected gravity:number;
-    protected gravitySpeed:number;
-    protected img:HTMLImageElement;
+class GameObject {
+    protected xPos: number;
+    protected yPos: number;
+    protected gravity: number;
+    protected gravitySpeed: number;
+    protected img: HTMLImageElement;
+    protected lastKeyLeft: boolean = false;
 
-    public constructor(xPos:number, yPos:number, imgUrl:string){
+    public constructor(xPos: number, yPos: number, imgUrl: string) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.gravity = 0.3;
@@ -31,7 +32,15 @@ class GameObject{
 
         // If the image is not yet loaded, don't draw anything
         if (this.img.naturalWidth > 0) {
-            ctx.drawImage(this.img, x, y);
+            if (this.lastKeyLeft) {
+                ctx.translate(x,0);
+                ctx.scale(-1,1);
+                ctx.drawImage(this.img,-this.img.width,y);
+                ctx.setTransform(1,0,0,1,0,0);
+            } 
+            else {
+                ctx.drawImage(this.img, x, y);
+            }
         }
     }
 
@@ -44,5 +53,5 @@ class GameObject{
         return Math.round(Math.random() * (max - min) + min);
     }
 
-    
+
 }

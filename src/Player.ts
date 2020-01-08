@@ -52,9 +52,11 @@ class Player extends GameObject {
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
             this.xPos -= this.xVel;
+            this.lastKeyLeft = true;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) {
             this.xPos += this.xVel;
+            this.lastKeyLeft = false;
         }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
             this.gravity = 0.5;

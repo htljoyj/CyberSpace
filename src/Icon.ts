@@ -241,8 +241,9 @@ class Icon {
             ctx.save();
             ctx.translate(x + this.img.x / 2, y + this.img.y / 2);
             ctx.scale(this.scale, this.scale);
-            // ctx.translate(-this.img.x, -this.img.y);
+
             ctx.drawImage(this.img, -this.img.width / 2, -this.img.height / 2);
+
             ctx.restore();
         }
     }
@@ -318,6 +319,8 @@ class Icon {
                 text = text.substr(0, i);
             }
         }
+
+
 
         ctx.font = `${fontSize}px Patrick Hand`;
         ctx.fillStyle = color;
