@@ -9,7 +9,7 @@ class BaseScreen {
         BaseScreen.live = 3;
         BaseScreen.life = new Image();
         BaseScreen.life.src = './assets/heart-icon-png-transparent.png';
-        this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.player = new Player(80, 520, 4, 4, BaseScreen.playerImg);
         this.flag = new Terrain(680, -1300, 0, './assets/greenFlag.png', this.canvas, this.ctx);
         this.enemy = [];
         this.enemyArray = [];
@@ -33,6 +33,10 @@ class BaseScreen {
                 x += 25;
             }
         }
+    }
+    setPlayer(player) {
+        BaseScreen.playerImg = player;
+        console.log("check");
     }
     draw() {
         let isAnsweringQuestion = false;
@@ -174,51 +178,12 @@ class BaseScreen {
         this.ctx.fillText(text, xCoordinate, yCoordinate);
     }
 }
+BaseScreen.playerImg = "./assets/player/slime1.png";
 class CloudScreen extends BaseScreen {
     constructor(canvas, ctx) {
         super(canvas, ctx);
         canvas.style.backgroundImage =
             "url('./assets/backgrounds/cloudscreen.gif')";
-        this.enemyArray = [
-            {
-                x: 655,
-                y: 400,
-                img: "./assets/monsters/bat1.png"
-            },
-            {
-                x: 1000,
-                y: 100,
-                img: "./assets/monsters/bat1.png"
-            },
-            {
-                x: 300,
-                y: 100,
-                img: "./assets/monsters/bat1.png"
-            },
-            {
-                x: 170,
-                y: -450,
-                img: "./assets/monsters/bat2.png"
-            },
-            {
-                x: 1250,
-                y: -450,
-                img: "./assets/monsters/bat1.png"
-            },
-            {
-                x: 250,
-                y: -550,
-                img: "./assets/monsters/bat1.png"
-            },
-            {
-                x: 640,
-                y: -920,
-                img: "./assets/monsters/bat1.png"
-            }
-        ];
-        for (let i = 0; i < this.enemyArray.length; i++) {
-            this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));
-        }
         this.terrainArray = [
             {
                 x: 75,
@@ -441,8 +406,8 @@ class CloudScreen extends BaseScreen {
         }
         this.iconArray = [
             {
-                x: 340,
-                y: 610,
+                x: 355,
+                y: 650,
                 scale: 0.3,
                 img: "facebook"
             },
@@ -483,8 +448,8 @@ class CloudScreen extends BaseScreen {
                 img: "whatsapp"
             },
             {
-                x: 1060,
-                y: -480,
+                x: 1090,
+                y: -450,
                 scale: 0.3,
                 img: "facebook"
             },
@@ -583,7 +548,11 @@ class CloudScreen extends BaseScreen {
                 scale: 0.5,
                 img: "green"
             },
-            { x: 715, y: -910, scale: 0.5, img: "green" }
+            { x: 715,
+                y: -910,
+                scale: 0.5,
+                img: "green"
+            },
         ];
         for (let i = 0; i < this.jewelArray.length; i++) {
             this.jewel.push(new Jewel(this.jewelArray[i].x, this.jewelArray[i].y, this.jewelArray[i].scale, this.jewelArray[i].img));
@@ -666,8 +635,17 @@ class Game {
         this.loop();
     }
     switchScreen() {
-        if (this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+        if ((this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
             this.currentScreen = new GroundScreen(this.canvas, this.ctx);
+        }
+        if ((this.currentScreen instanceof TitleScreen && this.level === 2 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+            this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        }
+        if ((this.currentScreen instanceof TitleScreen && this.level === 3 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+            this.currentScreen = new SpaceScreen(this.canvas, this.ctx);
+        }
+        if ((this.currentScreen instanceof TitleScreen && this.level === 4 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+            this.currentScreen = new UnderwaterScreen(this.canvas, this.ctx);
         }
         if (this.currentScreen instanceof GroundScreen && this.level === 2) {
             this.currentScreen = new CloudScreen(this.canvas, this.ctx);
@@ -675,10 +653,19 @@ class Game {
         if (this.currentScreen instanceof CloudScreen && this.level === 3) {
             this.currentScreen = new SpaceScreen(this.canvas, this.ctx);
         }
+        if (this.currentScreen instanceof SpaceScreen && this.level === 4) {
+            this.currentScreen = new UnderwaterScreen(this.canvas, this.ctx);
+        }
         if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
         if (this.currentScreen instanceof CloudScreen && BaseScreen.live === 0) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof SpaceScreen && BaseScreen.live === 0) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof UnderwaterScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
         if ((this.currentScreen instanceof GroundScreen || this.currentScreen instanceof CloudScreen || this.currentScreen instanceof SpaceScreen) && this.currentScreen.getFinish() && this.currentScreen.getIcons()) {
@@ -1134,9 +1121,6 @@ class GroundScreen extends BaseScreen {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
         }
     }
-    init() {
-        console.log("hoi");
-    }
 }
 class Icon {
     constructor(xPos, yPos, scale, platform, index = 0) {
@@ -1487,6 +1471,7 @@ KeyboardListener.KEY_D = 68;
 KeyboardListener.KEY_1 = 49;
 KeyboardListener.KEY_2 = 50;
 KeyboardListener.KEY_3 = 51;
+KeyboardListener.KEY_4 = 52;
 KeyboardListener.KEY_SHIFT = 16;
 class Player extends GameObject {
     constructor(xPos, yPos, xVel, yVel, imgUrl) {
@@ -1557,7 +1542,7 @@ class SpaceScreen extends BaseScreen {
     constructor(canvas, ctx) {
         super(canvas, ctx);
         canvas.style.backgroundImage =
-            "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
+            "url('./assets/backgrounds/cloudscreen.gif')";
         this.terrainArray = [];
         for (let i = 0; i < this.terrainArray.length; i++) {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
@@ -1612,13 +1597,125 @@ class Terrain {
     }
     move() { }
 }
-class TitleScreen {
+class TitleScreen extends BaseScreen {
     constructor(canvas, ctx) {
+        super(canvas, ctx);
         this.canvas = canvas;
         this.ctx = ctx;
         canvas.style.backgroundImage = "url('./assets/backgrounds/IrF.gif')";
+        this.keyboardListener = new KeyboardListener();
+        this.terrain = [];
+        this.terrainArray = [
+            {
+                x: 20,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 120,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 220,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 320,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 420,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 520,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 620,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 720,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 820,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 920,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1020,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1120,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1220,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1320,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            },
+            {
+                x: 1420,
+                y: canvas.height + 10,
+                speed: 0,
+                img: "./assets/bricks/newBrick.png"
+            }
+        ];
+        for (let i = 0; i < this.terrainArray.length; i++) {
+            this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
+        }
     }
     draw() {
+        super.draw();
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) {
+            this.setPlayer("./assets/player/slime1.png");
+            console.log("check1");
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) {
+            this.setPlayer("./assets/player/slime2.png");
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) {
+            this.setPlayer("./assets/player/slime3.png");
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) {
+            this.setPlayer("./assets/player/slime4.png");
+        }
         this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
         this.writeTextToCanvas("Press spacebar to start", 50, this.canvas.width / 2, this.canvas.height / 2 + 100, "center", "white");
     }
