@@ -69,6 +69,7 @@ class BaseScreen {
     public setPlayer(player:string){
         BaseScreen.playerImg = player;
         console.log("check");
+        this.player = new Player(80, 520, 4, 4, BaseScreen.playerImg);
     }
 
     public draw() {

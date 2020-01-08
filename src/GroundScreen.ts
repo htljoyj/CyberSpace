@@ -50,100 +50,85 @@ class GroundScreen extends BaseScreen {
         x: 1370,
         y: this.canvas.height-20,
         scale: 0.3,
-        img: "facebook",
-        index: 0
+        img: "facebook"
       },
       {
         x: 200,
         y: 120,
         scale: 0.3,
-        img: "instagram",
-        index:0
+        img: "instagram"
       },
       {
         x: 850,
         y: 150,
         scale: 0.5,
-        img: "whatsapp",
-        index:0
-
+        img: "whatsapp"
       },
       {
         x: this.canvas.width / 2,
         y: this.canvas.height / 2,
         scale: 0.5,
-        img: "snapchat",
-        index:0
+        img: "snapchat"
       },
       {
         x: 330,
         y: this.canvas.height - 140,
         scale: 0.5,
-        img: "twitter",
-        index:0
+        img: "twitter"
       },
       {
         x: 1100,
         y: 195,
         scale: 0.7,
-        img: "youtube",
-        index:0
+        img: "youtube"
       },
       {
         x: 110,
         y: 335,
         scale: 0.3,
-        img: "tiktok",
-        index:0
+        img: "tiktok"
       },
       {
         x: 780,
         y: -310,
         scale: 0.3,
-        img: "facebook",
-        index:1
+        img: "facebook"
       },
       {
         x: 550,
         y: -250,
         scale: 0.3,
-        img: "instagram",
-        index:1
+        img: "instagram"
       },
       {
         x: 1050,
         y: -654,
         scale: 0.5,
-        img: "whatsapp",
-        index:1
+        img: "whatsapp"
       },
       {
         x: 1065,
         y: -975,
         scale: 0.5,
-        img: "snapchat",
-        index:1
+        img: "snapchat"
       },
       {
         x: 360,
         y: -865,
         scale: 0.5,
-        img: "twitter",
-        index:1
+        img: "twitter"
       },
       {
         x: 545,
         y: -1064,
         scale: 0.7,
-        img: "youtube",
-        index:1
+        img: "youtube"
       },
       {
         x: 450,
         y: -640,
         scale: 0.3,
-        img: "tiktok",
-        index:1
+        img: "tiktok"
       }
     ];
 
@@ -153,8 +138,7 @@ class GroundScreen extends BaseScreen {
           this.iconArray[i].x,
           this.iconArray[i].y,
           this.iconArray[i].scale,
-          this.iconArray[i].img,
-          this.iconArray[i].index
+          this.iconArray[i].img
         )
       );
     }

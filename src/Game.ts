@@ -11,6 +11,7 @@ class Game {
     public static score: number = 0;
     private level: number;
 
+
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
@@ -47,6 +48,13 @@ class Game {
     }
 
     private switchScreen() {
+
+        if (this.currentScreen instanceof TitleScreen && this.keyboardListener.isKeyDown(KeyboardListener.KEY_H)) {
+            this.currentScreen = new Tutorial(this.canvas, this.ctx);
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC)) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
         if ((this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
             this.currentScreen = new GroundScreen(this.canvas, this.ctx);
         }
