@@ -1148,24 +1148,24 @@ class Icon {
         this.platformQuestion = [];
         this.instagramQuestions = [
             {
-                " platform": "instagram",
+                "platform": "instagram",
                 "question": " Op jouw Instagram foto’s zie je een heleboel haatreacties staan van onbekende personen.",
-                " a": "Je wordt er verdrietig van.",
-                " b": "Je reageert terug door middel van een soortgelijke reactie te plaatsen.",
+                "a": "Je wordt er verdrietig van.",
+                "b": "Je reageert terug door middel van een soortgelijke reactie te plaatsen.",
                 "c": "Je rapporteert de profielen en zet jouw account op privé.",
                 "answer": "c"
             }, {
-                " platform": "instagram",
+                "platform": "instagram",
                 "question": "Waarom is het beter om je profiel op privé te zetten?",
-                " a": "Het is niet beter",
-                " b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
+                "a": "Het is niet beter",
+                "b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
                 "c": "Je kunt de likes dan beter in de gaten houden..",
                 "answer": "b"
             }, {
-                " platform": "instagram",
+                "platform": "instagram",
                 "question": "Waarom is het beter om je profiel op privé te zetten?",
-                " a": "Het is niet beter",
-                " b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
+                "a": "Het is niet beter",
+                "b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
                 "c": "Je kunt de likes dan beter in de gaten houden..",
                 "answer": "b"
             }
@@ -1281,41 +1281,39 @@ class Icon {
             case "twitter":
                 this.img = Game.loadImage("./assets/socialmedia/twitter.png");
                 this.platform = "twitter";
-                this.platformQuestion = this.twitterQuestions[index];
+                this.platformQuestion.push(this.twitterQuestions[index]);
                 break;
             case "whatsapp":
                 this.img = Game.loadImage("./assets/socialmedia/wApp.png");
                 this.platform = "whatsapp";
-                this.platformQuestion = this.whatsappQuestions[index];
+                this.platformQuestion.push(this.whatsappQuestions[index]);
                 break;
             case "tiktok":
                 this.img = Game.loadImage("./assets/socialmedia/tiktok.png");
                 this.platform = "tiktok";
-                this.platformQuestion = this.tiktokQuestions[index];
+                this.platformQuestion.push(this.tiktokQuestions[index]);
                 break;
             case "youtube":
                 this.img = Game.loadImage("./assets/socialmedia/youtube.png");
                 this.platform = "youtube";
-                this.platformQuestion = this.youtubeQuestions[index];
+                this.platformQuestion.push(this.youtubeQuestions[index]);
                 break;
             case "facebook":
                 this.img = Game.loadImage("./assets/socialmedia/fb.png");
                 this.platform = "facebook";
-                this.platformQuestion = this.facebookQuestions[index];
+                this.platformQuestion.push(this.facebookQuestions[index]);
                 break;
             case "snapchat":
                 this.img = Game.loadImage("./assets/socialmedia/snapchat.png");
                 this.platform = "snapchat";
                 this.platformQuestion.push(this.snapchatQuestions[index]);
-                console.log(this.snapchatQuestions[index]);
                 break;
             case "instagram":
                 this.img = Game.loadImage("./assets/socialmedia/ins.png");
                 this.platform = "instagram";
-                this.platformQuestion = this.instagramQuestions[index];
+                this.platformQuestion.push(this.instagramQuestions[index]);
                 break;
         }
-        console.log(this.platformQuestion);
     }
     draw(ctx, canvas) {
         const x = this.xPos - this.img.width / 2;
@@ -1345,6 +1343,7 @@ class Icon {
             }
             else {
                 if (this.playerAnswer == "") {
+                    console.log(this.platformQuestion);
                     this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 20, canvas.width / 2, canvas.height / 2);
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
@@ -1381,7 +1380,7 @@ class Icon {
                 text = text.substr(0, i);
             }
         }
-        ctx.font = `${fontSize}px Minecraft`;
+        ctx.font = `${fontSize}px Patrick Hand`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
         if (text.trim() !== "3:")
