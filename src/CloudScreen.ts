@@ -241,85 +241,100 @@ class CloudScreen extends BaseScreen {
         x: 355,
         y: 650,
         scale: 0.3,
-        img: "facebook"
+        img: "facebook",
+        index:2,
       },
       {
         x: 500,
         y: 210,
         scale: 0.3,
-        img: "instagram"
+        img: "instagram",
+        index:2
       },
       {
         x: 465,
         y: -130,
         scale: 0.3,
-        img: "tiktok"
+        img: "tiktok",
+        index:2
       },
       {
         x: 620,
         y: -10,
         scale: 0.5,
-        img: "snapchat"
+        img: "snapchat",
+        index:2
       },
       {
         x: 1095,
         y: 480,
         scale: 0.7,
-        img: "youtube"
+        img: "youtube",
+        index:2
       },
       {
         x: 120,
         y: 90,
         scale: 0.5,
-        img: "twitter"
+        img: "twitter",
+        index:2
       },
       {
         x: 1120,
         y: -120,
         scale: 0.7,
-        img: "whatsapp"
+        img: "whatsapp",
+        index:2
       },
       {
         x: 1090,
         y: -450,
         scale: 0.3,
-        img: "facebook"
+        img: "facebook",
+        index:3
       },
       {
         x: 660,
         y: -580,
         scale: 0.3,
-        img: "instagram"
+        img: "instagram",
+        index:3
       },
       {
         x: 1400,
         y: -710,
         scale: 0.3,
-        img: "tiktok"
+        img: "tiktok",
+        index:3
       },
       {
         x: 415,
         y: -820,
         scale: 0.7,
-        img: "youtube"
+        img: "youtube",
+        index:3
       },
       {
         x: 1350,
         y: -1160,
         scale: 0.5,
-        img: "snapchat"
+        img: "snapchat",
+        index:3
       },
       {
         x: 220,
         y: -1160,
         scale: 0.5,
-        img: "twitter"
+        img: "twitter",
+        index:3
       },
       {
         x: 1015,
         y: -1015,
         scale: 0.7,
-        img: "whatsapp"
+        img: "whatsapp",
+        index:3
+
       }
     ];
 
@@ -329,7 +344,8 @@ class CloudScreen extends BaseScreen {
           this.iconArray[i].x,
           this.iconArray[i].y,
           this.iconArray[i].scale,
-          this.iconArray[i].img
+          this.iconArray[i].img,
+          this.iconArray[i].index
         )
       );
     }

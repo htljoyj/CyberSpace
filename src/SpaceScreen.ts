@@ -27,7 +27,8 @@ class SpaceScreen extends BaseScreen{
             this.iconArray[i].x,
             this.iconArray[i].y,
             this.iconArray[i].scale,
-            this.iconArray[i].img
+            this.iconArray[i].img,
+            this.iconArray[i].index
           )
         );
       }

@@ -409,89 +409,103 @@ class CloudScreen extends BaseScreen {
                 x: 355,
                 y: 650,
                 scale: 0.3,
-                img: "facebook"
+                img: "facebook",
+                index: 2,
             },
             {
                 x: 500,
                 y: 210,
                 scale: 0.3,
-                img: "instagram"
+                img: "instagram",
+                index: 2
             },
             {
                 x: 465,
                 y: -130,
                 scale: 0.3,
-                img: "tiktok"
+                img: "tiktok",
+                index: 2
             },
             {
                 x: 620,
                 y: -10,
                 scale: 0.5,
-                img: "snapchat"
+                img: "snapchat",
+                index: 2
             },
             {
                 x: 1095,
                 y: 480,
                 scale: 0.7,
-                img: "youtube"
+                img: "youtube",
+                index: 2
             },
             {
                 x: 120,
                 y: 90,
                 scale: 0.5,
-                img: "twitter"
+                img: "twitter",
+                index: 2
             },
             {
                 x: 1120,
                 y: -120,
                 scale: 0.7,
-                img: "whatsapp"
+                img: "whatsapp",
+                index: 2
             },
             {
                 x: 1090,
                 y: -450,
                 scale: 0.3,
-                img: "facebook"
+                img: "facebook",
+                index: 3
             },
             {
                 x: 660,
                 y: -580,
                 scale: 0.3,
-                img: "instagram"
+                img: "instagram",
+                index: 3
             },
             {
                 x: 1400,
                 y: -710,
                 scale: 0.3,
-                img: "tiktok"
+                img: "tiktok",
+                index: 3
             },
             {
                 x: 415,
                 y: -820,
                 scale: 0.7,
-                img: "youtube"
+                img: "youtube",
+                index: 3
             },
             {
                 x: 1350,
                 y: -1160,
                 scale: 0.5,
-                img: "snapchat"
+                img: "snapchat",
+                index: 3
             },
             {
                 x: 220,
                 y: -1160,
                 scale: 0.5,
-                img: "twitter"
+                img: "twitter",
+                index: 3
             },
             {
                 x: 1015,
                 y: -1015,
                 scale: 0.7,
-                img: "whatsapp"
+                img: "whatsapp",
+                index: 3
             }
         ];
         for (let i = 0; i < this.iconArray.length; i++) {
-            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img, this.iconArray[i].index));
         }
         this.jewelArray = [
             {
@@ -747,89 +761,103 @@ class GroundScreen extends BaseScreen {
                 x: 1370,
                 y: this.canvas.height - 20,
                 scale: 0.3,
-                img: "facebook"
+                img: "facebook",
+                index: 0
             },
             {
                 x: 200,
                 y: 120,
                 scale: 0.3,
-                img: "instagram"
+                img: "instagram",
+                index: 0
             },
             {
                 x: 850,
                 y: 150,
                 scale: 0.5,
-                img: "whatsapp"
+                img: "whatsapp",
+                index: 0
             },
             {
                 x: this.canvas.width / 2,
                 y: this.canvas.height / 2,
                 scale: 0.5,
-                img: "snapchat"
+                img: "snapchat",
+                index: 0
             },
             {
                 x: 330,
                 y: this.canvas.height - 140,
                 scale: 0.5,
-                img: "twitter"
+                img: "twitter",
+                index: 0
             },
             {
                 x: 1100,
                 y: 195,
                 scale: 0.7,
-                img: "youtube"
+                img: "youtube",
+                index: 0
             },
             {
                 x: 110,
                 y: 335,
                 scale: 0.3,
-                img: "tiktok"
+                img: "tiktok",
+                index: 0
             },
             {
                 x: 780,
                 y: -310,
                 scale: 0.3,
-                img: "facebook"
+                img: "facebook",
+                index: 1
             },
             {
                 x: 550,
                 y: -250,
                 scale: 0.3,
-                img: "instagram"
+                img: "instagram",
+                index: 1
             },
             {
                 x: 1050,
                 y: -654,
                 scale: 0.5,
-                img: "whatsapp"
+                img: "whatsapp",
+                index: 1
             },
             {
                 x: 1065,
                 y: -975,
                 scale: 0.5,
-                img: "snapchat"
+                img: "snapchat",
+                index: 1
             },
             {
                 x: 360,
                 y: -865,
                 scale: 0.5,
-                img: "twitter"
+                img: "twitter",
+                index: 1
             },
             {
                 x: 545,
                 y: -1064,
                 scale: 0.7,
-                img: "youtube"
+                img: "youtube",
+                index: 1
             },
             {
                 x: 450,
                 y: -640,
                 scale: 0.3,
-                img: "tiktok"
+                img: "tiktok",
+                index: 1
             }
         ];
         for (let i = 0; i < this.iconArray.length; i++) {
-            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img, this.iconArray[i].index));
         }
         this.jewel = [];
         this.jewelArray = [
@@ -1147,7 +1175,7 @@ class Icon {
                 "answer": "b"
             }, {
                 "platform": "instagram",
-                "question": "Waarom is het beter om je profiel op privé te zetten?",
+                "question": "?",
                 "a": "Het is niet beter",
                 "b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
                 "c": "Je kunt de likes dan beter in de gaten houden..",
@@ -1257,7 +1285,7 @@ class Icon {
                 "question": "Waarom is het niet zo handig om in een topje en een kortbroekje een Tik Tok filmpje te maken?",
                 "a": "Daar is niks mis mee.",
                 "b": "Er zitten pedofielen op Tik Tok die misbruik kunnen maken van jouw beeldmateriaal!",
-                "c": "Hrt kan soms koud zijn.",
+                "c": "Het kan soms koud zijn.",
                 "answer": "b"
             },
         ];
@@ -1319,7 +1347,7 @@ class Icon {
     drawQuestion(ctx, canvas) {
         if (this.isAnsweringQuestion()) {
             if (this.platformQuestion == undefined) {
-                this.writeTextToCanvas(ctx, "Je hebt alle " + this.platform + "vragen al beantwoord", 20, canvas.width / 2, canvas.height / 2);
+                this.writeTextToCanvas(ctx, "Je hebt alle " + this.platform + "vragen al beantwoord", 25, canvas.width / 2, canvas.height / 2);
                 if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                     this.setAnsweringQuestion(false);
                     this.playerAnswer = "";
@@ -1328,7 +1356,7 @@ class Icon {
             else {
                 if (this.playerAnswer == "") {
                     console.log(this.platformQuestion);
-                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 20, canvas.width / 2, canvas.height / 2);
+                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
                     }
@@ -1341,14 +1369,14 @@ class Icon {
                 }
                 else {
                     if (this.playerAnswer == this.platformQuestion[0].answer) {
-                        this.writeTextToCanvas(ctx, "Dat klopt", 20, canvas.width / 2, canvas.height / 2);
+                        this.writeTextToCanvas(ctx, "Dat klopt", 25, canvas.width / 2, canvas.height / 2);
                         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                             this.setAnsweringQuestion(false);
                             this.playerAnswer = "";
                         }
                     }
                     else {
-                        this.writeTextToCanvas(ctx, "Dat klopt niet", 20, canvas.width / 2, canvas.height / 2);
+                        this.writeTextToCanvas(ctx, "Dat klopt niet", 25, canvas.width / 2, canvas.height / 2);
                         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                             this.playerAnswer = "";
                         }
@@ -1549,7 +1577,7 @@ class SpaceScreen extends BaseScreen {
         }
         this.iconArray = [];
         for (let i = 0; i < this.iconArray.length; i++) {
-            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img, this.iconArray[i].index));
         }
         this.jewelArray = [];
         for (let i = 0; i < this.jewelArray.length; i++) {
@@ -1737,7 +1765,7 @@ class UnderwaterScreen extends BaseScreen {
         }
         this.iconArray = [];
         for (let i = 0; i < this.iconArray.length; i++) {
-            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img, this.iconArray[i].index));
         }
         this.jewelArray = [];
         for (let i = 0; i < this.jewelArray.length; i++) {
