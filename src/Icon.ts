@@ -3,107 +3,82 @@ class Icon {
     private yPos: number;
     private scale: number;
     private img: HTMLImageElement;
-    private questions: any;
-    private platformQuestions: any;
+    private snapchatQuestions: any;
+    private platformQuestion: any[];
     private platform: string;
     private answeringQuestion: boolean;
     private keyboardListener: KeyboardListener;
+    private twitterQuestions: any[];
+    private whatsappQuestions: any[];
+    private tiktokQuestions: any[];
+    private youtubeQuestions: any[];
+    private facebookQuestions: any[];
+    private instagramQuestions: any[];
 
-    public constructor(xPos: number, yPos: number, scale: number, platform: string) {
+    public constructor(xPos: number, yPos: number, scale: number, platform: string)//, index: number)
+    {
+        let index = 0;
         this.xPos = xPos;
         this.yPos = yPos;
         this.scale = scale;
         this.keyboardListener = new KeyboardListener();
-        this.questions = [];
-        this.platformQuestions = [];
-        this.questions = [{
+        this.platformQuestion = [];
+        
+        this.snapchatQuestions = [];
+        this.twitterQuestions = [];
+        this.whatsappQuestions = [];
+        this.tiktokQuestions = [];
+        this.youtubeQuestions = [];
+        this.facebookQuestions = [];
+        this.snapchatQuestions = [{
             "platform": "snapchat",
             "question": "Wat is een expose groep?",
             "a": "Een groep waarin word gelachen.",
             "b": "Een groep waarin men niets vermoedende mensen belachelijk maakt.",
             "c": "Een groep om de nieuwste films in te bespreken.",
             "answer": "b"
-        }, {
-            "platform": "facebook",
-            "question": "Accepteer jij zomaar een vriendschap verzoek van een onbekend persoon?",
-            "a": "ja",
-            "b": "nee",
-            "c": "",
-            "answer": "b"
-        }, {
-            "platform": "tiktok",
-            "question": "Waarom is het niet zo handig om in een topje en een kortbroekje een Tik Tok filmpje te maken?",
-            "a": "Daar is niks mis mee.",
-            "b": "Er zitten pedofielen op Tik Tok die misbruik kunnen maken van jouw beeldmateriaal!",
-            "c": "",
-            "answer": "b"
-        }, {
-            "platform": "whatsapp",
-            "question": "Wat doe je als iemand belachelijk word gemaakt in de klassen app?",
-            "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
-            "b": "Diegene verdient het.",
-            "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt > gemaakt op zijn gemak.",
-            "answer": "c"
-        }, {
-            "platform": "whatsapp",
-            "question": "Na de schooltrip ontvang je een Whatsapp berichtje in de groepsapp, waarin een minder leuke foto van een schoolgenoot is doorgegestuurd door je beste vriend/vriendin. Hoe reageer jij?",
-            "a": "Ik bemoei me er niet mee, straks ben ik de volgende.",
-            "b": "Diegene verdient het.",
-            "c": "Ik maak een screenshot van wat er gezegd is als bewijs en stel de persoon die belachelijk wordt gemaakt op zijn gemak.",
-            "answer": "c"
-        }, {
-            "platform": "whatsapp",
-            "question": "Tijdens het spelen van een game popt er een scherm op waarin staat dat jij de hoogste score hebt. Om dit te registeren wordt er gevraagd naar je voor -en achternaam.",
-            "a": "Ik vul dit naar waarheid in en ga verder met de game.",
-            "b": "Ik verzin een mooie nickname en vul deze in.",
-            "c": "Ik klik het schermpje weg",
-            "answer": "c"
-        }, {
-            "platform": "twitter",
-            "question": "hallo>hoi",
-            "a": "ja",
-            "b": "nee",
-            "c": "zzz",
-            "answer": "a"
         }];
+        this.instagramQuestions = [];
 
         switch (platform) {
             case "twitter":
                 this.img = Game.loadImage("./assets/socialmedia/twitter.png");
                 this.platform = "twitter";
+                this.platformQuestion = this.twitterQuestions[index];
                 break;
             case "whatsapp":
                 this.img = Game.loadImage("./assets/socialmedia/wApp.png");
                 this.platform = "whatsapp";
+                this.platformQuestion = this.whatsappQuestions[index];
                 break;
             case "tiktok":
                 this.img = Game.loadImage("./assets/socialmedia/tiktok.png");
                 this.platform = "tiktok";
+                this.platformQuestion = this.tiktokQuestions[index];
                 break;
             case "youtube":
                 this.img = Game.loadImage("./assets/socialmedia/youtube.png")
                 this.platform = "youtube";
+                this.platformQuestion = this.youtubeQuestions[index];
                 break;
             case "facebook":
                 this.img = Game.loadImage("./assets/socialmedia/fb.png");
                 this.platform = "facebook";
+                this.platformQuestion = this.facebookQuestions[index];
                 break;
             case "snapchat":
                 this.img = Game.loadImage("./assets/socialmedia/snapchat.png");
                 this.platform = "snapchat";
+                this.platformQuestion.push(this.snapchatQuestions[index]);
+                console.log(this.snapchatQuestions[index]);
                 break;
             case "instagram":
                 this.img = Game.loadImage("./assets/socialmedia/ins.png");
                 this.platform = "instagram";
+                this.platformQuestion = this.instagramQuestions[index];
                 break;
         }
-
-        this.questions.forEach((questions: any) => {
-            if (questions.platform == this.platform) {
-                this.platformQuestions.push(questions);
-            }
-        });
-
+    console.log(this.platformQuestion);
         // if (this.platformQuestions.length > 0)
         //     console.log(this.platformQuestions);
     }
@@ -138,20 +113,15 @@ class Icon {
     private playerAnswer: string = "";
     public drawQuestion(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
         if (this.isAnsweringQuestion()) {
-            if (this.platformQuestions.length == 0 || this.platformQuestions == undefined) {
+            if (this.platformQuestion == undefined) {
                 this.writeTextToCanvas(ctx, "Je hebt alle " + this.platform + "vragen al beantwoord", 20, canvas.width / 2, canvas.height / 2);
                 if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                     this.setAnsweringQuestion(false);
                     this.playerAnswer = "";
                 }
-            } else {
+        }else {
                 if (this.playerAnswer == "") {
-                    // this.writeTextToCanvas(ctx, this.platformQuestions[0].question, 20, canvas.width / 2, canvas.height / 2);
-                    // this.writeTextToCanvas(ctx, "1: " + this.platformQuestions[0].a, 20, canvas.width / 2, canvas.height / 2 + 75);
-                    // this.writeTextToCanvas(ctx, "2: " + this.platformQuestions[0].b, 20, canvas.width / 2, canvas.height / 2 + 150);
-                    // this.writeTextToCanvas(ctx, "3: " + this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2 + 225);
-
-                    this.writeTextToCanvas(ctx, this.platformQuestions[0].question + ">1: " + this.platformQuestions[0].a + ">2: " + this.platformQuestions[0].b + ">3: " + this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2);
+                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 20, canvas.width / 2, canvas.height / 2);
 
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
@@ -161,12 +131,11 @@ class Icon {
                         this.playerAnswer = "c";
                     }
                 } else {
-                    if (this.playerAnswer == this.platformQuestions[0].answer) {
+                    if (this.playerAnswer == this.platformQuestion[0].answer) {
                         this.writeTextToCanvas(ctx, "Dat klopt", 20, canvas.width / 2, canvas.height / 2);
                         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                             this.setAnsweringQuestion(false);
                             this.playerAnswer = "";
-                            this.platformQuestions.shift();
                         }
                     } else {
                         this.writeTextToCanvas(ctx, "Dat klopt niet", 20, canvas.width / 2, canvas.height / 2);
@@ -178,7 +147,6 @@ class Icon {
             }
         }
     }
-
     /**
      * Writes text to the canvas
      * @param {string} text - Text to write
