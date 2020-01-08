@@ -15,9 +15,9 @@ class Icon {
     private facebookQuestions: any[];
     private instagramQuestions: any[];
 
-    public constructor(xPos: number, yPos: number, scale: number, platform: string)//, index: number)
+    public constructor(xPos: number, yPos: number, scale: number, platform: string, index: number = 0)
     {
-        let index = 0;
+        // let index = 0;
         this.xPos = xPos;
         this.yPos = yPos;
         this.scale = scale;

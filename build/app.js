@@ -1139,9 +1139,8 @@ class GroundScreen extends BaseScreen {
     }
 }
 class Icon {
-    constructor(xPos, yPos, scale, platform) {
+    constructor(xPos, yPos, scale, platform, index = 0) {
         this.playerAnswer = "";
-        let index = 0;
         this.xPos = xPos;
         this.yPos = yPos;
         this.scale = scale;
