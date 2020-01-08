@@ -44,8 +44,7 @@ class Icon {
                 "answer": "b"
             }, {
                 "platform": "instagram",
-                "question":
-                    "Waarom is het beter om je profiel op privé te zetten?",
+                "question":"?",
                 "a": "Het is niet beter",
                 "b":
                     "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
@@ -181,7 +180,7 @@ class Icon {
                 "a": "Daar is niks mis mee.",
                 "b":
                     "Er zitten pedofielen op Tik Tok die misbruik kunnen maken van jouw beeldmateriaal!",
-                "c": "Hrt kan soms koud zijn.",
+                "c": "Het kan soms koud zijn.",
                 "answer": "b"
             },
         ];
@@ -262,7 +261,7 @@ class Icon {
     public drawQuestion(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
         if (this.isAnsweringQuestion()) {
             if (this.platformQuestion == undefined) {
-                this.writeTextToCanvas(ctx, "Je hebt alle " + this.platform + "vragen al beantwoord", 20, canvas.width / 2, canvas.height / 2);
+                this.writeTextToCanvas(ctx, "Je hebt alle " + this.platform + "vragen al beantwoord", 25, canvas.width / 2, canvas.height / 2);
                 if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                     this.setAnsweringQuestion(false);
                     this.playerAnswer = "";
@@ -270,7 +269,7 @@ class Icon {
             } else {
                 if (this.playerAnswer == "") {
                     console.log(this.platformQuestion);
-                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 20, canvas.width / 2, canvas.height / 2);
+                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
 
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
@@ -281,13 +280,13 @@ class Icon {
                     }
                 } else {
                     if (this.playerAnswer == this.platformQuestion[0].answer) {
-                        this.writeTextToCanvas(ctx, "Dat klopt", 20, canvas.width / 2, canvas.height / 2);
+                        this.writeTextToCanvas(ctx, "Dat klopt", 25, canvas.width / 2, canvas.height / 2);
                         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                             this.setAnsweringQuestion(false);
                             this.playerAnswer = "";
                         }
                     } else {
-                        this.writeTextToCanvas(ctx, "Dat klopt niet", 20, canvas.width / 2, canvas.height / 2);
+                        this.writeTextToCanvas(ctx, "Dat klopt niet", 25, canvas.width / 2, canvas.height / 2);
                         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                             this.playerAnswer = "";
                         }
