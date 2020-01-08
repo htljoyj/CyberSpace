@@ -1155,6 +1155,20 @@ class Icon {
                 " b": "Je reageert terug door middel van een soortgelijke reactie te plaatsen.",
                 "c": "Je rapporteert de profielen en zet jouw account op privé.",
                 "answer": "c"
+            }, {
+                " platform": "instagram",
+                "question": "Waarom is het beter om je profiel op privé te zetten?",
+                " a": "Het is niet beter",
+                " b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
+                "c": "Je kunt de likes dan beter in de gaten houden..",
+                "answer": "b"
+            }, {
+                " platform": "instagram",
+                "question": "Waarom is het beter om je profiel op privé te zetten?",
+                " a": "Het is niet beter",
+                " b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
+                "c": "Je kunt de likes dan beter in de gaten houden..",
+                "answer": "b"
             }
         ];
         this.twitterQuestions = [
