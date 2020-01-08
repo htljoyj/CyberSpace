@@ -662,7 +662,7 @@ class Game {
         this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         this.loop();
     }
     switchScreen() {
@@ -1148,24 +1148,24 @@ class Icon {
         this.platformQuestion = [];
         this.instagramQuestions = [
             {
-                "platform": "instagram",
+                " platform": "instagram",
                 "question": " Op jouw Instagram foto’s zie je een heleboel haatreacties staan van onbekende personen.",
-                "a": "Je wordt er verdrietig van.",
-                "b": "Je reageert terug door middel van een soortgelijke reactie te plaatsen.",
+                " a": "Je wordt er verdrietig van.",
+                " b": "Je reageert terug door middel van een soortgelijke reactie te plaatsen.",
                 "c": "Je rapporteert de profielen en zet jouw account op privé.",
                 "answer": "c"
             }, {
-                "platform": "instagram",
+                " platform": "instagram",
                 "question": "Waarom is het beter om je profiel op privé te zetten?",
-                "a": "Het is niet beter",
-                "b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
+                " a": "Het is niet beter",
+                " b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
                 "c": "Je kunt de likes dan beter in de gaten houden..",
                 "answer": "b"
             }, {
-                "platform": "instagram",
+                " platform": "instagram",
                 "question": "Waarom is het beter om je profiel op privé te zetten?",
-                "a": "Het is niet beter",
-                "b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
+                " a": "Het is niet beter",
+                " b": "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
                 "c": "Je kunt de likes dan beter in de gaten houden..",
                 "answer": "b"
             }

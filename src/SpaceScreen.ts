@@ -4,7 +4,7 @@ class SpaceScreen extends BaseScreen{
         super(canvas,ctx)
         
     canvas.style.backgroundImage =
-    "url('./assets/backgrounds/RevolvingAdolescentCougar-size_restricted.gif')";
+    "url('./assets/backgrounds/cloudscreen.gif')";
      this.terrainArray = []
 
      for (let i = 0; i < this.terrainArray.length; i++) {

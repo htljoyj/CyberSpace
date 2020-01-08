@@ -268,6 +268,7 @@ class Icon {
                 }
             } else {
                 if (this.playerAnswer == "") {
+                    console.log(this.platformQuestion);
                     this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 20, canvas.width / 2, canvas.height / 2);
 
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {

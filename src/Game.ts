@@ -25,7 +25,7 @@ class Game {
 
 
         this.keyboardListener = new KeyboardListener();
-        this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        this.currentScreen = new TitleScreen(this.canvas, this.ctx);
 
         this.loop();
     }
@@ -47,8 +47,17 @@ class Game {
     }
 
     private switchScreen() {
-        if (this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+        if ((this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
             this.currentScreen = new GroundScreen(this.canvas, this.ctx);
+        }
+        if ((this.currentScreen instanceof TitleScreen && this.level === 2 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+            this.currentScreen = new CloudScreen(this.canvas, this.ctx);
+        }
+        if ((this.currentScreen instanceof TitleScreen && this.level === 3 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+            this.currentScreen = new SpaceScreen(this.canvas, this.ctx);
+        }
+        if ((this.currentScreen instanceof TitleScreen && this.level === 4 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+            this.currentScreen = new UnderwaterScreen(this.canvas, this.ctx);
         }
         if (this.currentScreen instanceof GroundScreen && this.level === 2) {
             this.currentScreen = new CloudScreen(this.canvas, this.ctx);
@@ -56,10 +65,19 @@ class Game {
         if (this.currentScreen instanceof CloudScreen && this.level === 3) {
             this.currentScreen = new SpaceScreen(this.canvas, this.ctx);
         }
+        if (this.currentScreen instanceof SpaceScreen && this.level === 4) {
+            this.currentScreen = new UnderwaterScreen(this.canvas, this.ctx);
+        }
         if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
         if (this.currentScreen instanceof CloudScreen && BaseScreen.live === 0) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof SpaceScreen && BaseScreen.live === 0) {
+            this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+        }
+        if (this.currentScreen instanceof UnderwaterScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
         
@@ -77,8 +95,6 @@ class Game {
             console.log(this.level);
         }
     }
-
-    
     
     /**
      * Loads an image file into the DOM. The image is stored in the img
