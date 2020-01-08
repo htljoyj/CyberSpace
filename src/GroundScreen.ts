@@ -456,9 +456,5 @@ class GroundScreen extends BaseScreen {
     }
   }
 
-  public init() {
-    console.log("hoi");
-  }
 
- 
 }

@@ -84,6 +84,7 @@ class Player extends GameObject {
         this.yPos = 440;
         console.log("playerDied");
         BaseScreen.live--;
+      
     }
 
     public collision() {

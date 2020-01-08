@@ -8,6 +8,7 @@ class BaseScreen {
     protected finish: boolean = false;
     protected allIcons: boolean = false;
     protected keyboardListener: KeyboardListener;
+    public static playerImg: string = "./assets/player/slime1.png"
     protected player: Player;
     protected enemy: Enemy[];
     protected enemyArray: any;
@@ -26,7 +27,7 @@ class BaseScreen {
         BaseScreen.life = new Image();
         BaseScreen.life.src = './assets/heart-icon-png-transparent.png';
 
-        this.player = new Player(80, 520, 4, 4, "./assets/player/player_cheer2.png");
+        this.player = new Player(80, 520, 4, 4, BaseScreen.playerImg);
         this.flag = new Terrain(680, -1300, 0, './assets/greenFlag.png', this.canvas, this.ctx)
         this.enemy = [];
         this.enemyArray = [];
@@ -64,185 +65,192 @@ class BaseScreen {
             }
         }
     }
-    
+
+    public setPlayer(player:string){
+        BaseScreen.playerImg = player;
+        console.log("check");
+    }
+
     public draw() {
+
+        
+
         let isAnsweringQuestion = false;
-         for (let i = 0; i < this.icon.length; i++) {
+        for (let i = 0; i < this.icon.length; i++) {
             if (this.player.isColliding(this.icon[i])) {
                 this.icon[i].setAnsweringQuestion(true);
                 isAnsweringQuestion = true;
-                 this.icon[i].drawQuestion(this.ctx, this.canvas);
-                 if (!this.icon[i].isAnsweringQuestion()) {
+                this.icon[i].drawQuestion(this.ctx, this.canvas);
+                if (!this.icon[i].isAnsweringQuestion()) {
                     this.icon.splice(i, 1);
                     isAnsweringQuestion = false;
-                 }
+                }
             }
         }
 
-        if (!isAnsweringQuestion)
-        {
-        this.flag.draw(this.ctx)
-        this.finish = false;
-        if(this.player.isColliding(this.flag)){
-            this.finish = true;
-            // console.log("gelukt1");
-        }
-        this.terrain.forEach((terrain) => {
-            if (this.player.isColliding(terrain)) {
-                this.player.collision();
-                console.log(terrain.getXPos(), terrain.getYPos())
-                // this.player.gravity = 0.2;
-                // this.player.move(this.canvas);
-            } else if (this.player.gravity === 0) {
-                this.player.gravity = 0.2;
+        if (!isAnsweringQuestion) {
+            this.flag.draw(this.ctx)
+            this.finish = false;
+            if (this.player.isColliding(this.flag)) {
+                this.finish = true;
+                // console.log("gelukt1");
             }
-            for (let i = 0; i < this.enemy.length; i++) {
-                if (this.enemy[i].isColliding(terrain)) {
-                    this.enemy[i].collision();
+            this.terrain.forEach((terrain) => {
+                if (this.player.isColliding(terrain)) {
+                    this.player.collision();
+                    console.log(terrain.getXPos(), terrain.getYPos())
                     // this.player.gravity = 0.2;
                     // this.player.move(this.canvas);
-                } else if (this.enemy[i].gravity === 0) {
-                    this.enemy[i].gravity = 0.2;
+                } else if (this.player.gravity === 0) {
+                    this.player.gravity = 0.2;
+                }
+                for (let i = 0; i < this.enemy.length; i++) {
+                    if (this.enemy[i].isColliding(terrain)) {
+                        this.enemy[i].collision();
+                        // this.player.gravity = 0.2;
+                        // this.player.move(this.canvas);
+                    } else if (this.enemy[i].gravity === 0) {
+                        this.enemy[i].gravity = 0.2;
+                    }
+                }
+            });
+
+            for (let i = 0; i < this.jewel.length; i++) {
+                if (this.player.isColliding(this.jewel[i])) {
+                    Game.score += this.jewel[i].getValue();
+                    this.jewel.splice(i, 1);
+                    console.log(Game.score);
+                    let audio = new Audio("./assets/sounds/collect achievement.mp3");
+                    audio.play();
                 }
             }
-        });
-        
-        for (let i = 0; i < this.jewel.length; i++) {
-            if (this.player.isColliding(this.jewel[i])) {
-                Game.score += this.jewel[i].getValue();
-                this.jewel.splice(i, 1);
-                console.log(Game.score);
-                let audio = new Audio("./assets/sounds/collect achievement.mp3");
-                audio.play();
-            }
-        }
-        this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width-100, 20);
-        
-        this.icon.forEach((icon) => {
-            icon.draw(this.ctx, this.canvas);
-            if (this.player.isColliding(icon)) {
-                // console.log("Boem!");
-            }
-        });
+            this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width - 100, 20);
 
-        for(let i = 0; i< this.icon.length; i++) {
-            if(this.player.isColliding(this.icon[i])) {
-                this.icon[i].setAnsweringQuestion(true);
-                this.icon[i].drawQuestion(this.ctx, this.canvas);
-                if(!this.icon[i].isAnsweringQuestion()) {
-                   this.icon.splice(i, 1); 
+            this.icon.forEach((icon) => {
+                icon.draw(this.ctx, this.canvas);
+                if (this.player.isColliding(icon)) {
+                    // console.log("Boem!");
                 }
-            } 
-        }
+            });
 
-        this.enemy.forEach((enemy) => {
-            if (this.player.isColliding(enemy)) {
-                this.player.playerDied();
+            for (let i = 0; i < this.icon.length; i++) {
+                if (this.player.isColliding(this.icon[i])) {
+                    this.icon[i].setAnsweringQuestion(true);
+                    this.icon[i].drawQuestion(this.ctx, this.canvas);
+                    if (!this.icon[i].isAnsweringQuestion()) {
+                        this.icon.splice(i, 1);
+                    }
+                }
             }
-        });
 
-        this.player.move(this.canvas);
-        this.player.draw(this.ctx);
-        for (let i = 0; i < this.enemy.length; i++) {
-            this.enemy[i].move(this.canvas);
-            this.enemy[i].draw(this.ctx);
-        }
-
-        this.terrain.forEach((terrain) => {
-            terrain.draw(this.ctx);
-        });
-
-
-
-        this.jewel.forEach((jewel) => {
-            jewel.draw(this.ctx)
-
-        })
-
-        this.writeLifeImagesToLevelScreen()
-
-        if (this.player.getY() < 150) {
-            this.flag.setY(1)
-            this.terrain.forEach(element => {
-
-                element.getYPos()
-                element.setY(1)
-                // console.log('trying')
-
+            this.enemy.forEach((enemy) => {
+                if (this.player.isColliding(enemy)) {
+                    this.player.playerDied();
+                }
             });
-            this.icon.forEach(element => {
-                element.getYPos()
-                element.setY(1)
-                // console.log('tryng 2')
-            })
-            this.enemy.forEach(element => {
-                element.getYPos()
-                element.setY(1)
 
-                // console.log('trying 3')
+            this.player.move(this.canvas);
+            this.player.draw(this.ctx);
+            for (let i = 0; i < this.enemy.length; i++) {
+                this.enemy[i].move(this.canvas);
+                this.enemy[i].draw(this.ctx);
+            }
 
-            })
-            this.jewel.forEach(element => {
-                element.getYPos()
-                element.setY(1)
-
-                // console.log('trying 3')
-
-            })
-            this.player.getY()
-            this.player.setY(1)
-        }
-
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SHIFT)) {
-            this.flag.setY(-1)
-            this.terrain.forEach(element => {
-
-                element.getYPos()
-                element.setY(-1)
-                // console.log('trying')
-
+            this.terrain.forEach((terrain) => {
+                terrain.draw(this.ctx);
             });
-            this.icon.forEach(element => {
-                element.getYPos()
-                element.setY(-1)
-                // console.log('tryng 2')
-            })
 
-            this.jewel.forEach(element => {
-                element.getYPos()
-                element.setY(-1)
 
-                // console.log('trying 3')
+
+            this.jewel.forEach((jewel) => {
+                jewel.draw(this.ctx)
 
             })
-            this.enemy.forEach(element => {
-                element.getYPos()
-                element.setY(-1)
 
-                // console.log('trying 3')
+            this.writeLifeImagesToLevelScreen()
 
-            })
-            this.player.getY()
-            this.player.setY(-1)
+            if (this.player.getY() < 150) {
+                this.flag.setY(1)
+                this.terrain.forEach(element => {
+
+                    element.getYPos()
+                    element.setY(1)
+                    // console.log('trying')
+
+                });
+                this.icon.forEach(element => {
+                    element.getYPos()
+                    element.setY(1)
+                    // console.log('tryng 2')
+                })
+                this.enemy.forEach(element => {
+                    element.getYPos()
+                    element.setY(1)
+
+                    // console.log('trying 3')
+
+                })
+                this.jewel.forEach(element => {
+                    element.getYPos()
+                    element.setY(1)
+
+                    // console.log('trying 3')
+
+                })
+                this.player.getY()
+                this.player.setY(1)
+            }
+
+            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SHIFT)) {
+                this.flag.setY(-1)
+                this.terrain.forEach(element => {
+
+                    element.getYPos()
+                    element.setY(-1)
+                    // console.log('trying')
+
+                });
+                this.icon.forEach(element => {
+                    element.getYPos()
+                    element.setY(-1)
+                    // console.log('tryng 2')
+                })
+
+                this.jewel.forEach(element => {
+                    element.getYPos()
+                    element.setY(-1)
+
+                    // console.log('trying 3')
+
+                })
+                this.enemy.forEach(element => {
+                    element.getYPos()
+                    element.setY(-1)
+
+                    // console.log('trying 3')
+
+                })
+                this.player.getY()
+                this.player.setY(-1)
+            }
         }
-    }
-        
+
         this.allIcons = false;
 
-        if(this.icon.length == 0){
+        if (this.icon.length == 0) {
             this.allIcons = true;
             console.log("hij doet het");
         }
 
     }
-    
-    public getFinish(){
+
+    public getFinish() {
         return this.finish;
     }
-    
+
     public getIcons() {
         return this.allIcons;
-      }
+    }
 
     /**
     * Writes text to the canvas
