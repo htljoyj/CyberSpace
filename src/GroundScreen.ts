@@ -454,19 +454,10 @@ class GroundScreen extends BaseScreen {
         )
       );
     }
+  }
 
-    for (let i = 0; i < this.terrainArray.length; i++) {
-      this.terrain.push(
-        new Terrain(
-          this.terrainArray[i].x,
-          this.terrainArray[i].y,
-          this.terrainArray[i].speed,
-          this.terrainArray[i].img,
-          this.canvas,
-          this.ctx
-        )
-      );
-    }
+  public init() {
+    console.log("hoi");
   }
 
  

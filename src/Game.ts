@@ -78,6 +78,8 @@ class Game {
             console.log(this.level);
         }
     }
+
+    
     
     /**
      * Loads an image file into the DOM. The image is stored in the img

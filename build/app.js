@@ -1133,20 +1133,19 @@ class GroundScreen extends BaseScreen {
         for (let i = 0; i < this.terrainArray.length; i++) {
             this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
         }
-        for (let i = 0; i < this.terrainArray.length; i++) {
-            this.terrain.push(new Terrain(this.terrainArray[i].x, this.terrainArray[i].y, this.terrainArray[i].speed, this.terrainArray[i].img, this.canvas, this.ctx));
-        }
+    }
+    init() {
+        console.log("hoi");
     }
 }
 class Icon {
-    constructor(xPos, yPos, scale, platform) {
+    constructor(xPos, yPos, scale, platform, index = 0) {
         this.playerAnswer = "";
         this.xPos = xPos;
         this.yPos = yPos;
         this.scale = scale;
         this.keyboardListener = new KeyboardListener();
-        this.questions = [];
-        this.platformQuestions = [];
+        this.platformQuestion = [];
         this.instagramQuestions = [
             {
                 " platform": "instagram",
@@ -1276,46 +1275,47 @@ class Icon {
                 "b": "Er zitten pedofielen op Tik Tok die misbruik kunnen maken van jouw beeldmateriaal!",
                 "c": "Hrt kan soms koud zijn.",
                 "answer": "b"
-            }
+            },
         ];
-        this.questions = [];
         switch (platform) {
             case "twitter":
                 this.img = Game.loadImage("./assets/socialmedia/twitter.png");
                 this.platform = "twitter";
+                this.platformQuestion = this.twitterQuestions[index];
                 break;
             case "whatsapp":
                 this.img = Game.loadImage("./assets/socialmedia/wApp.png");
                 this.platform = "whatsapp";
+                this.platformQuestion = this.whatsappQuestions[index];
                 break;
             case "tiktok":
                 this.img = Game.loadImage("./assets/socialmedia/tiktok.png");
                 this.platform = "tiktok";
+                this.platformQuestion = this.tiktokQuestions[index];
                 break;
             case "youtube":
                 this.img = Game.loadImage("./assets/socialmedia/youtube.png");
                 this.platform = "youtube";
+                this.platformQuestion = this.youtubeQuestions[index];
                 break;
             case "facebook":
                 this.img = Game.loadImage("./assets/socialmedia/fb.png");
                 this.platform = "facebook";
+                this.platformQuestion = this.facebookQuestions[index];
                 break;
             case "snapchat":
                 this.img = Game.loadImage("./assets/socialmedia/snapchat.png");
                 this.platform = "snapchat";
+                this.platformQuestion.push(this.snapchatQuestions[index]);
+                console.log(this.snapchatQuestions[index]);
                 break;
             case "instagram":
                 this.img = Game.loadImage("./assets/socialmedia/ins.png");
                 this.platform = "instagram";
+                this.platformQuestion = this.instagramQuestions[index];
                 break;
         }
-        this.questions.forEach((questions) => {
-            if (questions.platform == this.platform) {
-                this.platformQuestions.push(questions);
-            }
-        });
-        if (this.platformQuestions.length > 0)
-            console.log(this.platformQuestions);
+        console.log(this.platformQuestion);
     }
     draw(ctx, canvas) {
         const x = this.xPos - this.img.width / 2;
@@ -1336,8 +1336,7 @@ class Icon {
     }
     drawQuestion(ctx, canvas) {
         if (this.isAnsweringQuestion()) {
-            if (this.platformQuestions.length == 0 ||
-                this.platformQuestions == undefined) {
+            if (this.platformQuestion == undefined) {
                 this.writeTextToCanvas(ctx, "Je hebt alle " + this.platform + "vragen al beantwoord", 20, canvas.width / 2, canvas.height / 2);
                 if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                     this.setAnsweringQuestion(false);
@@ -1346,13 +1345,7 @@ class Icon {
             }
             else {
                 if (this.playerAnswer == "") {
-                    this.writeTextToCanvas(ctx, this.platformQuestions[0].question +
-                        ">1: " +
-                        this.platformQuestions[0].a +
-                        ">2: " +
-                        this.platformQuestions[0].b +
-                        ">3: " +
-                        this.platformQuestions[0].c, 20, canvas.width / 2, canvas.height / 2);
+                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 20, canvas.width / 2, canvas.height / 2);
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
                     }
@@ -1364,12 +1357,11 @@ class Icon {
                     }
                 }
                 else {
-                    if (this.playerAnswer == this.platformQuestions[0].answer) {
+                    if (this.playerAnswer == this.platformQuestion[0].answer) {
                         this.writeTextToCanvas(ctx, "Dat klopt", 20, canvas.width / 2, canvas.height / 2);
                         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                             this.setAnsweringQuestion(false);
                             this.playerAnswer = "";
-                            this.platformQuestions.shift();
                         }
                     }
                     else {
@@ -1385,7 +1377,7 @@ class Icon {
     writeTextToCanvas(ctx, text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "black") {
         for (let i = 0; i < text.length; i++) {
             if (text.charAt(i) == ">") {
-                this.writeTextToCanvas(ctx, text.substr(i + 1, text.length), fontSize, xCoordinate, yCoordinate + 75 / 2, alignment, color);
+                this.writeTextToCanvas(ctx, text.substr(i + 1, text.length), fontSize, xCoordinate, yCoordinate + (75 / 2), alignment, color);
                 text = text.substr(0, i);
             }
         }
