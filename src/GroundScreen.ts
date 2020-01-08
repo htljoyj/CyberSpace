@@ -460,7 +460,5 @@ class GroundScreen extends BaseScreen {
     console.log("hoi");
   }
 
-  public getIcons() {
-    return this.allIcons;
-  }
+ 
 }
