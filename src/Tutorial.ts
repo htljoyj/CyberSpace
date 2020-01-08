@@ -197,6 +197,7 @@ class Tutorial extends BaseScreen {
         this.writeTextToCanvas("Esc - Naar het start scherm", 35, this.canvas.width/2, 360, "center", "white");
         this.writeTextToCanvas("Shift - Beweeg level omlaag", 35, this.canvas.width/2, 400, "center", "white");
         this.writeTextToCanvas("Pijltjes - Beweeg je player", 35, this.canvas.width/2, 440, "center", "white");
+        this.writeTextToCanvas("Beantwoord alle vragen om naar het volgende level te kunnen", 35, this.canvas.width/2, 480, "center", "white");
         
     }
 

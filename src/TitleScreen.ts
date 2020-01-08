@@ -11,8 +11,9 @@ class TitleScreen{
     }
 
     public draw() {
-        this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2, "center", "white");
-        this.writeTextToCanvas("Press spacebar to start", 50, this.canvas.width / 2, this.canvas.height / 2 + 100, "center", "white")
+        this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2 - 50, "center", "white");
+        this.writeTextToCanvas("Druk op spatie om te beginnen", 50, this.canvas.width / 2, this.canvas.height / 2 + 50, "center", "white")
+        this.writeTextToCanvas("Druk op H voor karakterkeuze", 50, this.canvas.width / 2, this.canvas.height / 2 + 110, "center", "white")
     }
 
     /**

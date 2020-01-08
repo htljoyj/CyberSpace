@@ -99,6 +99,9 @@ class Player extends GameObject {
        
     }
 
+    public getX(){
+        return this.xPos
+    }
     public getY(){
         return this.yPos
     }
