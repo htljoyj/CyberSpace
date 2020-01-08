@@ -11,7 +11,6 @@ class Game {
     public static score: number = 0;
     private level: number;
 
-
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
