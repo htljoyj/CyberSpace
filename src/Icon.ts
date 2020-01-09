@@ -22,7 +22,8 @@ class Icon {
     private img2x: number = 0;
     private img2y: number = 0;
 
-    public constructor(xPos: number, yPos: number, scale: number, platform: string, index: number = 1) {
+
+    public constructor(xPos: number, yPos: number, scale: number, platform: string, index: number = 0) {
         // let index = 0;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -34,7 +35,7 @@ class Icon {
             {
                 "platform": "instagram",
                 "question":
-                    " Op jouw Instagram foto’s zie je een heleboel haatreacties staan van onbekende personen.",
+                    " Op jouw Instagram foto’s zie je een heleboel haat reacties staan van onbekende personen.",
                 "a": "Je wordt er verdrietig van.",
                 "b":
                     "Je reageert terug door middel van een soortgelijke reactie te plaatsen.",
@@ -47,17 +48,39 @@ class Icon {
                 "a": "Het is niet beter",
                 "b":
                     "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
-                "c": "Je kunt de likes dan beter in de gaten houden..",
+                "c": "Je kunt de likes dan beter in de gaten houden.",
                 "answer": "b"
             }, {
                 "platform": "instagram",
-                "question":"?",
-                "a": "Het is niet beter",
-                "b":
-                    "Zo heb je een beter overzicht over wie jouw foto's kunnen bekijken.",
-                "c": "Je kunt de likes dan beter in de gaten houden..",
-                "answer": "b"
-            }
+                "question":"Hoelang blijft je foto nog op het internet nadat jij het hebt verwijdert?",
+                "a": "Het is meteen weg.",
+                "b":"3 maanden.",
+                "c": "Het blijft voor altijd op het internet.",
+                "answer": "c"
+            },
+            {
+                "platform": "instagram",
+                "question":"Waarom kun je beter geen halfnaakte foto's posten?",
+                "a": "Het lokt de verkeerde personen en het gaat nooit meer van het internet af.",
+                "b":"Je kunt die wel gewoon plaatsen.",
+                "c": "Je kunt die plaatsen als je account prive is.",
+                "answer": "a"
+            },
+             {"platform":"instagram",
+               "question":"Welke foto kun je beter niet posten?",
+                 "a":"img1",
+                "b":"img2",
+                 "c":"Ik weet het niet zeker",
+                 "answer":"b"
+        },
+        {
+            "platform":"instagram",
+               "question":"Welke foto kun je posten?",
+                 "a":"img1",
+                "b":"img2",
+                 "c":"Allebei",
+                 "answer":"a"
+        },
         ];
         this.twitterQuestions = [
             {
@@ -70,13 +93,22 @@ class Icon {
             },
             {
                 "platform": "twitter",
-                "question":
-                    " Een groepje besluit het nieuw meisje in de klas een les te leren.>Samen besluiten zij om twitter account met haar naam aan te maken en beledigende berichten te versturen.> Jouw beste vriend/vriendin behoort ook tot de groep en vind het een goed plan.> Hoe ga je hiermee om?",
+                "question": " Een groepje besluit het nieuwe meisje in de klas een les te leren.>Samen besluiten zij om twitter account met haar naam aan te maken en beledigende berichten te versturen.> Jouw beste vriend/vriendin behoort ook tot de groep en vind het een goed plan.> Hoe ga je hiermee om?",
                 "a":
-                    "Je geeft dit meteen door aan de leraar, omdat je weet hoe het aanvoelt om gepest te worden. ",
+                    "Je geeft dit meteen door aan de leraar, omdat je weet hoe het aanvoelt om gepest te worden.",
                 "b": "Je bemoeit je er niet mee, want ook jij werd in het begin gepest.",
-                "c": "",
+                "c": "Ik doe mee ik mag het meisje ook niet!",
                 "answer": "a"
+            },{
+                "platform": "twitter",
+                "question": "Kan je alles tweeten ook al is het niet zo netjes wat je zegt? ",
+                "a":"Nee dat kan niet.",
+                "b": "Tuurlijk wel we leven immers in Nederland waar vrijheid van meningsuiting belangrijk is.",
+                "c": "Ondanks dat er vrijheid van meningsuiting is, is het wel belangrijk om over de consequenties van je tweet na te denken.",
+                "answer": "c"
+
+            },{
+
             }
         ];
         this.whatsappQuestions = [
@@ -95,7 +127,7 @@ class Icon {
                 "question":
                     "Na de schooltrip ontvang je een Whatsapp berichtje in de groepsapp,> waarin een minder leuke foto van een schoolgenoot is doorgegestuurd door je beste vriend/vriendin.> Hoe reageer jij?",
                 "a": "HAHAHA!!!, anders hoor ik niet tot de groep.",
-                " b": "Ik reageer niet.",
+                "b": "Ik reageer niet.",
                 "c": "Ik maak een screenshot en geef het door aan de leraar. ",
                 "answer": "c"
             },
@@ -107,7 +139,48 @@ class Icon {
                 "b": "Ik stuur iets vreemds terug.",
                 "c": "Ik blokkeer en verwijder het nummer.",
                 "answer": "c"
-            }
+            },{
+
+            "platform": "whatsapp",
+            "question":"Je vriend/vriendin stuurt dat hij je graag zou willen kussen en vraagt wat jij dan zou doen.> Je voelt je eigenlijk niet zo prettig bij dit gesprek.> Hoe ga jij hiermee om?",
+            "a": "Ik antwoord helemaal niet.",
+            "b": "Ik geef aan dat ik het niet prettig vind, want als het echt mijn vriend is respecteert hij die keuzen.",
+            "c": "Ik stuur terug dat ik het ook zou willen anders vindt hij mij misschien preuts.",
+            "answer": "b"
+            },
+            {
+                
+            "platform": "whatsapp",
+            "question":"Je hebt ooit een naaktfoto gestuurd naar je vriend/vriendin.> Nu word je bedreigt dat als je er niet nog een stuurt, de foto rond zal gaan.> Hoe heet dit begrip?",
+            "a": "Sextortation",
+            "b": "Cyberpesten",
+            "c": "Grooming",
+            "answer": "a"
+         },{
+             "platform":"whatsapp",
+             "question":"Er wordt een naaktfoto van je schoolgenoot rondgestuurd.> Als je die foto in bezit hebt, ben jij dan ook strafbaar voor kinderpornografie?",
+             "a":"Nee, want we zijn allebei minderjarig.",
+             "b":"Nee, want ze heeft hem zelf gemaakt.",
+             "c":"Ja, want het meisje is jonger dan achttien dan valt dat onder kinderporno, ongeacht hoe oud ik zelf ben!",
+             "answer":"c"
+
+
+
+         },{
+             "platform":"whatsapp",
+             "question":"Hoe kan ik mijzelf het beste beschermen tegen ongewilde berichtjes?",
+             "a":"Alle instellingen instellen op alleen zichtbaar voor mijn contacten",
+             "b":"Alle instellingen instellen op alleen zichtbaar voor mijn contacten> en alleen mijn nummer delen met mensen die ik vertrouw en echt ken. ",
+             "c":"Geen profielfoto plaatsen",
+             "answer":"b"
+         },{
+             "platform":"whatsapp",
+             "question":"img1>>>Valt dit onder cyberpesten?",
+             "a":"Ja",
+             "b":"Nee",
+             "c":"Het ligt aan hoe de persoon het opneemt",
+             "answer":"a"
+         }
         ];
         this.youtubeQuestions = [
             {
@@ -130,7 +203,31 @@ class Icon {
                 "a": "Ik vraag de persoon om het direct te verwijderen.",
                 "b": "Ik durf niet zo goed te vragen of ze het weghalen.",
                 "c": "Ik hoop stilletjes dat niemand het ziet.",
+                "answer":"a"
 
+            },{
+                "platform": "youtube",
+                "question":
+                "Je kijkt al 6 maanden naar Charlie de 14-jarige game vlogger waar je ook regelmatig op reageert.> Je vindt het heel tof wat hij altijd doet!> Op een dag wilt hij samen gamen, wat ga je doen?",
+                "a": "Ik spreek meteen een tijd en dag af!",
+                "b": "Ik heb  Charlie zijn gezicht eigenlijk nooit gezien <en realiseer me dat hij misschien helemaal geen 14 is.> Ik sla het direct af!",
+                "c": "Ik denk er een paar nachtjes over na.",
+                "answer":"b"
+
+            },{
+                "platform": "youtube",
+                "question":"Je upload een filmpje op youtube, je krijgt gelijk van een aantal personen gemene reacties> het lijkt wel alsof ze het met elkaar afgesproken hebben!> Hoe noem je dit?",
+                "a": "Grooming",
+                "b": "Cyberpesten",
+                "c": "Grooming",
+                "answer":"b"
+            },{
+                "platform":"youtube",
+                "question":"Waarom kun je het best reacties uitschakelen op je youtube kanaal?",
+                 "a":"Sommige pedofielen zijn ook actief op Youtube channels en gebruiken de comments om contact met je te krijgen.",
+                 "b":"Zo zie je de meningen van andere mensen niet.",
+                 "c":"Zo letten de kijkers meer op het filmpje zelf",
+                 "answer": "a"
             }
         ];
         this.facebookQuestions = [
@@ -138,7 +235,6 @@ class Icon {
                 "platform": "facebook",
                 "question":
                     "Accepteer jij zomaar een vriendschap verzoek van een onbekend persoon?",
-
                 "a": "Ja",
                 "b": "Nee",
                 "c": "Soms",
@@ -155,6 +251,40 @@ class Icon {
                 "c":
                     "Je gaat er niet op in, want het is je beste vriend/vriendin met wie je alle geheimen deelt.",
                 "answer": "b"
+            },{
+                "platform": "facebook",
+                "question":
+                    "Als iemand iets post over een onderwerp waar jij het niet mee eens bent,> is het dan nodig om erop te reageren?>",
+                "a":
+                    "Nee, ik scroll door naar iets wat ik wél leuk vind!",
+                "b":
+                    "Natuurlijk hoe durft diegene zoiets te plaatsen!",
+                "c":
+                    "Misschien",
+                "answer": "a"
+            },{
+                "platform": "facebook",
+                "question":
+                    "Hoe herken je een fake account?",
+                "a":
+                    "Wanneer het profiel al meer dan vijf jaar oud is.",
+                "b":
+                    "Als iemand geen profiel foto heeft.",
+                "c":
+                    "Als het profiel net aangemaakt is en meer dan 4000 vrienden heeft.",
+                "answer": "c"
+            },{
+                "platform": "facebook",
+                "question":
+                    "Je krijgt een vriendschapsverzoek van je nicht, alleen je nicht heeft al een facebook profiel.>Iemand heeft een account aangemaakt die precies op die van haar lijkt!> Waar is hier sprake van?",
+                "a":
+                    "Account stelen",
+                "b":
+                    ":Profieltje-pik",
+                "c":
+                    "Identiteitshack",
+                "answer": "c"
+
             }
         ];
         this.snapchatQuestions = [
@@ -169,7 +299,7 @@ class Icon {
             {
                 "platform": "snapchat",
                 "question":
-                    "In de kantine hoor je een groepje lachen over pikante foto’s die een klasgenoot op Snapchat geplaatst heeft van zichzelf. ",
+                    "In de kantine hoor je een groepje lachen over pikante foto’s die een klasgenoot op Snapchat geplaatst heeft van zichzelf.",
                 "a":
                     ". Je sluit je aan bij de groep, omdat je de foto’s ook hebt gezien en lacht mee.",
                 "b":
@@ -177,7 +307,26 @@ class Icon {
                 "c":
                     "Je benadert de klasgenoot en legt uit wat de consequenties kunnen zijn van zijn/haar handeling.",
                 "answer": "c"
-            }
+            },{
+                "platform": "snapchat",
+                "question":
+                    "Heeft Snapchat het recht jouw foto's te gebruiken?",
+                "a":
+                    "Absoluut niet daar heb ik niet voor getekend!",
+                "b":
+                    "Ja, daar heb ik Snapchat recht opgegeven bij het downloaden van de app.",
+                "c":
+                    "Als ze ervoor betalen wel.",
+                "answer": "b"
+            },
+            {
+            "platform": "snapchat",
+            "question":"Als je een foto prive naar je vriend of vriendin stuurt is het dan gegarandeert alleen tussen jullie?",
+            "a":"Ja natuurlijk dat is mijn vriendin of vriend",
+            "b":"Nee iedereen kan het dan zien.",
+            "c":"Ik hoef mijn vriend niet te wantrouwen,> maar ik moet wel opletten wat ik stuur er kunnen altijd screenshots worden genomen!.",
+            "answer": "c"
+         },
         ];
         this.tiktokQuestions = [
             {
@@ -189,27 +338,78 @@ class Icon {
                     "Er zitten pedofielen op Tik Tok die misbruik kunnen maken van jouw beeldmateriaal!",
                 "c": "Het kan soms koud zijn.",
                 "answer": "b"
-            }
-        ];
+            },
+            {
+            "platform": "tiktok",
+            "question":
+                "Je krijgt een reactie op je filmpje van Frederik1979 > die aangeeft dat hij een keer samen een filmpje zou willen maken.> Hoe reageer jij?",
+            "a": "Lijkt me leuk, hoe meer zielen hoe meer vreugd!.",
+            "b": "Ik negeer het",
+            "c": "Ik blokkeer en rapporteer het profiel direct!",
+            "answer": "c"
+        },
+        {
 
+        "platform": "tiktok",
+        "question": "Ik kan mijn account het beste delen met :",
+        "a": "Familie en vrienden.",
+        "b": "Iedereen.",
+        "c": "Alleen mensen die in Nederland wonen.",
+        "answer": "a"
+        },
+        {
+            "platform": "tiktok",
+            "question":
+                "Je reageert vaak op een leuke meid van jou leeftijd en andersom.>Het blijkt dat die leuke meid een man van 45 is die misbruik van je wilde maken.> Over welk begrip hebben we het?",
+            "a": "Xenofobie",
+            "b": "Pedofilie",
+            "c": "Grooming",
+            "answer": "c"
+
+        },{
+            "platform": "tiktok",
+            "question":
+                "Wat maakt Tik Tok zo aantrekkelijk voor pedofielen?",
+            "a": "Het is anoniem.",
+            "b": "De chat en de niets vermoedende dansende meiden.",
+            "c": "De verschillende soorten filmpjes die er te zien zijn.",
+            "answer": "b"
+
+        },{
+            "platform": "tiktok",
+            "question":
+                "Je profiel op Tik Tok staat standaard .... ingesteld.",
+            "a": "Openbaar",
+            "b": "Prive",
+            "c": "Alleen voor familie",
+            "answer": "a"
+
+        }
+        ];
 
         switch (platform) {
             case "twitter":
                 this.img = Game.loadImage("./assets/socialmedia/twitter.png");
                 this.platform = "twitter";
                 if(index == 0) {
-                    this.img1 = "./assets/monsters/airplane.png";
-                    this.img2 = "./assets/monsters/bat1.png";
+                    this.img1 = "";
+                    this.img2 = "";
                     this.img1x = 500;
                     this.img1y = 500;
                     this.img2x = 300;
                     this.img2y = 300;
-                }
+                 }
                 this.platformQuestion.push(this.twitterQuestions[index]);
                 break;
             case "whatsapp":
                 this.img = Game.loadImage("./assets/socialmedia/wApp.png");
                 this.platform = "whatsapp";
+                if (index === 7){
+                    this.img1 = "./assets/socialmedia/pesten.jpg";
+                    this.img1x = 400;
+                    this.img1y = 50;
+                    console.log("whatsap question")
+                }
                 this.platformQuestion.push(this.whatsappQuestions[index]);
                 console.log(this.platformQuestion[0]);
                 break;
@@ -237,6 +437,22 @@ class Icon {
                 break;
             case "instagram":
                 this.img = Game.loadImage("./assets/socialmedia/ins.png");
+                if (index === 4){
+                    this.img1 = "./assets/socialmedia/goodpic.jpg",
+                    this.img1x = 400;
+                    this.img1y = 100;
+                    this.img2x = 650;
+                    this.img2y = 130;
+                    this.img2 ="./assets/socialmedia/badpicture.jpg"
+                }
+                if(index === 5){
+                    this.img1 = "./assets/socialmedia/goodselfie.jpg",
+                    this.img1x = 400;
+                    this.img1y = 100;
+                    this.img2x = 650;
+                    this.img2y = 100;
+                    this.img2 ="./assets/socialmedia/duckface.jpg"
+                }
                 this.platform = "instagram";
                 this.platformQuestion.push(this.instagramQuestions[index]);
                 break;
@@ -341,9 +557,12 @@ class Icon {
         ctx.textAlign = alignment;
         if (text.trim() !== "3:") { 
             if(text.trim() == "1: img1")
-                ctx.fillText("1:", xCoordinate, yCoordinate);
+                ctx.fillText("1 Links ", xCoordinate, yCoordinate);
             else if(text.trim() == "2: img2")
-                ctx.fillText("2:", xCoordinate, yCoordinate);
+            ctx.fillText("2:Rechts", xCoordinate, yCoordinate);
+
+            else if (text.trim()=== "img1")
+            {}     
             else
                 ctx.fillText(text.trim(), xCoordinate, yCoordinate);
         }
