@@ -204,8 +204,8 @@ class Icon {
                     this.img1y = 500;
                     this.img2x = 300;
                     this.img2y = 300;
-                    this.platformQuestion.push(this.twitterQuestions[index]);
                 }
+                this.platformQuestion.push(this.twitterQuestions[index]);
                 break;
             case "whatsapp":
                 this.img = Game.loadImage("./assets/socialmedia/wApp.png");
