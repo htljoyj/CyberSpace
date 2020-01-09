@@ -15,7 +15,14 @@ class Icon {
     private facebookQuestions: any[];
     private instagramQuestions: any[];
 
-    public constructor(xPos: number, yPos: number, scale: number, platform: string, index: number = 0) {
+    private img1: string = "";
+    private img2: string = "";
+    private img1x: number = 0;
+    private img1y: number = 0;
+    private img2x: number = 0;
+    private img2y: number = 0;
+
+    public constructor(xPos: number, yPos: number, scale: number, platform: string, index: number = 1) {
         // let index = 0;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -182,7 +189,7 @@ class Icon {
                     "Er zitten pedofielen op Tik Tok die misbruik kunnen maken van jouw beeldmateriaal!",
                 "c": "Het kan soms koud zijn.",
                 "answer": "b"
-            },
+            }
         ];
 
 
@@ -190,17 +197,27 @@ class Icon {
             case "twitter":
                 this.img = Game.loadImage("./assets/socialmedia/twitter.png");
                 this.platform = "twitter";
-                this.platformQuestion.push(this.twitterQuestions[index]);
+                if(index == 0) {
+                    this.img1 = "./assets/monsters/airplane.png";
+                    this.img2 = "./assets/monsters/bat1.png";
+                    this.img1x = 500;
+                    this.img1y = 500;
+                    this.img2x = 300;
+                    this.img2y = 300;
+                    this.platformQuestion.push(this.twitterQuestions[index]);
+                }
                 break;
             case "whatsapp":
                 this.img = Game.loadImage("./assets/socialmedia/wApp.png");
                 this.platform = "whatsapp";
                 this.platformQuestion.push(this.whatsappQuestions[index]);
+                console.log(this.platformQuestion[0]);
                 break;
             case "tiktok":
                 this.img = Game.loadImage("./assets/socialmedia/tiktok.png");
                 this.platform = "tiktok";
                 this.platformQuestion.push(this.tiktokQuestions[index]);
+                console.log(this.platformQuestion);
                 break;
             case "youtube":
                 this.img = Game.loadImage("./assets/socialmedia/youtube.png")
@@ -260,7 +277,7 @@ class Icon {
     private playerAnswer: string = "";
     public drawQuestion(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
         if (this.isAnsweringQuestion()) {
-            if (this.platformQuestion == undefined) {
+            if (this.platformQuestion[0] == undefined) {
                 this.writeTextToCanvas(ctx, "Je hebt alle " + this.platform + "vragen al beantwoord", 25, canvas.width / 2, canvas.height / 2);
                 if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
                     this.setAnsweringQuestion(false);
@@ -268,7 +285,7 @@ class Icon {
                 }
             } else {
                 if (this.playerAnswer == "") {
-                    console.log(this.platformQuestion);
+                    // console.log(this.platformQuestion);
                     this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
 
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
@@ -319,13 +336,41 @@ class Icon {
             }
         }
 
-
-
         ctx.font = `${fontSize}px Patrick Hand`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
-        if (text.trim() !== "3:")
-            ctx.fillText(text.trim(), xCoordinate, yCoordinate);
+        if (text.trim() !== "3:") { 
+            if(text.trim() == "1: img1")
+                ctx.fillText("1:", xCoordinate, yCoordinate);
+            else if(text.trim() == "2: img2")
+                ctx.fillText("2:", xCoordinate, yCoordinate);
+            else
+                ctx.fillText(text.trim(), xCoordinate, yCoordinate);
+        }
+
+        if(text.includes("img1"))
+            this.drawImg(Game.loadImage(this.img1), ctx, this.img1x, this.img1y);
+
+        if(text.includes("img2"))
+            this.drawImg(Game.loadImage(this.img2), ctx, this.img2x, this.img2y);
+    }
+   
+
+    private drawImg(img: HTMLImageElement, ctx: CanvasRenderingContext2D, xPos: number, yPos: number) {
+        const x = xPos - img.width / 2;
+        const y = yPos - img.height / 2;
+
+        // If the image is not yet loaded, don't draw anything
+        if (img.naturalWidth > 0) {
+            // ctx.drawImage(this.img, x, y);
+            // ctx.save();
+            // ctx.translate(x + img.x / 2, y + img.y / 2);
+            // ctx.scale(this.scale, this.scale);
+
+            ctx.drawImage(img, xPos, yPos);
+
+            // ctx.restore();
+        }
     }
 
     public getXPos() {
