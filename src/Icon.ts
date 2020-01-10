@@ -661,6 +661,10 @@ class Icon {
                 text = text.substr(0, i);
             }
         }
+        
+        if (Game.level == 3 || Game.level == 4) {
+            color = "white";
+        }
 
         ctx.font = `${fontSize}px Patrick Hand`;
         ctx.fillStyle = color;
