@@ -1,6 +1,8 @@
 ///<reference path = 'BaseScreen.ts'/>
-class SpaceScreen extends BaseScreen {
-  constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+class SpaceScreen extends BaseScreen
+{
+  constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D)
+  {
     super(canvas, ctx);
 
     canvas.style.backgroundImage =
@@ -101,129 +103,142 @@ class SpaceScreen extends BaseScreen {
         y: 125,
         speed: 0,
         img: "./assets/bricks/spacerocket2.png"
-      },/*
-      {
-        x: 900,
-        y: -200,
-        speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
       },
       {
-        x: 400,
+        x: 700,
+        y: -85,
+        speed: 0,
+        img: "./assets/bricks/spacerocket2.png"
+      },
+      {
+        x: 800,
+        y: -85,
+        speed: 0,
+        img: "./assets/bricks/spacerocket3.png"
+      },
+      {
+        x: 1150,
         y: -150,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket3.png"
       },
       {
-        x: 75,
+        x: 250,
         y: -250,
-        speed: 2,
-        img: "./assets/bricks/whiteCloud.png"
+        speed: 0,
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 1000,
         y: -300,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket3.png"
       },
       {
         x: 400,
         y: -400,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket3.png"
       },
       {
         x: 800,
         y: -400,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 600,
         y: -600,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket3.png"
       },
       {
         x: 1000,
         y: -500,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 400,
         y: -800,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 1300,
         y: -250,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 150,
         y: -600,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 900,
         y: -725,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 1350,
         y: -725,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 700,
         y: -900,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2,png"
       },
       {
         x: 1000,
         y: -1000,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket3.png"
       },
       {
         x: 1300,
         y: -1150,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
-        x: 75,
+        x: 100,
         y: -1150,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket3.png"
       },
       {
         x: 200,
         y: -1150,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket3.png"
+      },
+      {
+        x: 300,
+        y: -1150,
+        speed: 0,
+        img: "./assets/bricks/spacerocket3.png"
       },
       {
         x: 400,
         y: -1050,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
+        img: "./assets/bricks/spacerocket2.png"
       },
       {
         x: 680,
         y: -1225,
         speed: 0,
-        img: "./assets/bricks/whiteCloud.png"
-      }*/
+        img: "./assets/bricks/spacerocket2.png"
+      }
     ];
-    for (let i = 0; i < this.terrainArray.length; i++) {
+    for (let i = 0; i < this.terrainArray.length; i++)
+    {
       this.terrain.push(
         new Terrain(
           this.terrainArray[i].x,
@@ -240,7 +255,7 @@ class SpaceScreen extends BaseScreen {
       {
         x: 340,
         y: 460,
-        scale: 0.5,
+        scale: 0.7,
         img: "whatsapp",
         index: 4
       },
@@ -275,7 +290,7 @@ class SpaceScreen extends BaseScreen {
       {
         x: 780,
         y: 130,
-        scale: 0.7,
+        scale: 0.5,
         img: "twitter",
         index: 4
       },
@@ -285,60 +300,54 @@ class SpaceScreen extends BaseScreen {
         scale: 0.3,
         img: "instagram",
         index: 4
-      },/*
+      },
       {
-        x: 200,
-        y: 320,
+        x: 740,
+        y: -110,
         scale: 0.7,
         img: "whatsapp",
         index: 5
       },
-      
-      {
-        x: 300,
-        y: 420,
-        scale: 0.5,
-        img: "twitter",
-        index: 5
-      },
+
       {
         x: 320,
-        y: 400,
-        scale: 0.5,
+        y: -240,
+        scale: 0.3,
         img: "instagram",
         index: 5
       },
       {
-        x: 370,
-        y: 460,
-        scale: 0.5,
-        img: "youtube",
-        index: 4
-      },
-      {
-        x: 400,
-        y: 500,
-        scale: 0.5,
-        img: "facebook",
+        x: 1060,
+        y: -500,
+        scale: 0.3,
+        img: "tiktok",
         index: 5
       },
       {
-        x: 200,
-        y: 320,
-        scale: 0.3,
-        img: "tiktok",
-        index: 4
+        x: 190,
+        y: -625,
+        scale: 0.7,
+        img: "youtube",
+        index: 5
+      },
+      {
+        x: 440,
+        y: -1075,
+        scale: 0.5,
+        img: "snapchat",
+        index: 5
       },
       {
         x: 220,
-        y: 320,
+        y: -1175,
         scale: 0.3,
-        img: "snapchat",
-        index:5
-      }*/
+        img: "facebook",
+        index: 5
+      }
     ];
 
-    for (let i = 0; i < this.iconArray.length; i++) {
+    for (let i = 0; i < this.iconArray.length; i++)
+    {
       this.icon.push(
         new Icon(
           this.iconArray[i].x,
@@ -398,21 +407,78 @@ class SpaceScreen extends BaseScreen {
         y: 280,
         scale: 0.5,
         img: "yellow"
-      },/*
+      },
       {
-         x: 90,
-         y: -1170,
-          scale: 0.5, 
-          img: "green"
-         },
-        { x: 715,
-         y: -910,
-          scale: 0.5,
-           img: "green"
-           },*/
+        x: 850,
+        y: -120,
+        scale: 0.5,
+        img: "yellow"
+      },
+      {
+        x: 1190,
+        y: -190,
+        scale: 0.5,
+        img: "red"
+      },
+      {
+        x: 1000,
+        y: -1030,
+        scale: 0.5,
+        img: "red"
+      },
+      {
+        x: 75,
+        y: 280,
+        scale: 0.5,
+        img: "green"
+      },
+      {
+        x: 1340,
+        y: -275,
+        scale: 0.5,
+        img: "yellow"
+      },
+      {
+        x: 840,
+        y: -425,
+        scale: 0.5,
+        img: "red"
+      },
+      {
+        x: 190,
+        y: -625,
+        scale: 0.5,
+        img: "green"
+      },
+      {
+        x: 1375,
+        y: -750,
+        scale: 0.5,
+        img: "red"
+      },
+      {
+        x: 140,
+        y: -1190,
+        scale: 0.5,
+        img: "yellow"
+      },
+      {
+        x: 340,
+        y: -1190,
+        scale: 0.5,
+        img: "yellow"
+      },
+      {
+        x: 370,
+        y: -1190,
+        scale: 0.5,
+        img: "red"
+      },
+
     ];
 
-    for (let i = 0; i < this.jewelArray.length; i++) {
+    for (let i = 0; i < this.jewelArray.length; i++)
+    {
       this.jewel.push(
         new Jewel(
           this.jewelArray[i].x,
@@ -433,34 +499,30 @@ class SpaceScreen extends BaseScreen {
         x: 955,
         y: 250,
         img: "./assets/monsters/spacemonster.png"
-      },/*
+      },
       {
-        x: 0,
-        y: 0,
+        x: 1000,
+        y: -400,
         img: "./assets/monsters/spacemonster.png"
       },
       {
-        x: 170,
-        y: -450,
+        x: 400,
+        y: -500,
         img: "./assets/monsters/spacemonster.png"
       },
       {
-        x: 1250,
-        y: -450,
+        x: 400,
+        y: -900,
         img: "./assets/monsters/spacemonster.png"
       },
       {
-        x: 250,
-        y: -550,
+        x: 1300,
+        y: -1250,
         img: "./assets/monsters/spacemonster.png"
-      },
-      {
-        x: 640,
-        y: -920,
-        img: "./assets/monsters/spacemonster.png"
-      }*/
+      }
     ];
-    for (let i = 0; i < this.enemyArray.length; i++) {
+    for (let i = 0; i < this.enemyArray.length; i++)
+    {
       this.enemy.push(
         new Enemy(
           this.enemyArray[i].x,
