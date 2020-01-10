@@ -9,13 +9,13 @@ class Game {
     private keyboardListener: KeyboardListener;
 
     public static score: number = 0;
-    private level: number;
+    public static level: number;
 
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
-        this.level = 1;
+        Game.level = 1;
 
 
         this.canvas.width = 1400;
@@ -55,25 +55,25 @@ class Game {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC)) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
-        if ((this.currentScreen instanceof TitleScreen && this.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+        if ((this.currentScreen instanceof TitleScreen && Game.level === 1 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
             this.currentScreen = new GroundScreen(this.canvas, this.ctx);
         }
-        if ((this.currentScreen instanceof TitleScreen && this.level === 2 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+        if ((this.currentScreen instanceof TitleScreen && Game.level === 2 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
             this.currentScreen = new CloudScreen(this.canvas, this.ctx);
         }
-        if ((this.currentScreen instanceof TitleScreen && this.level === 3 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+        if ((this.currentScreen instanceof TitleScreen && Game.level === 3 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
             this.currentScreen = new SpaceScreen(this.canvas, this.ctx);
         }
-        if ((this.currentScreen instanceof TitleScreen && this.level === 4 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
+        if ((this.currentScreen instanceof TitleScreen && Game.level === 4 && this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))) {
             this.currentScreen = new UnderwaterScreen(this.canvas, this.ctx);
         }
-        if (this.currentScreen instanceof GroundScreen && this.level === 2) {
+        if (this.currentScreen instanceof GroundScreen && Game.level === 2) {
             this.currentScreen = new CloudScreen(this.canvas, this.ctx);
         }
-        if (this.currentScreen instanceof CloudScreen && this.level === 3) {
+        if (this.currentScreen instanceof CloudScreen && Game.level === 3) {
             this.currentScreen = new SpaceScreen(this.canvas, this.ctx);
         }
-        if (this.currentScreen instanceof SpaceScreen && this.level === 4) {
+        if (this.currentScreen instanceof SpaceScreen && Game.level === 4) {
             this.currentScreen = new UnderwaterScreen(this.canvas, this.ctx);
         }
         if (this.currentScreen instanceof GroundScreen && BaseScreen.live === 0) {
@@ -88,6 +88,10 @@ class Game {
         if (this.currentScreen instanceof UnderwaterScreen && BaseScreen.live === 0) {
             this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         }
+
+        if (this.currentScreen instanceof UnderwaterScreen && Game.level === 5) {
+            this.currentScreen = new EndScreen(this.canvas, this.ctx);
+        }
         
         
         // if(this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)){
@@ -99,8 +103,8 @@ class Game {
         //this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         
         if((this.currentScreen instanceof GroundScreen || this.currentScreen instanceof CloudScreen || this.currentScreen instanceof SpaceScreen)&& this.currentScreen.getFinish() && this.currentScreen.getIcons()){
-            this.level++
-            console.log(this.level);
+            Game.level++
+            console.log(Game.level);
         }
     }
     
