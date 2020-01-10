@@ -445,7 +445,7 @@ class SpaceScreen extends BaseScreen
         img: "red"
       },
       {
-        x: 190,
+          x: 600,
         y: -625,
         scale: 0.5,
         img: "green"
