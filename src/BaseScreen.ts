@@ -8,7 +8,7 @@ class BaseScreen {
     protected finish: boolean = false;
     protected allIcons: boolean = false;
     protected keyboardListener: KeyboardListener;
-    public static playerImg: string = "./assets/player/slime1.png";
+    public static playerImg: string = "./assets/player/slime1.png"
     protected player: Player;
     protected enemy: Enemy[];
     protected enemyArray: any;
@@ -17,6 +17,7 @@ class BaseScreen {
     protected terrainArray: any;
     public static live: number;
     public static life: HTMLImageElement;
+    private screen: number = 0;
 
     public constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.canvas = canvas;
@@ -49,7 +50,7 @@ class BaseScreen {
     public writeLifeImagesToLevelScreen() {
         if (BaseScreen.life.naturalWidth > 0) {
             let x = 10;
-            let y = 10;
+            const y = 10;
             // Start a loop for each life in lives
             for (let life = 0; life < BaseScreen.live; life++) {
                 // Draw the image at the current x and y coordinates
@@ -62,21 +63,18 @@ class BaseScreen {
                 this.ctx.restore();
                 // Increase the x-coordinate for the next image to draw
                 x += 25;
-                if(x > this.canvas.width){
-                    x = 10;
-                    y += 25;
-                }
             }
         }
     }
 
     public setPlayer(player:string){
-        // console.log("check");
         BaseScreen.playerImg = player;
-        this.player = new Player(this.player.getX(), this.player.getY()-1, 4, 4, player);
+        this.player = new Player(this.player.getX(), this.player.getY() -0.4, 4, 4, player);
     }
 
-    public draw() {       
+    public draw() {
+
+        
 
         let isAnsweringQuestion = false;
         for (let i = 0; i < this.icon.length; i++) {
@@ -127,7 +125,7 @@ class BaseScreen {
                     audio.play();
                 }
             }
-            
+
             this.icon.forEach((icon) => {
                 icon.draw(this.ctx, this.canvas);
                 if (this.player.isColliding(icon)) {
@@ -144,117 +142,154 @@ class BaseScreen {
                     }
                 }
             }
-            
+
             this.enemy.forEach((enemy) => {
                 if (this.player.isColliding(enemy)) {
                     this.player.playerDied();
+                    this.moveScreenDown();
                 }
             });
-            
+
+            if(this.player.getY() > this.canvas.height){
+                this.player.playerDied();
+                this.moveScreenDown();
+            }
+
             this.player.move(this.canvas);
             this.player.draw(this.ctx);
             for (let i = 0; i < this.enemy.length; i++) {
                 this.enemy[i].move(this.canvas);
                 this.enemy[i].draw(this.ctx);
             }
-            
+
             this.terrain.forEach((terrain) => {
                 terrain.draw(this.ctx);
             });
-            
 
-            
+
+
             this.jewel.forEach((jewel) => {
                 jewel.draw(this.ctx)
 
             })
 
             this.writeLifeImagesToLevelScreen()
-            
+
+            let speed = 2;
             if (this.player.getY() < 150) {
-                this.flag.setY(1)
+                this.screen += speed;
+                this.flag.setY(speed)
                 this.terrain.forEach(element => {
 
                     element.getYPos()
-                    element.setY(1)
+                    element.setY(speed)
                     // console.log('trying')
-                    
+
                 });
                 this.icon.forEach(element => {
                     element.getYPos()
-                    element.setY(1)
+                    element.setY(speed)
                     // console.log('tryng 2')
                 })
                 this.enemy.forEach(element => {
                     element.getYPos()
-                    element.setY(1)
-                    
+                    element.setY(speed)
+
                     // console.log('trying 3')
 
                 })
                 this.jewel.forEach(element => {
                     element.getYPos()
-                    element.setY(1)
-                    
+                    element.setY(speed)
+
                     // console.log('trying 3')
 
                 })
                 this.player.getY()
-                this.player.setY(1)
+                this.player.setY(speed)
             }
-            
+
             if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SHIFT)) {
-                this.flag.setY(-1)
+                this.screen--;
+                this.flag.setY(-speed)
                 this.terrain.forEach(element => {
-                    
+
                     element.getYPos()
-                    element.setY(-1)
+                    element.setY(-speed)
                     // console.log('trying')
-                    
+
                 });
                 this.icon.forEach(element => {
                     element.getYPos()
-                    element.setY(-1)
+                    element.setY(-speed)
                     // console.log('tryng 2')
                 })
 
                 this.jewel.forEach(element => {
                     element.getYPos()
-                    element.setY(-1)
+                    element.setY(-speed)
 
                     // console.log('trying 3')
-                    
+
                 })
                 this.enemy.forEach(element => {
                     element.getYPos()
-                    element.setY(-1)
-                    
+                    element.setY(-speed)
+
                     // console.log('trying 3')
-                    
+
                 })
                 this.player.getY()
-                this.player.setY(-1)
+                this.player.setY(-speed)
             }
         }
-        
-        this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width - 100, 20);
+
         this.allIcons = false;
-        
+
         if (this.icon.length == 0) {
             this.allIcons = true;
-            // console.log("hij doet het");
+            console.log("hij doet het");
         }
-        
+
+        this.writeTextToCanvas(`Jo uw score: ${Game.score}`, 20, this.canvas.width - 100, 40);
+        this.writeTextToCanvas(`Aantal vragen: ${this.icon.length}`, 20, this.canvas.width - 120, 20);
+    }
+
+    private moveScreenDown() {
+        this.flag.setY(-this.screen);
+        this.terrain.forEach(element => {
+            element.setY(-this.screen)
+            // console.log('trying')
+
+        });
+        this.icon.forEach(element => {
+            element.setY(-this.screen)
+            // console.log('tryng 2')
+        })
+        this.enemy.forEach(element => {
+            element.setY(-this.screen)
+
+            // console.log('trying 3')
+
+        })
+        this.jewel.forEach(element => {
+            element.setY(-this.screen)
+
+            // console.log('trying 3')
+
+        })
+        this.player.setY(1);
+        this.screen =0;
     }
 
     public getFinish() {
         return this.finish;
     }
-    
+
     public getIcons() {
         return this.allIcons;
     }
-    
+
     /**
     * Writes text to the canvas
     * @param {string} text - Text to write
