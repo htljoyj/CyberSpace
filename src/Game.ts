@@ -102,7 +102,7 @@ class Game {
         // }
         //this.currentScreen = new TitleScreen(this.canvas, this.ctx);
         
-        if((this.currentScreen instanceof GroundScreen || this.currentScreen instanceof CloudScreen || this.currentScreen instanceof SpaceScreen)&& this.currentScreen.getFinish() && this.currentScreen.getIcons()){
+        if((this.currentScreen instanceof GroundScreen || this.currentScreen instanceof CloudScreen || this.currentScreen instanceof SpaceScreen || this.currentScreen instanceof UnderwaterScreen)&& this.currentScreen.getFinish() && this.currentScreen.getIcons()){
             Game.level++
             console.log(Game.level);
         }
