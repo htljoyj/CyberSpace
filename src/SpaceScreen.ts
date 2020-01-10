@@ -292,7 +292,7 @@ class SpaceScreen extends BaseScreen
         y: 130,
         scale: 0.5,
         img: "twitter",
-        index: 4
+        index: 2
       },
       {
         x: 430,
