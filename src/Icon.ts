@@ -80,7 +80,22 @@ class Icon {
                 "b":"img2",
                  "c":"Allebei",
                  "answer":"a"
+        },{
+            "platform":"instagram",
+            "question":"Waar heb je kans op als je op een linkje voor meer followers klikt?",
+             "a":"Meer followers",
+             "b":"Virussen",
+             "c":"Virussen en gehackt worden",
+             "answer":"c"
         },
+        {"platform":"instagram",
+        "question":">>Welke foto van je lichaam is niet gepast om te posten?",
+         "a":"img1",
+         "b":"img2",
+         "c":"Allebei zijn oke om te plaatsen",
+         "answer":"a"
+
+        }
         ];
         this.twitterQuestions = [
             {
@@ -93,7 +108,7 @@ class Icon {
             },
             {
                 "platform": "twitter",
-                "question": " Een groepje besluit het nieuwe meisje in de klas een les te leren.>Samen besluiten zij om twitter account met haar naam aan te maken en beledigende berichten te versturen.> Jouw beste vriend/vriendin behoort ook tot de groep en vind het een goed plan.> Hoe ga je hiermee om?",
+                "question": "Een groepje besluit het nieuwe meisje in de klas een les te leren.>Samen besluiten zij om een twitter account met haar naam aan te maken en beledigende berichten te versturen.> Jouw beste vriend/vriendin behoort ook tot de groep en vind het een goed plan.> Hoe ga je hiermee om?",
                 "a":
                     "Je geeft dit meteen door aan de leraar, omdat je weet hoe het aanvoelt om gepest te worden.",
                 "b": "Je bemoeit je er niet mee, want ook jij werd in het begin gepest.",
@@ -108,8 +123,13 @@ class Icon {
                 "answer": "c"
 
             },{
-
-            }
+            "platform": "twitter",
+            "question": "Soms tweeten mensen vanuit een account met een heel ander identiteit dan dat zij zelf zijn.> Hoe noem je zo'n account?",
+            "a":"Detective account.",
+            "b": "Fake account.",
+            "c": "Alias account.",
+            "answer": "b"
+          },
         ];
         this.whatsappQuestions = [
             {
@@ -125,7 +145,7 @@ class Icon {
             {
                 "platform": "whatsapp",
                 "question":
-                    "Na de schooltrip ontvang je een Whatsapp berichtje in de groepsapp,> waarin een minder leuke foto van een schoolgenoot is doorgegestuurd door je beste vriend/vriendin.> Hoe reageer jij?",
+                    "Na de schooltrip ontvang je een Whatsapp berichtje in de groepsapp,> waarin een minder leuke foto van een schoolgenoot is doorgestuurd door je beste vriend/vriendin.> Hoe reageer jij?",
                 "a": "HAHAHA!!!, anders hoor ik niet tot de groep.",
                 "b": "Ik reageer niet.",
                 "c": "Ik maak een screenshot en geef het door aan de leraar. ",
@@ -210,7 +230,7 @@ class Icon {
                 "question":
                 "Je kijkt al 6 maanden naar Charlie de 14-jarige game vlogger waar je ook regelmatig op reageert.> Je vindt het heel tof wat hij altijd doet!> Op een dag wilt hij samen gamen, wat ga je doen?",
                 "a": "Ik spreek meteen een tijd en dag af!",
-                "b": "Ik heb  Charlie zijn gezicht eigenlijk nooit gezien <en realiseer me dat hij misschien helemaal geen 14 is.> Ik sla het direct af!",
+                "b": "Ik heb  Charlie zijn gezicht eigenlijk nooit gezien en realiseer me dat hij misschien helemaal geen 14 is.> Ik sla het direct af!",
                 "c": "Ik denk er een paar nachtjes over na.",
                 "answer":"b"
 
@@ -243,7 +263,7 @@ class Icon {
             {
                 "platform": "facebook",
                 "question":
-                    "Je wordt door een schoolgenoot, waarmee jij ook op Facebook bevriend ben, benaderd over je vreemde statussen.> Na deze tezien te hebben weet jij zeker dat deze niet door jou geplaatst zijn.> Alleen je beste vriend/vriendin kent jouw gebruikersnaam en wachtwoord.>Wat is jou reactie?",
+                    "Je wordt door een schoolgenoot, waarmee jij ook op Facebook bevriend bent, benaderd over je vreemde statussen.> Na deze tezien te hebben weet jij zeker dat deze niet door jou geplaatst zijn.> Alleen je beste vriend/vriendin kent jouw gebruikersnaam en wachtwoord.>Wat is jou reactie?",
                 "a":
                     "Je logt in op zijn/haar account en plaats ook een soortgelijk status.",
                 "b":
@@ -284,8 +304,7 @@ class Icon {
                 "c":
                     "Identiteitshack",
                 "answer": "c"
-
-            }
+           },
         ];
         this.snapchatQuestions = [
             {
@@ -326,7 +345,35 @@ class Icon {
             "b":"Nee iedereen kan het dan zien.",
             "c":"Ik hoef mijn vriend niet te wantrouwen,> maar ik moet wel opletten wat ik stuur er kunnen altijd screenshots worden genomen!.",
             "answer": "c"
-         },
+         },{
+             "platform":"snapchat",
+             "question":"Wat is het gevaar van Snap Map?",
+             "a":"Iedereen die jou volgt kan je nauwkeurig volgen en zien waar je bent.",
+             "b":"Het is niet gevaarlijk",
+             "c":"Mijn ouders kunnen zien waar ik ben.",
+             "answer":"a"
+         },{
+             "platform":"snapchat",
+             "question":"Hoe scherm je de Snap Map af?",
+             "a":"Door het op onzichtbare modus in te stellen.",
+             "b":"Door Snapchat te verwijderen",
+             "c":"Door je locatie uit te zetten",
+             "answer":"a"
+         },{
+            "platform":"snapchat",
+            "question":"Je krijgt een vies plaatje binnen die 3 sec te zien is. > Wat doe je hiermee?",
+            "a":"Ik negeer het.",
+            "b":"Ik bespreek het met mijn ouders." ,
+            "c": "Ik rapporteer, blokkeer en verwijder het profiel en bespreek het met mijn ouders om eventueel verdere stappen te ondernemen.",
+            "answer":"c"
+         },{
+             "platform":"snapchat",
+             "question":"Weet je waar je terecht kunt mocht jij slachtoffer worden van een expose groep?",
+             "a":"Bij mijn ouders en docenten",
+             "b":"Bij de politie en hulplijnen",
+             "c": "Al het bovenstaande",
+             "answer":"c"
+         }
         ];
         this.tiktokQuestions = [
             {
@@ -383,6 +430,8 @@ class Icon {
             "b": "Prive",
             "c": "Alleen voor familie",
             "answer": "a"
+
+        },{
 
         }
         ];
@@ -452,6 +501,14 @@ class Icon {
                     this.img2x = 650;
                     this.img2y = 100;
                     this.img2 ="./assets/socialmedia/duckface.jpg"
+                }
+                if(index === 7){
+                    this.img1 = "./assets/socialmedia/wrongfull.jpg"
+                    this.img1x = 450;
+                    this.img1y = 50;
+                    this.img2 = "./assets/socialmedia/fullgood.jpg"
+                    this.img2x = 600;
+                    this.img2y = 50;
                 }
                 this.platform = "instagram";
                 this.platformQuestion.push(this.instagramQuestions[index]);
