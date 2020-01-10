@@ -609,6 +609,10 @@ class Icon {
             }
         }
 
+        if (Game.level == 3 || Game.level == 4) {
+            color = "white";
+        }
+
         ctx.font = `${fontSize}px Patrick Hand`;
         ctx.fillStyle = color;
         ctx.textAlign = alignment;
