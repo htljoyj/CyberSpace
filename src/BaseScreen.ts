@@ -251,7 +251,7 @@ class BaseScreen {
             console.log("hij doet het");
         }
 
-        this.writeTextToCanvas(`Jo uw score: ${Game.score}`, 20, this.canvas.width - 100, 40);
+        this.writeTextToCanvas(`Jouw score: ${Game.score}`, 20, this.canvas.width - 100, 40);
         this.writeTextToCanvas(`Aantal vragen: ${this.icon.length}`, 20, this.canvas.width - 120, 20);
     }
 
