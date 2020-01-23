@@ -694,7 +694,7 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        Game.level = 1;
+        Game.level = 4;
         this.canvas.width = 1400;
         this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
@@ -744,6 +744,7 @@ class Game {
         }
         if (this.currentScreen instanceof UnderwaterScreen && Game.level === 5) {
             this.currentScreen = new EndScreen(this.canvas, this.ctx);
+            Game.level = 1;
         }
         if ((this.currentScreen instanceof GroundScreen || this.currentScreen instanceof CloudScreen || this.currentScreen instanceof SpaceScreen || this.currentScreen instanceof UnderwaterScreen) && this.currentScreen.getFinish() && this.currentScreen.getIcons()) {
             Game.level++;
@@ -824,85 +825,99 @@ class GroundScreen extends BaseScreen {
                 x: 1370,
                 y: this.canvas.height - 20,
                 scale: 0.3,
-                img: "facebook"
+                img: "facebook",
+                index: 0
             },
             {
                 x: 200,
                 y: 120,
                 scale: 0.3,
-                img: "instagram"
+                img: "instagram",
+                index: 0
             },
             {
                 x: 850,
                 y: 150,
                 scale: 0.5,
-                img: "whatsapp"
+                img: "whatsapp",
+                index: 0
             },
             {
                 x: this.canvas.width / 2,
                 y: this.canvas.height / 2,
                 scale: 0.5,
-                img: "snapchat"
+                img: "snapchat",
+                index: 0
             },
             {
                 x: 330,
                 y: this.canvas.height - 140,
                 scale: 0.5,
-                img: "twitter"
+                img: "twitter",
+                index: 0
             },
             {
                 x: 1100,
                 y: 195,
                 scale: 0.7,
-                img: "youtube"
+                img: "youtube",
+                index: 0
             },
             {
                 x: 110,
                 y: 335,
                 scale: 0.3,
-                img: "tiktok"
+                img: "tiktok",
+                index: 0
             },
             {
                 x: 780,
                 y: -310,
                 scale: 0.3,
-                img: "facebook"
+                img: "facebook",
+                index: 1,
             },
             {
                 x: 550,
                 y: -250,
                 scale: 0.3,
-                img: "instagram"
+                img: "instagram",
+                index: 1,
             },
             {
                 x: 1050,
                 y: -654,
                 scale: 0.5,
-                img: "whatsapp"
+                img: "whatsapp",
+                index: 1,
             },
             {
                 x: 1065,
                 y: -975,
                 scale: 0.5,
-                img: "snapchat"
+                img: "snapchat",
+                index: 1,
             },
             {
                 x: 360,
                 y: -865,
                 scale: 0.5,
-                img: "twitter"
+                img: "twitter",
+                index: 1,
             },
             {
                 x: 545,
                 y: -1064,
                 scale: 0.7,
-                img: "youtube"
+                img: "youtube",
+                index: 1,
             },
             {
                 x: 450,
                 y: -640,
                 scale: 0.3,
-                img: "tiktok"
+                img: "tiktok",
+                index: 1,
             }
         ];
         for (let i = 0; i < this.iconArray.length; i++) {
@@ -1660,16 +1675,16 @@ class Icon {
             case "instagram":
                 this.img = Game.loadImage("./assets/socialmedia/ins.png");
                 if (index === 4) {
-                    this.img1 = "./assets/socialmedia/goodpic.jpg",
-                        this.img1x = 400;
+                    this.img1 = "./assets/socialmedia/goodpic.jpg";
+                    this.img1x = 400;
                     this.img1y = 100;
                     this.img2x = 650;
                     this.img2y = 130;
                     this.img2 = "./assets/socialmedia/badpicture.jpg";
                 }
-                if (index === 5) {
-                    this.img1 = "./assets/socialmedia/goodselfie.jpg",
-                        this.img1x = 400;
+                if (index === 7) {
+                    this.img1 = "./assets/socialmedia/goodselfie.jpg";
+                    this.img1x = 400;
                     this.img1y = 100;
                     this.img2x = 650;
                     this.img2y = 100;
