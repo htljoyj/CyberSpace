@@ -460,8 +460,8 @@ class Icon {
                 "question": "Wat doe je als je een filmpje ziet wat jij niet geschikt vindt?",
                 "a": "Ik doe niks.",
                 "b": "Ik zeg er wat van via de reacties.",
-                "c": "",
-                "answer": "b"
+                "c": "Ik rapporteer het filmpje",
+                "answer": "c"
             }
         ];
         this.twitterQuestions = [{
@@ -612,7 +612,7 @@ class Icon {
             } else {
                 if (this.playerAnswer == "") {
                     // console.log(this.platformQuestion);
-                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">>1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
+                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
 
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
@@ -660,10 +660,6 @@ class Icon {
                 this.writeTextToCanvas(ctx, text.substr(i + 1, text.length), fontSize, xCoordinate, yCoordinate + (75 / 2), alignment, color);
                 text = text.substr(0, i);
             }
-        }
-        
-        if (Game.level == 3 || Game.level == 4) {
-            color = "white";
         }
 
         ctx.font = `${fontSize}px Patrick Hand`;
@@ -722,3 +718,4 @@ class Icon {
         return this.img.width * this.scale;
     }
 } 
+
