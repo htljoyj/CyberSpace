@@ -907,7 +907,7 @@ class GroundScreen extends BaseScreen {
             }
         ];
         for (let i = 0; i < this.iconArray.length; i++) {
-            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img));
+            this.icon.push(new Icon(this.iconArray[i].x, this.iconArray[i].y, this.iconArray[i].scale, this.iconArray[i].img, this.iconArray[i].index));
         }
         this.jewel = [];
         this.jewelArray = [
@@ -1577,8 +1577,8 @@ class Icon {
                 "question": "Wat doe je als je een filmpje ziet wat jij niet geschikt vindt?",
                 "a": "Ik doe niks.",
                 "b": "Ik zeg er wat van via de reacties.",
-                "c": "",
-                "answer": "b"
+                "c": "Ik rapporteer het filmpje",
+                "answer": "c"
             }
         ];
         this.twitterQuestions = [{
@@ -1661,16 +1661,16 @@ class Icon {
             case "instagram":
                 this.img = Game.loadImage("./assets/socialmedia/ins.png");
                 if (index === 4) {
-                    this.img1 = "./assets/socialmedia/goodpic.jpg";
-                    this.img1x = 400;
+                    this.img1 = "./assets/socialmedia/goodpic.jpg",
+                        this.img1x = 400;
                     this.img1y = 100;
                     this.img2x = 650;
                     this.img2y = 130;
                     this.img2 = "./assets/socialmedia/badpicture.jpg";
                 }
-                if (index === 7) {
-                    this.img1 = "./assets/socialmedia/goodselfie.jpg";
-                    this.img1x = 400;
+                if (index === 5) {
+                    this.img1 = "./assets/socialmedia/goodselfie.jpg",
+                        this.img1x = 400;
                     this.img1y = 100;
                     this.img2x = 650;
                     this.img2y = 100;
@@ -1709,7 +1709,7 @@ class Icon {
             }
             else {
                 if (this.playerAnswer == "") {
-                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">>1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
+                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
                     }
