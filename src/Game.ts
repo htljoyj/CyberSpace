@@ -15,7 +15,7 @@ class Game {
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
-        Game.level = 4;
+        Game.level = 1;
 
 
         this.canvas.width = 1400;
