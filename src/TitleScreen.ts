@@ -35,8 +35,11 @@ class TitleScreen{
         color: string = "white",
     ) {
         this.ctx.font = `${fontSize}px Minecraft`;
-        this.ctx.fillStyle = color;
+        this.ctx.fillStyle = "white";
+        this.ctx.shadowColor = "black";
+        this.ctx.shadowBlur = 15;
         this.ctx.textAlign = alignment;
         this.ctx.fillText(text, xCoordinate, yCoordinate);
+        this.ctx.shadowBlur = 0;
     }
 }

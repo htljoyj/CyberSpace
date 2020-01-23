@@ -70,9 +70,6 @@ class Player extends GameObject {
             let audio = new Audio("./assets/sounds/jump.mp3");
             audio.play();
         }
-        if(this.yPos > canvas.height){
-            this.playerDied();
-        }
         if(this.xPos > canvas.width){
             this.xPos = 0;
         }

@@ -150,16 +150,17 @@ class BaseScreen {
                 }
             });
 
-            if(this.player.getY() > this.canvas.height){
-                this.player.playerDied();
-                this.moveScreenDown();
-            }
 
             this.player.move(this.canvas);
             this.player.draw(this.ctx);
             for (let i = 0; i < this.enemy.length; i++) {
                 this.enemy[i].move(this.canvas);
                 this.enemy[i].draw(this.ctx);
+            }
+
+            if(this.player.getY() > this.canvas.height){
+                this.player.playerDied();
+                this.moveScreenDown();
             }
 
             this.terrain.forEach((terrain) => {
