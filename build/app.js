@@ -211,6 +211,46 @@ class CloudScreen extends BaseScreen {
         super(canvas, ctx);
         canvas.style.backgroundImage =
             "url('./assets/backgrounds/cloudscreen.gif')";
+        this.enemyArray = [
+            {
+                x: 655,
+                y: 400,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 1000,
+                y: 100,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 300,
+                y: 100,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 170,
+                y: -450,
+                img: "./assets/monsters/bat2.png"
+            },
+            {
+                x: 1250,
+                y: -450,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 250,
+                y: -550,
+                img: "./assets/monsters/bat1.png"
+            },
+            {
+                x: 640,
+                y: -920,
+                img: "./assets/monsters/bat1.png"
+            }
+        ];
+        for (let i = 0; i < this.enemyArray.length; i++) {
+            this.enemy.push(new Enemy(this.enemyArray[i].x, this.enemyArray[i].y, 3, this.enemyArray[i].img));
+        }
         this.terrainArray = [
             {
                 x: 75,
@@ -472,7 +512,7 @@ class CloudScreen extends BaseScreen {
                 y: 90,
                 scale: 0.5,
                 img: "twitter",
-                index: 1
+                index: 2
             },
             {
                 x: 1120,
@@ -514,6 +554,13 @@ class CloudScreen extends BaseScreen {
                 y: -1160,
                 scale: 0.5,
                 img: "snapchat",
+                index: 3
+            },
+            {
+                x: 220,
+                y: -1160,
+                scale: 0.5,
+                img: "twitter",
                 index: 3
             },
             {
@@ -687,7 +734,7 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        Game.level = 1;
+        Game.level = 2;
         this.canvas.width = 1400;
         this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
