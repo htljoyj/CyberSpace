@@ -694,7 +694,7 @@ class Game {
             requestAnimationFrame(this.loop);
         };
         this.canvas = canvasId;
-        Game.level = 4;
+        Game.level = 1;
         this.canvas.width = 1400;
         this.canvas.height = 700;
         this.ctx = this.canvas.getContext("2d");
