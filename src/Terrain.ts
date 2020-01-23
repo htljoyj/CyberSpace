@@ -4,7 +4,7 @@ class Terrain {
     private xPos: number;
     private yPos: number;
     private speed: number;
-    private img: HTMLImageElement
+    private img: HTMLImageElement;
 
 
 

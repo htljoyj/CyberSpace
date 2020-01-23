@@ -15,7 +15,7 @@ class Game {
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
         this.canvas = canvasId;
-        Game.level = 1;
+        Game.level = 4;
 
 
         this.canvas.width = 1400;
@@ -91,6 +91,7 @@ class Game {
 
         if (this.currentScreen instanceof UnderwaterScreen && Game.level === 5) {
             this.currentScreen = new EndScreen(this.canvas, this.ctx);
+            Game.level = 1;
         }
         
         
