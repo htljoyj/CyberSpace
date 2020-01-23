@@ -104,15 +104,15 @@ class BaseScreen {
                     this.moveScreenDown();
                 }
             });
-            if (this.player.getY() > this.canvas.height) {
-                this.player.playerDied();
-                this.moveScreenDown();
-            }
             this.player.move(this.canvas);
             this.player.draw(this.ctx);
             for (let i = 0; i < this.enemy.length; i++) {
                 this.enemy[i].move(this.canvas);
                 this.enemy[i].draw(this.ctx);
+            }
+            if (this.player.getY() > this.canvas.height) {
+                this.player.playerDied();
+                this.moveScreenDown();
             }
             this.terrain.forEach((terrain) => {
                 terrain.draw(this.ctx);
@@ -472,7 +472,7 @@ class CloudScreen extends BaseScreen {
                 y: 90,
                 scale: 0.5,
                 img: "twitter",
-                index: 2
+                index: 1
             },
             {
                 x: 1120,
@@ -514,13 +514,6 @@ class CloudScreen extends BaseScreen {
                 y: -1160,
                 scale: 0.5,
                 img: "snapchat",
-                index: 3
-            },
-            {
-                x: 220,
-                y: -1160,
-                scale: 0.5,
-                img: "twitter",
                 index: 3
             },
             {
@@ -604,7 +597,7 @@ class EndScreen {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
-        canvas.style.backgroundImage = "url('./assets/backgrounds/IrF.gif')";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/titlescreen.gif')";
     }
     draw() {
         this.writeTextToCanvas("CYBERSPACE", 100, this.canvas.width / 2, this.canvas.height / 2 - 50, "center", "white");
@@ -896,13 +889,6 @@ class GroundScreen extends BaseScreen {
                 y: -975,
                 scale: 0.5,
                 img: "snapchat",
-                index: 1,
-            },
-            {
-                x: 360,
-                y: -865,
-                scale: 0.5,
-                img: "twitter",
                 index: 1,
             },
             {
@@ -1928,9 +1914,6 @@ class Player extends GameObject {
             let audio = new Audio("./assets/sounds/jump.mp3");
             audio.play();
         }
-        if (this.yPos > canvas.height) {
-            this.playerDied();
-        }
         if (this.xPos > canvas.width) {
             this.xPos = 0;
         }
@@ -2498,9 +2481,12 @@ class TitleScreen {
     }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Minecraft`;
-        this.ctx.fillStyle = color;
+        this.ctx.fillStyle = "white";
+        this.ctx.shadowColor = "black";
+        this.ctx.shadowBlur = 15;
         this.ctx.textAlign = alignment;
         this.ctx.fillText(text, xCoordinate, yCoordinate);
+        this.ctx.shadowBlur = 0;
     }
 }
 class Tutorial extends BaseScreen {
