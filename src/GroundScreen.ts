@@ -126,13 +126,6 @@ class GroundScreen extends BaseScreen {
         index:1,
       },
       {
-        x: 360,
-        y: -865,
-        scale: 0.5,
-        img: "twitter",
-        index:1,
-      },
-      {
         x: 545,
         y: -1064,
         scale: 0.7,

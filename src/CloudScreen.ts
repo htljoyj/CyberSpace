@@ -277,7 +277,7 @@ class CloudScreen extends BaseScreen {
         y: 90,
         scale: 0.5,
         img: "twitter",
-        index:2
+        index:1
       },
       {
         x: 1120,
@@ -319,13 +319,6 @@ class CloudScreen extends BaseScreen {
         y: -1160,
         scale: 0.5,
         img: "snapchat",
-        index:3
-      },
-      {
-        x: 220,
-        y: -1160,
-        scale: 0.5,
-        img: "twitter",
         index:3
       },
       {

@@ -7,7 +7,7 @@ class EndScreen{
         this.canvas = canvas;
         this.ctx = ctx;
         // canvas.style.backgroundColor = "lightgreen";
-        canvas.style.backgroundImage = "url('./assets/backgrounds/IrF.gif')";
+        canvas.style.backgroundImage = "url('./assets/backgrounds/titlescreen.gif')";
     }
 
     public draw() {
