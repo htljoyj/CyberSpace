@@ -460,40 +460,40 @@ class Icon {
                 "question": "Wat doe je als je een filmpje ziet wat jij niet geschikt vindt?",
                 "a": "Ik doe niks.",
                 "b": "Ik zeg er wat van via de reacties.",
-                "c": "Ik rapporteer het filmpje",
-                "answer": "c"
+                "c": "",
+                "answer": "b"
             }
         ];
         this.twitterQuestions = [{
-                "platform": "twitter",
-                "question": "Ben jij ook schuldig als je een gemene tweet retweet?",
-                "a": "Ja",
-                "b": "Nee",
-                "c": "Misschien",
-                "answer": "a"
-            }, {
-                "platform": "twitter",
-                "question": "Een groepje besluit het nieuwe meisje in de klas een les te leren.>Samen besluiten zij om een twitter account met haar naam aan te maken en beledigende berichten te versturen.> Jouw beste vriend/vriendin behoort ook tot de groep en vind het een goed plan.> Hoe ga je hiermee om?",
-                "a":
-                    "Je geeft dit meteen door aan de leraar, omdat je weet hoe het aanvoelt om gepest te worden.",
-                "b": "Je bemoeit je er niet mee, want ook jij werd in het begin gepest.",
-                "c": "Ik doe mee ik mag het meisje ook niet!",
-                "answer": "a"
-            }, {
-                "platform": "twitter",
-                "question": "Kan je alles tweeten ook al is het niet zo netjes wat je zegt? ",
-                "a": "Nee dat kan niet.",
-                "b": "Tuurlijk wel we leven immers in Nederland waar vrijheid van meningsuiting belangrijk is.",
-                "c": "Ondanks dat er vrijheid van meningsuiting is, is het wel belangrijk om over de consequenties van je tweet na te denken.",
-                "answer": "c"
-            }, {
-                "platform": "twitter",
-                "question": "Soms tweeten mensen vanuit een account met een heel ander identiteit dan dat zij zelf zijn.> Hoe noem je zo'n account?",
-                "a": "Detective account.",
-                "b": "Fake account.",
-                "c": "Alias account.",
-                "answer": "b"
-            },
+            "platform": "twitter",
+            "question": "Ben jij ook schuldig als je een gemene tweet retweet?",
+            "a": "Ja",
+            "b": "Nee",
+            "c": "Misschien",
+            "answer": "a"
+        }, {
+            "platform": "twitter",
+            "question": "Een groepje besluit het nieuwe meisje in de klas een les te leren.>Samen besluiten zij om een twitter account met haar naam aan te maken en beledigende berichten te versturen.> Jouw beste vriend/vriendin behoort ook tot de groep en vind het een goed plan.> Hoe ga je hiermee om?",
+            "a":
+                "Je geeft dit meteen door aan de leraar, omdat je weet hoe het aanvoelt om gepest te worden.",
+            "b": "Je bemoeit je er niet mee, want ook jij werd in het begin gepest.",
+            "c": "Ik doe mee ik mag het meisje ook niet!",
+            "answer": "a"
+        }, {
+            "platform": "twitter",
+            "question": "Kan je alles tweeten ook al is het niet zo netjes wat je zegt? ",
+            "a": "Nee dat kan niet.",
+            "b": "Tuurlijk wel we leven immers in Nederland waar vrijheid van meningsuiting belangrijk is.",
+            "c": "Ondanks dat er vrijheid van meningsuiting is, is het wel belangrijk om over de consequenties van je tweet na te denken.",
+            "answer": "c"
+        }, {
+            "platform": "twitter",
+            "question": "Soms tweeten mensen vanuit een account met een heel ander identiteit dan dat zij zelf zijn.> Hoe noem je zo'n account?",
+            "a": "Detective account.",
+            "b": "Fake account.",
+            "c": "Alias account.",
+            "answer": "b"
+        },
         ];
 
 
@@ -548,20 +548,20 @@ class Icon {
             case "instagram":
                 this.img = Game.loadImage("./assets/socialmedia/ins.png");
                 if (index === 4) {
-                    this.img1 = "./assets/socialmedia/goodpic.jpg",
-                        this.img1x = 400;
+                    this.img1 = "./assets/socialmedia/goodpic.jpg";
+                    this.img1x = 400;
                     this.img1y = 100;
                     this.img2x = 650;
                     this.img2y = 130;
-                    this.img2 = "./assets/socialmedia/badpicture.jpg"
+                    this.img2 = "./assets/socialmedia/badpicture.jpg";
                 }
-                if (index === 5) {
-                    this.img1 = "./assets/socialmedia/goodselfie.jpg",
-                        this.img1x = 400;
+                if (index === 7) {
+                    this.img1 = "./assets/socialmedia/goodselfie.jpg";
+                    this.img1x = 400;
                     this.img1y = 100;
                     this.img2x = 650;
                     this.img2y = 100;
-                    this.img2 = "./assets/socialmedia/duckface.jpg"
+                    this.img2 = "./assets/socialmedia/duckface.jpg";
                 }
                 this.platform = "instagram";
                 this.platformQuestion.push(this.instagramQuestions[index]);
@@ -612,7 +612,7 @@ class Icon {
             } else {
                 if (this.playerAnswer == "") {
                     // console.log(this.platformQuestion);
-                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
+                    this.writeTextToCanvas(ctx, this.platformQuestion[0].question + ">>1: " + this.platformQuestion[0].a + ">2: " + this.platformQuestion[0].b + ">3: " + this.platformQuestion[0].c, 25, canvas.width / 2, canvas.height / 2);
 
                     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_1)) {
                         this.playerAnswer = "a";
@@ -660,6 +660,10 @@ class Icon {
                 this.writeTextToCanvas(ctx, text.substr(i + 1, text.length), fontSize, xCoordinate, yCoordinate + (75 / 2), alignment, color);
                 text = text.substr(0, i);
             }
+        }
+
+        if (Game.level == 3 || Game.level == 4) {
+            color = "white";
         }
 
         ctx.font = `${fontSize}px Patrick Hand`;
@@ -718,4 +722,3 @@ class Icon {
         return this.img.width * this.scale;
     }
 } 
-
